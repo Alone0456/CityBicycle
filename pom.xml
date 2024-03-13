@@ -5,12 +5,10 @@
 	<modelVersion>4.0.0</modelVersion>
 	
     <groupId>com.ruoyi</groupId>
-    <artifactId>ruoyi</artifactId>
+    <artifactId>CityBiycle</artifactId>
     <version>3.8.7</version>
 
-    <name>ruoyi</name>
-    <url>http://www.ruoyi.vip</url>
-    <description>若依管理系统</description>
+    <name>CityBicycle</name>
     
     <properties>
         <ruoyi.version>3.8.7</ruoyi.version>
