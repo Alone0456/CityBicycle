@@ -3,13 +3,13 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	
+
     <groupId>com.ruoyi</groupId>
     <artifactId>CityBiycle</artifactId>
     <version>3.8.7</version>
 
     <name>CityBicycle</name>
-    
+
     <properties>
         <ruoyi.version>3.8.7</ruoyi.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -27,6 +27,7 @@
         <poi.version>4.1.2</poi.version>
         <velocity.version>2.3</velocity.version>
         <jwt.version>0.9.1</jwt.version>
+        <mybatis-plus-verison>3.5.3.1</mybatis-plus-verison>
     </properties>
 
     <!-- 依赖声明 -->
@@ -159,7 +160,11 @@
                 <artifactId>ruoyi-common</artifactId>
                 <version>${ruoyi.version}</version>
             </dependency>
-
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus-boot-starter</artifactId>
+                <version>${mybatis-plus-verison}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
@@ -170,6 +175,11 @@
         <module>ruoyi-quartz</module>
         <module>ruoyi-generator</module>
         <module>ruoyi-common</module>
+        <module>cityBicycle-order</module>
+        <module>cityBicycle-common</module>
+        <module>cityBicycle-station</module>
+        <module>cityBicycle-bicycle</module>
+        <module>cityBicycle-rented</module>
     </modules>
     <packaging>pom</packaging>
 
