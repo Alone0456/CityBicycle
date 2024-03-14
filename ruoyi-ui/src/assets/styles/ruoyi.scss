@@ -2,6 +2,10 @@
 * 通用css样式布局处理
 * Copyright (c) 2019 ruoyi
 */
+body {
+  font-size: 14px;
+  background-color: white;
+}
 
 /** 基础通用 **/
 .pt5 {
@@ -47,8 +51,9 @@
 .mb10 {
   margin-bottom: 10px;
 }
+
 .ml10 {
-	margin-left: 10px;
+  margin-left: 10px;
 }
 
 .mt20 {
@@ -62,18 +67,30 @@
 .mb20 {
   margin-bottom: 20px;
 }
+
 .ml20 {
-	margin-left: 20px;
+  margin-left: 20px;
 }
 
-.h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
+.h1,
+.h2,
+.h3,
+.h4,
+.h5,
+.h6,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   font-family: inherit;
   font-weight: 500;
   line-height: 1.1;
   color: inherit;
 }
 
-.el-message-box__status + .el-message-box__message{
+.el-message-box__status+.el-message-box__message {
   word-break: break-word;
 }
 
@@ -89,7 +106,9 @@
 }
 
 .el-table {
-  .el-table__header-wrapper, .el-table__fixed-header-wrapper {
+
+  .el-table__header-wrapper,
+  .el-table__fixed-header-wrapper {
     th {
       word-break: break-word;
       background-color: #f8f8f9;
@@ -100,7 +119,7 @@
   }
 
   .el-table__body-wrapper {
-    .el-button [class*="el-icon-"] + span {
+    .el-button [class*="el-icon-"]+span {
       margin-left: 1px;
     }
   }
@@ -138,10 +157,11 @@
 }
 
 @media (max-width: 768px) {
-  .pagination-container .el-pagination > .el-pagination__jump {
+  .pagination-container .el-pagination>.el-pagination__jump {
     display: none !important;
   }
-  .pagination-container .el-pagination > .el-pagination__sizes {
+
+  .pagination-container .el-pagination>.el-pagination__sizes {
     display: none !important;
   }
 }
@@ -153,20 +173,22 @@
 }
 
 /** 表格更多操作下拉样式 */
-.el-table .el-dropdown-link,.el-table .el-dropdown-selfdefine {
-	cursor: pointer;
-	margin-left: 5px;
+.el-table .el-dropdown-link,
+.el-table .el-dropdown-selfdefine {
+  cursor: pointer;
+  margin-left: 5px;
 }
 
-.el-table .el-dropdown, .el-icon-arrow-down {
+.el-table .el-dropdown,
+.el-icon-arrow-down {
   font-size: 12px;
 }
 
-.el-tree-node__content > .el-checkbox {
+.el-tree-node__content>.el-checkbox {
   margin-right: 8px;
 }
 
-.list-group-striped > .list-group-item {
+.list-group-striped>.list-group-item {
   border-left: 0;
   border-right: 0;
   border-radius: 0;
@@ -197,6 +219,7 @@
 }
 
 .el-card__body {
+  background-color: #20266d;
   padding: 15px 20px 20px 20px;
 }
 

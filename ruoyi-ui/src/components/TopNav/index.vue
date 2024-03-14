@@ -180,7 +180,8 @@ export default {
 
 .topmenu-container.el-menu--horizontal > .el-menu-item.is-active, .el-menu--horizontal > .el-submenu.is-active .el-submenu__title {
   border-bottom: 2px solid #{'var(--theme)'} !important;
-  color: #303133;
+  // color: #303133;
+  color: red;
 }
 
 /* submenu item */
