@@ -10,9 +10,8 @@ import com.powernode.lzc.domain.entity.OrderRecord;
 import com.powernode.lzc.domain.entity.RentedRecord;
 import com.powernode.lzc.domain.entity.StationDetails;
 import com.powernode.lzc.domain.vo.Rented;
-import com.powernode.lzc.domain.vo.Return;
+import com.powernode.lzc.domain.vo.ReturnBicycle;
 import com.powernode.lzc.exception.DbOperateUnknownException;
-import com.powernode.lzc.pojo.req.ReturnBicycleReq;
 import com.powernode.lzc.service.BicycleService;
 import com.powernode.lzc.service.OrderService;
 import com.powernode.lzc.service.RentedService;
@@ -90,7 +89,7 @@ public class RentedController {
     }
 
     @PostMapping("/return")
-    public Result returnBicycle(@RequestBody Return returnBicycle){
+    public Result returnBicycle(@RequestBody ReturnBicycle returnBicycle){
         Long userId = SecurityUtils.getUserId();
         // record
         RentedRecord byId = rentedService.getById(returnBicycle);
