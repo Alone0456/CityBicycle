@@ -88,6 +88,7 @@ export default {
     }
     .el-scrollbar__wrap {
       height: 49px;
+      background-color: #11145b;
     }
   }
 }
