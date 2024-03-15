@@ -12,7 +12,7 @@ import java.io.Serializable;
  * @version: 1.0
  */
 @Data
-public class Return implements Serializable {
+public class ReturnBicycle implements Serializable {
 
     private Long bicycleId;
     private Long rentedId;
