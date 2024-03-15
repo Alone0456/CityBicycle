@@ -13,7 +13,7 @@ import java.util.Date;
 public class Bicycle {
   @TableId
   private long bicycleId;
-  private long bicycleType;
+  private String bicycleType;
   private long rentNum;
   private Date createTime;
   private long bicycleStatus;
