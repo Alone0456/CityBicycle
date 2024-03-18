@@ -30,7 +30,7 @@ import java.util.Date;
  * @version: 1.0
  */
 @RestController
-@RequestMapping("/rented")
+@RequestMapping("/service")
 public class RentedController {
 
     @Autowired
@@ -50,7 +50,7 @@ public class RentedController {
      *
      * @return
      */
-    @GetMapping("/service")
+    @GetMapping("/query")
     public Result<Page<StationDetails>> query(
             @RequestParam("orderColumn") String orderColumn,
             @RequestParam("orderType") String orderType,

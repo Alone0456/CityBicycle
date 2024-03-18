@@ -1,0 +1,26 @@
+{
+  "name": "citybicycle",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "directories": {
+    "doc": "doc"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Alone0456/CityBicycle.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Alone0456/CityBicycle/issues"
+  },
+  "homepage": "https://github.com/Alone0456/CityBicycle#readme",
+  "devDependencies": {
+    "cz-conventional-changelog": "^3.3.0"
+  }
+}

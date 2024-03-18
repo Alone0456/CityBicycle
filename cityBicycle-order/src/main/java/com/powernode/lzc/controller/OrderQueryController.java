@@ -14,10 +14,7 @@ import com.powernode.lzc.service.StationService;
 import com.ruoyi.common.utils.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
 import java.util.Date;
@@ -52,7 +49,7 @@ public class OrderQueryController {
          return Results.success(orderService.page(new Page<OrderRecord>(page,size),orderRecordLambdaQueryWrapper));
      }
 
-     @GetMapping("/Station")
+     @GetMapping("/station")
      public Result<List<StationProfileVo>> queryOrderForStation(){
          List<StationProfile> list = profileService.list();
          List<StationProfileVo> convert = BeanUtil.convert(list, StationProfileVo.class);
