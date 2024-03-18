@@ -15,7 +15,7 @@ import java.io.Serializable;
  */
 @Data
 @Accessors(chain = true)
-public class Result<T> implements Serializable, org.apache.ibatis.annotations.Result {
+public class Result<T> implements Serializable{
 
     @Serial
     private static final long serialVersionUID = 5679018624309023727L;
