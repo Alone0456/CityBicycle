@@ -29,10 +29,10 @@ public class Results {
     /**
      * 构建服务端失败响应
      */
-    protected static Result<Void> failure() {
+    public  static Result<Void> failure(Integer code,String message) {
         return new Result<Void>()
-                .setCode("500")
-                .setMessage("服务器异常,请联系管理员");
+                .setCode(code.toString())
+                .setMessage(message);
     }
 
 }
