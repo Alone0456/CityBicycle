@@ -1,6 +1,6 @@
 package com.powernode.lzc.common;
 
-import org.apache.xmlbeans.impl.xb.xsdschema.Public;
+
 
 public interface Constant {
     public static final Double PRICE_PRE_MINUTE = 0.1;
