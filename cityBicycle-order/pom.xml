@@ -41,11 +41,6 @@
             <artifactId>mybatis-plus-boot-starter</artifactId>
         </dependency>
         <dependency>
-            <groupId>com.powernode.lzc</groupId>
-            <artifactId>cityBicycle-rented</artifactId>
-            <version>3.8.7</version>
-        </dependency>
-        <dependency>
             <groupId>com.mysql</groupId>
             <artifactId>mysql-connector-j</artifactId>
             <version>8.0.33</version>
