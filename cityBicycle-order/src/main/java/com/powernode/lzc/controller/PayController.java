@@ -14,6 +14,7 @@ import com.powernode.lzc.service.ProfileService;
 import com.powernode.lzc.service.RentedService;
 import org.apache.poi.hpsf.Decimal;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
@@ -37,6 +38,7 @@ public class PayController {
     @Autowired
     private RentedService rentedService;
     @PostMapping("/pay")
+    @Transactional
     public Result<Void> pay(@RequestBody OrderPay orderPay){
         OrderRecord byId = orderService.getById(orderPay.getRentedId());
         if(byId.getIsPay() == 1){
@@ -51,12 +53,6 @@ public class PayController {
         if(!flag){
            throw new DbOperateUnknownException("数据库操作未知异常");
         }
-       // 向 profile表修改数据
-        LambdaQueryWrapper<StationProfile> stationProfileLambdaQueryWrapper = new LambdaQueryWrapper<>();
-        stationProfileLambdaQueryWrapper.eq(StationProfile::getStationId,rentedService.getById(byId.getRentedId()).getRentedStationId());
-        StationProfile stationProfile = profileService.getOne(stationProfileLambdaQueryWrapper);
-        stationProfile.setProfile(stationProfile.getProfile().add(byId.getMoney()));
-        profileService.updateById(stationProfile);
        return  Results.success();
     }
 }
