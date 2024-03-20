@@ -1,6 +1,5 @@
 package com.powernode.lzc.domain.entity;
 
-import com.powernode.lzc.service.OrderService;
 import lombok.Data;
 
 import java.math.BigDecimal;
