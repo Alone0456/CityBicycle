@@ -5,17 +5,11 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.powernode.lzc.common.BeanUtil;
 import com.powernode.lzc.common.data.Result;
 import com.powernode.lzc.common.data.Results;
-import com.powernode.lzc.domain.entity.Bicycle;
-import com.powernode.lzc.domain.entity.OrderRecord;
-import com.powernode.lzc.domain.entity.RentedRecord;
-import com.powernode.lzc.domain.entity.StationDetails;
+import com.powernode.lzc.domain.entity.*;
 import com.powernode.lzc.domain.vo.Rented;
 import com.powernode.lzc.domain.vo.ReturnBicycle;
 import com.powernode.lzc.exception.DbOperateUnknownException;
-import com.powernode.lzc.service.BicycleService;
-import com.powernode.lzc.service.OrderService;
-import com.powernode.lzc.service.RentedService;
-import com.powernode.lzc.service.StationService;
+import com.powernode.lzc.service.*;
 import com.ruoyi.common.utils.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -41,6 +35,8 @@ public class RentedController {
     private BicycleService bicycleService;
     @Autowired
     private OrderService orderService;
+    @Autowired
+    private ProfileService profileService;
 
     /**
      * 租车
@@ -117,6 +113,12 @@ public class RentedController {
         stationDetails.setBicycleNum(stationDetails.getBicycleNum()+1);
         stationDetails.setReturnNum(stationDetails.getReturnNum()+1);
         stationService.updateById(stationDetails);
+        // 向 profile表修改数据
+        LambdaQueryWrapper<StationProfile> stationProfileLambdaQueryWrapper = new LambdaQueryWrapper<>();
+        stationProfileLambdaQueryWrapper.eq(StationProfile::getStationId,rentedService.getById(byId.getRentedId()).getRentedStationId());
+        StationProfile stationProfile = profileService.getOne(stationProfileLambdaQueryWrapper);
+        stationProfile.setProfile(stationProfile.getProfile().add(orderRecord.getMoney()));
+        profileService.updateById(stationProfile);
         return Results.success();
     }
 
