@@ -30,6 +30,10 @@
         </dependency>
         <dependency>
             <groupId>com.powernode.lzc</groupId>
+            <artifactId>cityBicycle-order</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.powernode.lzc</groupId>
             <artifactId>cityBicycle-station</artifactId>
             <version>3.8.7</version>
         </dependency>
