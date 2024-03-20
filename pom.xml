@@ -165,6 +165,31 @@
                 <artifactId>mybatis-plus-boot-starter</artifactId>
                 <version>${mybatis-plus-verison}</version>
             </dependency>
+            <dependency>
+                <groupId>com.powernode.lzc</groupId>
+                <artifactId>cityBicycle-rented</artifactId>
+                <version>3.8.7</version>
+            </dependency>
+            <dependency>
+                <groupId>com.powernode.lzc</groupId>
+                <artifactId>cityBicycle-order</artifactId>
+                <version>3.8.7</version>
+            </dependency>
+            <dependency>
+                <groupId>com.powernode.lzc</groupId>
+                <artifactId>cityBicycle-bicycle</artifactId>
+                <version>3.8.7</version>
+            </dependency>
+            <dependency>
+                <groupId>com.powernode.lzc</groupId>
+                <artifactId>cityBicycle-station</artifactId>
+                <version>3.8.7</version>
+            </dependency>
+            <dependency>
+                <groupId>com.powernode.lzc</groupId>
+                <artifactId>cityBicycle-common</artifactId>
+                <version>3.8.7</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
