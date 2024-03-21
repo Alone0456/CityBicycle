@@ -35,7 +35,6 @@ public class BicycleController {
              @RequestParam("page") int page,
              @RequestParam("size") int size
      ){
-
            return Results.success(bicycleService.page(new Page<Bicycle>(page,size)));
      }
 
