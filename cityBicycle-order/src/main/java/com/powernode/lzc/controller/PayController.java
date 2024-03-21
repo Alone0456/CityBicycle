@@ -11,9 +11,9 @@ import com.powernode.lzc.service.OrderService;
 import com.powernode.lzc.common.data.Result;
 import com.powernode.lzc.common.data.Results;
 import com.powernode.lzc.service.ProfileService;
-import com.powernode.lzc.service.RentedService;
 import org.apache.poi.hpsf.Decimal;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
@@ -33,10 +33,7 @@ public class PayController {
 
     @Autowired
     private OrderService orderService;
-    @Autowired
-    private ProfileService profileService;
-    @Autowired
-    private RentedService rentedService;
+    @PreAuthorize("@ss.hasPermi('order:pay')")
     @PostMapping("/pay")
     @Transactional
     public Result<Void> pay(@RequestBody OrderPay orderPay){
