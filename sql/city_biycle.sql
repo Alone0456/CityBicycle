@@ -11,7 +11,7 @@
  Target Server Version : 80032
  File Encoding         : 65001
 
- Date: 15/03/2024 18:51:18
+ Date: 21/03/2024 18:01:33
 */
 
 SET NAMES utf8mb4;
@@ -36,6 +36,7 @@ CREATE TABLE `bicycle_damage`  (
 -- ----------------------------
 -- Records of bicycle_damage
 -- ----------------------------
+INSERT INTO `bicycle_damage` VALUES (1, '2024-03-15 00:00:00', 1, 1, '车轮丢失', 1, 1, '2024-03-16 00:00:00');
 
 -- ----------------------------
 -- Table structure for gen_table
@@ -122,6 +123,7 @@ CREATE TABLE `order_record`  (
 -- ----------------------------
 -- Records of order_record
 -- ----------------------------
+INSERT INTO `order_record` VALUES (1, 1, '2024-03-16 00:00:00', 12.50, 12334545, 1, 0);
 
 -- ----------------------------
 -- Table structure for qrtz_blob_triggers
@@ -358,6 +360,8 @@ CREATE TABLE `rented_record`  (
 -- ----------------------------
 -- Records of rented_record
 -- ----------------------------
+INSERT INTO `rented_record` VALUES (1, 1, 1, 1, '2024-03-15 00:00:00', '2024-03-16 00:00:00', 2);
+INSERT INTO `rented_record` VALUES (2, 1, 2, 2, '2024-03-15 00:00:00', '2024-03-16 00:00:00', 1);
 
 -- ----------------------------
 -- Table structure for station_details
@@ -376,6 +380,8 @@ CREATE TABLE `station_details`  (
 -- ----------------------------
 -- Records of station_details
 -- ----------------------------
+INSERT INTO `station_details` VALUES (1, '南沙群岛站点', '南沙群岛太平岛屿靠南海西侧航道东边', 54, 120, 30);
+INSERT INTO `station_details` VALUES (2, '珠穆朗玛峰站点', '珠穆朗玛峰山顶，海拔8844.32米处', 120, 20, 0);
 
 -- ----------------------------
 -- Table structure for station_profile
@@ -391,6 +397,8 @@ CREATE TABLE `station_profile`  (
 -- ----------------------------
 -- Records of station_profile
 -- ----------------------------
+INSERT INTO `station_profile` VALUES (1, 1, 120.50);
+INSERT INTO `station_profile` VALUES (2, 2, 550.50);
 
 -- ----------------------------
 -- Table structure for sys_config
@@ -613,6 +621,9 @@ CREATE TABLE `sys_logininfor`  (
 -- ----------------------------
 -- Records of sys_logininfor
 -- ----------------------------
+INSERT INTO `sys_logininfor` VALUES (100, 'admin', '127.0.0.1', '内网IP', 'Chrome 12', 'Windows 10', '0', '登录成功', '2024-03-21 10:45:12');
+INSERT INTO `sys_logininfor` VALUES (101, 'admin', '127.0.0.1', '内网IP', 'Chrome 12', 'Windows 10', '0', '登录成功', '2024-03-21 12:15:11');
+INSERT INTO `sys_logininfor` VALUES (102, 'admin', '127.0.0.1', '内网IP', 'Chrome 12', 'Windows 10', '0', '登录成功', '2024-03-21 17:06:19');
 
 -- ----------------------------
 -- Table structure for sys_menu
@@ -647,7 +658,7 @@ CREATE TABLE `sys_menu`  (
 INSERT INTO `sys_menu` VALUES (1, '系统管理', 0, 1, 'system', NULL, '', 1, 0, 'M', '0', '0', '', 'system', 'admin', '2024-03-13 20:05:34', '', NULL, '系统管理目录');
 INSERT INTO `sys_menu` VALUES (2, '系统监控', 0, 2, 'monitor', NULL, '', 1, 0, 'M', '0', '0', '', 'monitor', 'admin', '2024-03-13 20:05:34', '', NULL, '系统监控目录');
 INSERT INTO `sys_menu` VALUES (3, '系统工具', 0, 3, 'tool', NULL, '', 1, 0, 'M', '0', '0', '', 'tool', 'admin', '2024-03-13 20:05:34', '', NULL, '系统工具目录');
-INSERT INTO `sys_menu` VALUES (4, '若依官网', 0, 4, 'http://ruoyi.vip', NULL, '', 0, 0, 'M', '0', '0', '', 'guide', 'admin', '2024-03-13 20:05:34', '', NULL, '若依官网地址');
+INSERT INTO `sys_menu` VALUES (4, '若依官网', 0, 9, 'http://ruoyi.vip', NULL, '', 0, 0, 'M', '0', '0', '', 'guide', 'admin', '2024-03-13 20:05:34', 'admin', '2024-03-21 17:16:18', '若依官网地址');
 INSERT INTO `sys_menu` VALUES (100, '用户管理', 1, 1, 'user', 'system/user/index', '', 1, 0, 'C', '0', '0', 'system:user:list', 'user', 'admin', '2024-03-13 20:05:34', '', NULL, '用户管理菜单');
 INSERT INTO `sys_menu` VALUES (101, '角色管理', 1, 2, 'role', 'system/role/index', '', 1, 0, 'C', '0', '0', 'system:role:list', 'peoples', 'admin', '2024-03-13 20:05:34', '', NULL, '角色管理菜单');
 INSERT INTO `sys_menu` VALUES (102, '菜单管理', 1, 3, 'menu', 'system/menu/index', '', 1, 0, 'C', '0', '0', 'system:menu:list', 'tree-table', 'admin', '2024-03-13 20:05:34', '', NULL, '菜单管理菜单');
@@ -729,6 +740,27 @@ INSERT INTO `sys_menu` VALUES (1057, '生成删除', 116, 3, '#', '', '', 1, 0, 
 INSERT INTO `sys_menu` VALUES (1058, '导入代码', 116, 4, '#', '', '', 1, 0, 'F', '0', '0', 'tool:gen:import', '#', 'admin', '2024-03-13 20:05:34', '', NULL, '');
 INSERT INTO `sys_menu` VALUES (1059, '预览代码', 116, 5, '#', '', '', 1, 0, 'F', '0', '0', 'tool:gen:preview', '#', 'admin', '2024-03-13 20:05:34', '', NULL, '');
 INSERT INTO `sys_menu` VALUES (1060, '生成代码', 116, 6, '#', '', '', 1, 0, 'F', '0', '0', 'tool:gen:code', '#', 'admin', '2024-03-13 20:05:34', '', NULL, '');
+INSERT INTO `sys_menu` VALUES (2000, '车辆管理', 0, 3, 'bicycle', NULL, NULL, 1, 0, 'M', '0', '0', '', 'dict', 'admin', '2024-03-21 10:47:33', 'admin', '2024-03-21 17:37:20', '');
+INSERT INTO `sys_menu` VALUES (2001, '车辆查询', 2000, 1, 'bicy', '/bicycle/query', NULL, 1, 1, 'C', '0', '0', 'bicycle:manage', 'search', 'admin', '2024-03-21 17:11:13', '', NULL, '');
+INSERT INTO `sys_menu` VALUES (2002, '车辆维修', 2000, 2, 'bicy:repair', 'bicycle/damage', NULL, 1, 1, 'C', '0', '0', 'damage', '#', 'admin', '2024-03-21 17:13:37', '', NULL, '');
+INSERT INTO `sys_menu` VALUES (2003, '损坏上报', 2002, 1, '', NULL, NULL, 1, 0, 'F', '0', '0', 'damage:record', '#', 'admin', '2024-03-21 17:14:12', '', NULL, '');
+INSERT INTO `sys_menu` VALUES (2004, '维修登记', 2002, 2, '', NULL, NULL, 1, 0, 'F', '0', '0', 'damage:repair', '#', 'admin', '2024-03-21 17:14:38', '', NULL, '');
+INSERT INTO `sys_menu` VALUES (2005, '订单管理', 0, 4, 'order', NULL, NULL, 1, 0, 'M', '0', '0', NULL, 'form', 'admin', '2024-03-21 17:16:08', '', NULL, '');
+INSERT INTO `sys_menu` VALUES (2006, '个人订单', 2005, 1, '/order', 'order', NULL, 1, 1, 'C', '0', '0', 'order', 'message', 'admin', '2024-03-21 17:18:47', '', NULL, '');
+INSERT INTO `sys_menu` VALUES (2007, '订单查询', 2005, 2, '/order/query', NULL, NULL, 1, 0, 'M', '0', '0', NULL, '#', 'admin', '2024-03-21 17:19:40', '', NULL, '');
+INSERT INTO `sys_menu` VALUES (2008, '订单查询', 2007, 1, '', NULL, NULL, 1, 0, 'F', '0', '0', 'order:query', '#', 'admin', '2024-03-21 17:20:24', '', NULL, '');
+INSERT INTO `sys_menu` VALUES (2009, '查询个人订单', 2006, 1, '', NULL, NULL, 1, 0, 'F', '0', '0', 'order:user', '#', 'admin', '2024-03-21 17:20:56', '', NULL, '');
+INSERT INTO `sys_menu` VALUES (2010, '支付订单', 2006, 2, '', NULL, NULL, 1, 0, 'F', '0', '0', 'order:pay', '#', 'admin', '2024-03-21 17:21:37', '', NULL, '');
+INSERT INTO `sys_menu` VALUES (2011, '租借管理', 0, 5, 'rented', NULL, NULL, 1, 0, 'M', '0', '0', NULL, 'time', 'admin', '2024-03-21 17:22:56', '', NULL, '');
+INSERT INTO `sys_menu` VALUES (2012, '租借记录', 2011, 1, '/rented/user', 'rented/user', NULL, 1, 1, 'C', '0', '0', 'rented:user', 'example', 'admin', '2024-03-21 17:23:55', '', NULL, '');
+INSERT INTO `sys_menu` VALUES (2013, '查询记录', 2012, 1, '', NULL, NULL, 1, 0, 'F', '0', '0', 'rented:user', '#', 'admin', '2024-03-21 17:24:40', '', NULL, '');
+INSERT INTO `sys_menu` VALUES (2014, '租借查询', 2011, 2, 'rented', '/rented/manage', NULL, 1, 1, 'C', '0', '0', 'rented:manage', 'chart', 'admin', '2024-03-21 17:25:56', '', NULL, '');
+INSERT INTO `sys_menu` VALUES (2015, '查询所有租借记录', 2014, 1, '', NULL, NULL, 1, 0, 'F', '0', '0', 'rented:manage', '#', 'admin', '2024-03-21 17:26:36', '', NULL, '');
+INSERT INTO `sys_menu` VALUES (2016, '站点查询', 0, 6, 'station', NULL, NULL, 1, 0, 'M', '0', '0', NULL, 'guide', 'admin', '2024-03-21 17:29:04', '', NULL, '');
+INSERT INTO `sys_menu` VALUES (2017, '站点位置', 2016, 1, 'station', 'station/user', NULL, 1, 1, 'C', '0', '0', 'station:user', 'drag', 'admin', '2024-03-21 17:29:47', '', NULL, '');
+INSERT INTO `sys_menu` VALUES (2018, '站点管理', 2016, 2, 'station', '/station/manage', NULL, 1, 1, 'C', '0', '0', 'station:manage', 'druid', 'admin', '2024-03-21 17:30:56', '', NULL, '');
+INSERT INTO `sys_menu` VALUES (2019, '站点信息查询', 2018, 1, '', NULL, NULL, 1, 0, 'F', '0', '0', 'station:manage', '#', 'admin', '2024-03-21 17:31:27', '', NULL, '');
+INSERT INTO `sys_menu` VALUES (2020, '站点位置查询', 2017, 1, '', NULL, NULL, 1, 0, 'F', '0', '0', 'station:user', '#', 'admin', '2024-03-21 17:32:00', '', NULL, '');
 
 -- ----------------------------
 -- Table structure for sys_notice
@@ -785,6 +817,37 @@ CREATE TABLE `sys_oper_log`  (
 -- ----------------------------
 -- Records of sys_oper_log
 -- ----------------------------
+INSERT INTO `sys_oper_log` VALUES (100, '菜单管理', 1, 'com.ruoyi.web.controller.system.SysMenuController.add()', 'POST', 1, 'admin', '研发部门', '/system/menu', '127.0.0.1', '内网IP', '{\"children\":[],\"createBy\":\"admin\",\"icon\":\"dict\",\"isCache\":\"0\",\"isFrame\":\"1\",\"menuName\":\"车辆管理\",\"menuType\":\"M\",\"orderNum\":3,\"params\":{},\"parentId\":0,\"path\":\"tool\",\"status\":\"0\",\"visible\":\"0\"}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2024-03-21 10:47:33', 26);
+INSERT INTO `sys_oper_log` VALUES (101, '角色管理', 1, 'com.ruoyi.web.controller.system.SysRoleController.add()', 'POST', 1, 'admin', '研发部门', '/system/role', '127.0.0.1', '内网IP', '{\"admin\":false,\"createBy\":\"admin\",\"deptCheckStrictly\":true,\"deptIds\":[],\"flag\":false,\"menuCheckStrictly\":true,\"menuIds\":[1,100,1000,1001,1002,1003,1004,1005,1006,101,1007,1008,1009,1010,1011,102,1012,1013,1014,1015,103,1016,1017,1018,1019,104,1020,1021,1022,1023,1024,105,1025,1026,1027,1028,1029,106,1030,1031,1032,1033,1034,107,1035,1036,1037,1038,108,500,1039,1040,1041,501,1042,1043,1044,1045,2,109,1046,1047,1048,110,1049,1050,1051,1052,1053,1054,111,112,113,114,3,115,116,1055,1056,1057,1058,1059,1060,117,2000,4],\"params\":{},\"roleId\":100,\"roleKey\":\"common-admin\",\"roleName\":\"管理员\",\"roleSort\":0,\"status\":\"0\"}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2024-03-21 10:53:43', 42);
+INSERT INTO `sys_oper_log` VALUES (102, '角色管理', 2, 'com.ruoyi.web.controller.system.SysRoleController.edit()', 'PUT', 1, 'admin', '研发部门', '/system/role', '127.0.0.1', '内网IP', '{\"admin\":false,\"createTime\":\"2024-03-21 10:53:43\",\"dataScope\":\"1\",\"delFlag\":\"0\",\"deptCheckStrictly\":true,\"flag\":false,\"menuCheckStrictly\":true,\"menuIds\":[1,100,1000,1001,1002,1003,1004,1005,1006,101,1007,1008,1009,1010,1011,102,1012,1013,1014,1015,103,1016,1017,1018,1019,104,1020,1021,1022,1023,1024,105,1025,1026,1027,1028,1029,106,1030,1031,1032,1033,1034,107,1035,1036,1037,1038,108,500,1039,1040,1041,501,1042,1043,1044,1045,2,109,1046,1047,1048,110,1049,1050,1051,1052,1053,1054,111,112,113,114,3,115,116,1055,1056,1057,1058,1059,1060,117,2000,4],\"params\":{},\"roleId\":100,\"roleKey\":\"common-admin\",\"roleName\":\"管理员\",\"roleSort\":2,\"status\":\"0\",\"updateBy\":\"admin\"}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2024-03-21 12:16:25', 60);
+INSERT INTO `sys_oper_log` VALUES (103, '角色管理', 2, 'com.ruoyi.web.controller.system.SysRoleController.edit()', 'PUT', 1, 'admin', '研发部门', '/system/role', '127.0.0.1', '内网IP', '{\"admin\":false,\"createTime\":\"2024-03-13 20:05:34\",\"dataScope\":\"2\",\"delFlag\":\"0\",\"deptCheckStrictly\":true,\"flag\":false,\"menuCheckStrictly\":true,\"menuIds\":[1,100,1000,1001,1002,1003,1004,1005,1006,101,1007,1008,1009,1010,1011,102,1012,1013,1014,1015,103,1016,1017,1018,1019,104,1020,1021,1022,1023,1024,105,1025,1026,1027,1028,1029,106,1030,1031,1032,1033,1034,107,1035,1036,1037,1038,108,500,1039,1040,1041,501,1042,1043,1044,1045,2,109,1046,1047,1048,110,1049,1050,1051,1052,1053,1054,111,112,113,114,3,115,116,1055,1056,1057,1058,1059,1060,117,4],\"params\":{},\"remark\":\"普通角色\",\"roleId\":2,\"roleKey\":\"common\",\"roleName\":\"普通角色\",\"roleSort\":3,\"status\":\"0\",\"updateBy\":\"admin\"}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2024-03-21 12:16:50', 23);
+INSERT INTO `sys_oper_log` VALUES (104, '角色管理', 2, 'com.ruoyi.web.controller.system.SysRoleController.dataScope()', 'PUT', 1, 'admin', '研发部门', '/system/role/dataScope', '127.0.0.1', '内网IP', '{\"admin\":false,\"createTime\":\"2024-03-21 10:53:43\",\"dataScope\":\"1\",\"delFlag\":\"0\",\"deptCheckStrictly\":true,\"deptIds\":[],\"flag\":false,\"menuCheckStrictly\":true,\"params\":{},\"roleId\":100,\"roleKey\":\"common-admin\",\"roleName\":\"管理员\",\"roleSort\":2,\"status\":\"0\"}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2024-03-21 12:17:08', 10);
+INSERT INTO `sys_oper_log` VALUES (105, '菜单管理', 2, 'com.ruoyi.web.controller.system.SysMenuController.edit()', 'PUT', 1, 'admin', '研发部门', '/system/menu', '127.0.0.1', '内网IP', '{\"children\":[],\"component\":\"bicycle/manage\",\"createTime\":\"2024-03-21 10:47:33\",\"icon\":\"dict\",\"isCache\":\"0\",\"isFrame\":\"1\",\"menuId\":2000,\"menuName\":\"车辆管理\",\"menuType\":\"C\",\"orderNum\":3,\"params\":{},\"parentId\":2000,\"path\":\"bicy\",\"perms\":\"bicycle:manage\",\"status\":\"0\",\"visible\":\"0\"}', '{\"msg\":\"修改菜单\'车辆管理\'失败，上级菜单不能选择自己\",\"code\":500}', 0, NULL, '2024-03-21 12:41:39', 10);
+INSERT INTO `sys_oper_log` VALUES (106, '菜单管理', 1, 'com.ruoyi.web.controller.system.SysMenuController.add()', 'POST', 1, 'admin', '研发部门', '/system/menu', '127.0.0.1', '内网IP', '{\"children\":[],\"component\":\"/bicycle/query\",\"createBy\":\"admin\",\"icon\":\"search\",\"isCache\":\"1\",\"isFrame\":\"1\",\"menuName\":\"车辆查询\",\"menuType\":\"C\",\"orderNum\":1,\"params\":{},\"parentId\":2000,\"path\":\"bicy\",\"perms\":\"bicycle:manage\",\"status\":\"0\",\"visible\":\"0\"}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2024-03-21 17:11:13', 32);
+INSERT INTO `sys_oper_log` VALUES (107, '菜单管理', 1, 'com.ruoyi.web.controller.system.SysMenuController.add()', 'POST', 1, 'admin', '研发部门', '/system/menu', '127.0.0.1', '内网IP', '{\"children\":[],\"component\":\"bicycle/damage\",\"createBy\":\"admin\",\"isCache\":\"1\",\"isFrame\":\"1\",\"menuName\":\"车辆维修\",\"menuType\":\"C\",\"orderNum\":2,\"params\":{},\"parentId\":2000,\"path\":\"bicy:repair\",\"perms\":\"damage\",\"status\":\"0\",\"visible\":\"0\"}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2024-03-21 17:13:37', 9);
+INSERT INTO `sys_oper_log` VALUES (108, '菜单管理', 1, 'com.ruoyi.web.controller.system.SysMenuController.add()', 'POST', 1, 'admin', '研发部门', '/system/menu', '127.0.0.1', '内网IP', '{\"children\":[],\"createBy\":\"admin\",\"isCache\":\"0\",\"isFrame\":\"1\",\"menuName\":\"损坏上报\",\"menuType\":\"F\",\"orderNum\":1,\"params\":{},\"parentId\":2002,\"perms\":\"damage:record\",\"status\":\"0\",\"visible\":\"0\"}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2024-03-21 17:14:12', 16);
+INSERT INTO `sys_oper_log` VALUES (109, '菜单管理', 1, 'com.ruoyi.web.controller.system.SysMenuController.add()', 'POST', 1, 'admin', '研发部门', '/system/menu', '127.0.0.1', '内网IP', '{\"children\":[],\"createBy\":\"admin\",\"isCache\":\"0\",\"isFrame\":\"1\",\"menuName\":\"维修登记\",\"menuType\":\"F\",\"orderNum\":2,\"params\":{},\"parentId\":2002,\"perms\":\"damage:repair\",\"status\":\"0\",\"visible\":\"0\"}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2024-03-21 17:14:38', 10);
+INSERT INTO `sys_oper_log` VALUES (110, '菜单管理', 1, 'com.ruoyi.web.controller.system.SysMenuController.add()', 'POST', 1, 'admin', '研发部门', '/system/menu', '127.0.0.1', '内网IP', '{\"children\":[],\"createBy\":\"admin\",\"icon\":\"form\",\"isCache\":\"0\",\"isFrame\":\"1\",\"menuName\":\"订单管理\",\"menuType\":\"M\",\"orderNum\":4,\"params\":{},\"parentId\":0,\"path\":\"order\",\"status\":\"0\",\"visible\":\"0\"}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2024-03-21 17:16:08', 8);
+INSERT INTO `sys_oper_log` VALUES (111, '菜单管理', 2, 'com.ruoyi.web.controller.system.SysMenuController.edit()', 'PUT', 1, 'admin', '研发部门', '/system/menu', '127.0.0.1', '内网IP', '{\"children\":[],\"createTime\":\"2024-03-13 20:05:34\",\"icon\":\"guide\",\"isCache\":\"0\",\"isFrame\":\"0\",\"menuId\":4,\"menuName\":\"若依官网\",\"menuType\":\"M\",\"orderNum\":9,\"params\":{},\"parentId\":0,\"path\":\"http://ruoyi.vip\",\"perms\":\"\",\"query\":\"\",\"status\":\"0\",\"updateBy\":\"admin\",\"visible\":\"0\"}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2024-03-21 17:16:18', 8);
+INSERT INTO `sys_oper_log` VALUES (112, '菜单管理', 1, 'com.ruoyi.web.controller.system.SysMenuController.add()', 'POST', 1, 'admin', '研发部门', '/system/menu', '127.0.0.1', '内网IP', '{\"children\":[],\"component\":\"order\",\"createBy\":\"admin\",\"icon\":\"message\",\"isCache\":\"1\",\"isFrame\":\"1\",\"menuName\":\"个人订单\",\"menuType\":\"C\",\"orderNum\":1,\"params\":{},\"parentId\":2005,\"path\":\"/order\",\"perms\":\"order\",\"status\":\"0\",\"visible\":\"0\"}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2024-03-21 17:18:48', 11);
+INSERT INTO `sys_oper_log` VALUES (113, '菜单管理', 1, 'com.ruoyi.web.controller.system.SysMenuController.add()', 'POST', 1, 'admin', '研发部门', '/system/menu', '127.0.0.1', '内网IP', '{\"children\":[],\"createBy\":\"admin\",\"isCache\":\"0\",\"isFrame\":\"1\",\"menuName\":\"订单查询\",\"menuType\":\"M\",\"orderNum\":2,\"params\":{},\"parentId\":2005,\"path\":\"/order/query\",\"status\":\"0\",\"visible\":\"0\"}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2024-03-21 17:19:40', 7);
+INSERT INTO `sys_oper_log` VALUES (114, '菜单管理', 1, 'com.ruoyi.web.controller.system.SysMenuController.add()', 'POST', 1, 'admin', '研发部门', '/system/menu', '127.0.0.1', '内网IP', '{\"children\":[],\"createBy\":\"admin\",\"isCache\":\"0\",\"isFrame\":\"1\",\"menuName\":\"订单查询\",\"menuType\":\"F\",\"orderNum\":1,\"params\":{},\"parentId\":2007,\"perms\":\"order:query\",\"status\":\"0\",\"visible\":\"0\"}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2024-03-21 17:20:24', 8);
+INSERT INTO `sys_oper_log` VALUES (115, '菜单管理', 1, 'com.ruoyi.web.controller.system.SysMenuController.add()', 'POST', 1, 'admin', '研发部门', '/system/menu', '127.0.0.1', '内网IP', '{\"children\":[],\"createBy\":\"admin\",\"isCache\":\"0\",\"isFrame\":\"1\",\"menuName\":\"查询个人订单\",\"menuType\":\"F\",\"orderNum\":1,\"params\":{},\"parentId\":2006,\"perms\":\"order:user\",\"status\":\"0\",\"visible\":\"0\"}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2024-03-21 17:20:56', 8);
+INSERT INTO `sys_oper_log` VALUES (116, '菜单管理', 1, 'com.ruoyi.web.controller.system.SysMenuController.add()', 'POST', 1, 'admin', '研发部门', '/system/menu', '127.0.0.1', '内网IP', '{\"children\":[],\"createBy\":\"admin\",\"isCache\":\"0\",\"isFrame\":\"1\",\"menuName\":\"支付订单\",\"menuType\":\"F\",\"orderNum\":2,\"params\":{},\"parentId\":2006,\"perms\":\"order:pay\",\"status\":\"0\",\"visible\":\"0\"}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2024-03-21 17:21:37', 8);
+INSERT INTO `sys_oper_log` VALUES (117, '菜单管理', 1, 'com.ruoyi.web.controller.system.SysMenuController.add()', 'POST', 1, 'admin', '研发部门', '/system/menu', '127.0.0.1', '内网IP', '{\"children\":[],\"createBy\":\"admin\",\"icon\":\"time\",\"isCache\":\"0\",\"isFrame\":\"1\",\"menuName\":\"租借管理\",\"menuType\":\"M\",\"orderNum\":5,\"params\":{},\"parentId\":0,\"path\":\"rented\",\"status\":\"0\",\"visible\":\"0\"}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2024-03-21 17:22:56', 8);
+INSERT INTO `sys_oper_log` VALUES (118, '菜单管理', 1, 'com.ruoyi.web.controller.system.SysMenuController.add()', 'POST', 1, 'admin', '研发部门', '/system/menu', '127.0.0.1', '内网IP', '{\"children\":[],\"component\":\"rented/user\",\"createBy\":\"admin\",\"icon\":\"example\",\"isCache\":\"1\",\"isFrame\":\"1\",\"menuName\":\"租借记录\",\"menuType\":\"C\",\"orderNum\":1,\"params\":{},\"parentId\":2011,\"path\":\"/rented/user\",\"perms\":\"rented:user\",\"status\":\"0\",\"visible\":\"0\"}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2024-03-21 17:23:55', 7);
+INSERT INTO `sys_oper_log` VALUES (119, '菜单管理', 1, 'com.ruoyi.web.controller.system.SysMenuController.add()', 'POST', 1, 'admin', '研发部门', '/system/menu', '127.0.0.1', '内网IP', '{\"children\":[],\"createBy\":\"admin\",\"isCache\":\"0\",\"isFrame\":\"1\",\"menuName\":\"查询记录\",\"menuType\":\"F\",\"orderNum\":1,\"params\":{},\"parentId\":2012,\"perms\":\"rented:user\",\"status\":\"0\",\"visible\":\"0\"}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2024-03-21 17:24:40', 15);
+INSERT INTO `sys_oper_log` VALUES (120, '菜单管理', 1, 'com.ruoyi.web.controller.system.SysMenuController.add()', 'POST', 1, 'admin', '研发部门', '/system/menu', '127.0.0.1', '内网IP', '{\"children\":[],\"component\":\"/rented/manage\",\"createBy\":\"admin\",\"icon\":\"chart\",\"isCache\":\"1\",\"isFrame\":\"1\",\"menuName\":\"租借查询\",\"menuType\":\"C\",\"orderNum\":2,\"params\":{},\"parentId\":2011,\"path\":\"rented\",\"perms\":\"rented:manage\",\"status\":\"0\",\"visible\":\"0\"}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2024-03-21 17:25:56', 5);
+INSERT INTO `sys_oper_log` VALUES (121, '菜单管理', 1, 'com.ruoyi.web.controller.system.SysMenuController.add()', 'POST', 1, 'admin', '研发部门', '/system/menu', '127.0.0.1', '内网IP', '{\"children\":[],\"createBy\":\"admin\",\"isCache\":\"0\",\"isFrame\":\"1\",\"menuName\":\"查询所有租借记录\",\"menuType\":\"F\",\"orderNum\":1,\"params\":{},\"parentId\":2014,\"perms\":\"rented:manage\",\"status\":\"0\",\"visible\":\"0\"}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2024-03-21 17:26:36', 15);
+INSERT INTO `sys_oper_log` VALUES (122, '菜单管理', 1, 'com.ruoyi.web.controller.system.SysMenuController.add()', 'POST', 1, 'admin', '研发部门', '/system/menu', '127.0.0.1', '内网IP', '{\"children\":[],\"createBy\":\"admin\",\"icon\":\"guide\",\"isCache\":\"0\",\"isFrame\":\"1\",\"menuName\":\"站点查询\",\"menuType\":\"M\",\"orderNum\":6,\"params\":{},\"parentId\":0,\"path\":\"station\",\"status\":\"0\",\"visible\":\"0\"}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2024-03-21 17:29:04', 17);
+INSERT INTO `sys_oper_log` VALUES (123, '菜单管理', 1, 'com.ruoyi.web.controller.system.SysMenuController.add()', 'POST', 1, 'admin', '研发部门', '/system/menu', '127.0.0.1', '内网IP', '{\"children\":[],\"component\":\"station/user\",\"createBy\":\"admin\",\"icon\":\"drag\",\"isCache\":\"1\",\"isFrame\":\"1\",\"menuName\":\"站点位置\",\"menuType\":\"C\",\"orderNum\":1,\"params\":{},\"parentId\":2016,\"path\":\"station\",\"perms\":\"station:user\",\"status\":\"0\",\"visible\":\"0\"}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2024-03-21 17:29:47', 9);
+INSERT INTO `sys_oper_log` VALUES (124, '菜单管理', 1, 'com.ruoyi.web.controller.system.SysMenuController.add()', 'POST', 1, 'admin', '研发部门', '/system/menu', '127.0.0.1', '内网IP', '{\"children\":[],\"component\":\"/station/manage\",\"createBy\":\"admin\",\"icon\":\"druid\",\"isCache\":\"1\",\"isFrame\":\"1\",\"menuName\":\"站点管理\",\"menuType\":\"C\",\"orderNum\":2,\"params\":{},\"parentId\":2016,\"path\":\"station\",\"perms\":\"station:manage\",\"status\":\"0\",\"visible\":\"0\"}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2024-03-21 17:30:56', 8);
+INSERT INTO `sys_oper_log` VALUES (125, '菜单管理', 1, 'com.ruoyi.web.controller.system.SysMenuController.add()', 'POST', 1, 'admin', '研发部门', '/system/menu', '127.0.0.1', '内网IP', '{\"children\":[],\"createBy\":\"admin\",\"isCache\":\"0\",\"isFrame\":\"1\",\"menuName\":\"站点信息查询\",\"menuType\":\"F\",\"orderNum\":1,\"params\":{},\"parentId\":2018,\"perms\":\"station:manage\",\"status\":\"0\",\"visible\":\"0\"}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2024-03-21 17:31:27', 6);
+INSERT INTO `sys_oper_log` VALUES (126, '菜单管理', 1, 'com.ruoyi.web.controller.system.SysMenuController.add()', 'POST', 1, 'admin', '研发部门', '/system/menu', '127.0.0.1', '内网IP', '{\"children\":[],\"createBy\":\"admin\",\"isCache\":\"0\",\"isFrame\":\"1\",\"menuName\":\"站点位置查询\",\"menuType\":\"F\",\"orderNum\":1,\"params\":{},\"parentId\":2017,\"perms\":\"station:user\",\"status\":\"0\",\"visible\":\"0\"}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2024-03-21 17:32:00', 14);
+INSERT INTO `sys_oper_log` VALUES (127, '菜单管理', 2, 'com.ruoyi.web.controller.system.SysMenuController.edit()', 'PUT', 1, 'admin', '研发部门', '/system/menu', '127.0.0.1', '内网IP', '{\"children\":[],\"createTime\":\"2024-03-21 10:47:33\",\"icon\":\"dict\",\"isCache\":\"0\",\"isFrame\":\"1\",\"menuId\":2000,\"menuName\":\"车辆管理\",\"menuType\":\"M\",\"orderNum\":3,\"params\":{},\"parentId\":0,\"path\":\"station\",\"perms\":\"\",\"status\":\"0\",\"updateBy\":\"admin\",\"visible\":\"0\"}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2024-03-21 17:36:49', 8);
+INSERT INTO `sys_oper_log` VALUES (128, '菜单管理', 2, 'com.ruoyi.web.controller.system.SysMenuController.edit()', 'PUT', 1, 'admin', '研发部门', '/system/menu', '127.0.0.1', '内网IP', '{\"children\":[],\"createTime\":\"2024-03-21 10:47:33\",\"icon\":\"dict\",\"isCache\":\"0\",\"isFrame\":\"1\",\"menuId\":2000,\"menuName\":\"车辆管理\",\"menuType\":\"M\",\"orderNum\":3,\"params\":{},\"parentId\":0,\"path\":\"bicycle\",\"perms\":\"\",\"status\":\"0\",\"updateBy\":\"admin\",\"visible\":\"0\"}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2024-03-21 17:37:20', 13);
+INSERT INTO `sys_oper_log` VALUES (129, '角色管理', 2, 'com.ruoyi.web.controller.system.SysRoleController.edit()', 'PUT', 1, 'admin', '研发部门', '/system/role', '127.0.0.1', '内网IP', '{\"admin\":false,\"createTime\":\"2024-03-13 20:05:34\",\"dataScope\":\"2\",\"delFlag\":\"0\",\"deptCheckStrictly\":true,\"flag\":false,\"menuCheckStrictly\":true,\"menuIds\":[2000,2002,2005,2011,2016,1,100,1000,1001,1002,1003,1004,1005,1006,101,1007,1008,1009,1010,1011,102,1012,1013,1014,1015,103,1016,1017,1018,1019,104,1020,1021,1022,1023,1024,105,1025,1026,1027,1028,1029,106,1030,1031,1032,1033,1034,107,1035,1036,1037,1038,108,500,1039,1040,1041,501,1042,1043,1044,1045,2,109,1046,1047,1048,110,1049,1050,1051,1052,1053,1054,111,112,113,114,3,115,116,1055,1056,1057,1058,1059,1060,117,2003,2006,2009,2010,2012,2013,2017,2020],\"params\":{},\"remark\":\"普通角色\",\"roleId\":2,\"roleKey\":\"common\",\"roleName\":\"普通角色\",\"roleSort\":3,\"status\":\"0\",\"updateBy\":\"admin\"}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2024-03-21 17:40:01', 32);
+INSERT INTO `sys_oper_log` VALUES (130, '角色管理', 2, 'com.ruoyi.web.controller.system.SysRoleController.edit()', 'PUT', 1, 'admin', '研发部门', '/system/role', '127.0.0.1', '内网IP', '{\"admin\":false,\"createTime\":\"2024-03-21 10:53:43\",\"dataScope\":\"1\",\"delFlag\":\"0\",\"deptCheckStrictly\":true,\"flag\":false,\"menuCheckStrictly\":true,\"menuIds\":[1,100,1000,1001,1002,1003,1004,1005,1006,101,1007,1008,1009,1010,1011,102,1012,1013,1014,1015,103,1016,1017,1018,1019,104,1020,1021,1022,1023,1024,105,1025,1026,1027,1028,1029,106,1030,1031,1032,1033,1034,107,1035,1036,1037,1038,108,500,1039,1040,1041,501,1042,1043,1044,1045,2,109,1046,1047,1048,110,1049,1050,1051,1052,1053,1054,111,112,113,114,3,115,116,1055,1056,1057,1058,1059,1060,117,2000,2005,2006,2009,2010,2007,2008,2011,2012,2013,2014,2015,2016,2017,2020,2018,2019,4],\"params\":{},\"roleId\":100,\"roleKey\":\"common-admin\",\"roleName\":\"管理员\",\"roleSort\":2,\"status\":\"0\",\"updateBy\":\"admin\"}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2024-03-21 17:40:16', 17);
 
 -- ----------------------------
 -- Table structure for sys_post
@@ -838,7 +901,8 @@ CREATE TABLE `sys_role`  (
 -- Records of sys_role
 -- ----------------------------
 INSERT INTO `sys_role` VALUES (1, '超级管理员', 'admin', 1, '1', 1, 1, '0', '0', 'admin', '2024-03-13 20:05:34', '', NULL, '超级管理员');
-INSERT INTO `sys_role` VALUES (2, '普通角色', 'common', 2, '2', 1, 1, '0', '0', 'admin', '2024-03-13 20:05:34', '', NULL, '普通角色');
+INSERT INTO `sys_role` VALUES (2, '普通角色', 'common', 3, '2', 1, 1, '0', '0', 'admin', '2024-03-13 20:05:34', 'admin', '2024-03-21 17:40:01', '普通角色');
+INSERT INTO `sys_role` VALUES (100, '管理员', 'common-admin', 2, '1', 1, 1, '0', '0', 'admin', '2024-03-21 10:53:43', 'admin', '2024-03-21 17:40:15', NULL);
 
 -- ----------------------------
 -- Table structure for sys_role_dept
@@ -873,7 +937,6 @@ CREATE TABLE `sys_role_menu`  (
 INSERT INTO `sys_role_menu` VALUES (2, 1);
 INSERT INTO `sys_role_menu` VALUES (2, 2);
 INSERT INTO `sys_role_menu` VALUES (2, 3);
-INSERT INTO `sys_role_menu` VALUES (2, 4);
 INSERT INTO `sys_role_menu` VALUES (2, 100);
 INSERT INTO `sys_role_menu` VALUES (2, 101);
 INSERT INTO `sys_role_menu` VALUES (2, 102);
@@ -955,6 +1018,121 @@ INSERT INTO `sys_role_menu` VALUES (2, 1057);
 INSERT INTO `sys_role_menu` VALUES (2, 1058);
 INSERT INTO `sys_role_menu` VALUES (2, 1059);
 INSERT INTO `sys_role_menu` VALUES (2, 1060);
+INSERT INTO `sys_role_menu` VALUES (2, 2000);
+INSERT INTO `sys_role_menu` VALUES (2, 2002);
+INSERT INTO `sys_role_menu` VALUES (2, 2003);
+INSERT INTO `sys_role_menu` VALUES (2, 2005);
+INSERT INTO `sys_role_menu` VALUES (2, 2006);
+INSERT INTO `sys_role_menu` VALUES (2, 2009);
+INSERT INTO `sys_role_menu` VALUES (2, 2010);
+INSERT INTO `sys_role_menu` VALUES (2, 2011);
+INSERT INTO `sys_role_menu` VALUES (2, 2012);
+INSERT INTO `sys_role_menu` VALUES (2, 2013);
+INSERT INTO `sys_role_menu` VALUES (2, 2016);
+INSERT INTO `sys_role_menu` VALUES (2, 2017);
+INSERT INTO `sys_role_menu` VALUES (2, 2020);
+INSERT INTO `sys_role_menu` VALUES (100, 1);
+INSERT INTO `sys_role_menu` VALUES (100, 2);
+INSERT INTO `sys_role_menu` VALUES (100, 3);
+INSERT INTO `sys_role_menu` VALUES (100, 4);
+INSERT INTO `sys_role_menu` VALUES (100, 100);
+INSERT INTO `sys_role_menu` VALUES (100, 101);
+INSERT INTO `sys_role_menu` VALUES (100, 102);
+INSERT INTO `sys_role_menu` VALUES (100, 103);
+INSERT INTO `sys_role_menu` VALUES (100, 104);
+INSERT INTO `sys_role_menu` VALUES (100, 105);
+INSERT INTO `sys_role_menu` VALUES (100, 106);
+INSERT INTO `sys_role_menu` VALUES (100, 107);
+INSERT INTO `sys_role_menu` VALUES (100, 108);
+INSERT INTO `sys_role_menu` VALUES (100, 109);
+INSERT INTO `sys_role_menu` VALUES (100, 110);
+INSERT INTO `sys_role_menu` VALUES (100, 111);
+INSERT INTO `sys_role_menu` VALUES (100, 112);
+INSERT INTO `sys_role_menu` VALUES (100, 113);
+INSERT INTO `sys_role_menu` VALUES (100, 114);
+INSERT INTO `sys_role_menu` VALUES (100, 115);
+INSERT INTO `sys_role_menu` VALUES (100, 116);
+INSERT INTO `sys_role_menu` VALUES (100, 117);
+INSERT INTO `sys_role_menu` VALUES (100, 500);
+INSERT INTO `sys_role_menu` VALUES (100, 501);
+INSERT INTO `sys_role_menu` VALUES (100, 1000);
+INSERT INTO `sys_role_menu` VALUES (100, 1001);
+INSERT INTO `sys_role_menu` VALUES (100, 1002);
+INSERT INTO `sys_role_menu` VALUES (100, 1003);
+INSERT INTO `sys_role_menu` VALUES (100, 1004);
+INSERT INTO `sys_role_menu` VALUES (100, 1005);
+INSERT INTO `sys_role_menu` VALUES (100, 1006);
+INSERT INTO `sys_role_menu` VALUES (100, 1007);
+INSERT INTO `sys_role_menu` VALUES (100, 1008);
+INSERT INTO `sys_role_menu` VALUES (100, 1009);
+INSERT INTO `sys_role_menu` VALUES (100, 1010);
+INSERT INTO `sys_role_menu` VALUES (100, 1011);
+INSERT INTO `sys_role_menu` VALUES (100, 1012);
+INSERT INTO `sys_role_menu` VALUES (100, 1013);
+INSERT INTO `sys_role_menu` VALUES (100, 1014);
+INSERT INTO `sys_role_menu` VALUES (100, 1015);
+INSERT INTO `sys_role_menu` VALUES (100, 1016);
+INSERT INTO `sys_role_menu` VALUES (100, 1017);
+INSERT INTO `sys_role_menu` VALUES (100, 1018);
+INSERT INTO `sys_role_menu` VALUES (100, 1019);
+INSERT INTO `sys_role_menu` VALUES (100, 1020);
+INSERT INTO `sys_role_menu` VALUES (100, 1021);
+INSERT INTO `sys_role_menu` VALUES (100, 1022);
+INSERT INTO `sys_role_menu` VALUES (100, 1023);
+INSERT INTO `sys_role_menu` VALUES (100, 1024);
+INSERT INTO `sys_role_menu` VALUES (100, 1025);
+INSERT INTO `sys_role_menu` VALUES (100, 1026);
+INSERT INTO `sys_role_menu` VALUES (100, 1027);
+INSERT INTO `sys_role_menu` VALUES (100, 1028);
+INSERT INTO `sys_role_menu` VALUES (100, 1029);
+INSERT INTO `sys_role_menu` VALUES (100, 1030);
+INSERT INTO `sys_role_menu` VALUES (100, 1031);
+INSERT INTO `sys_role_menu` VALUES (100, 1032);
+INSERT INTO `sys_role_menu` VALUES (100, 1033);
+INSERT INTO `sys_role_menu` VALUES (100, 1034);
+INSERT INTO `sys_role_menu` VALUES (100, 1035);
+INSERT INTO `sys_role_menu` VALUES (100, 1036);
+INSERT INTO `sys_role_menu` VALUES (100, 1037);
+INSERT INTO `sys_role_menu` VALUES (100, 1038);
+INSERT INTO `sys_role_menu` VALUES (100, 1039);
+INSERT INTO `sys_role_menu` VALUES (100, 1040);
+INSERT INTO `sys_role_menu` VALUES (100, 1041);
+INSERT INTO `sys_role_menu` VALUES (100, 1042);
+INSERT INTO `sys_role_menu` VALUES (100, 1043);
+INSERT INTO `sys_role_menu` VALUES (100, 1044);
+INSERT INTO `sys_role_menu` VALUES (100, 1045);
+INSERT INTO `sys_role_menu` VALUES (100, 1046);
+INSERT INTO `sys_role_menu` VALUES (100, 1047);
+INSERT INTO `sys_role_menu` VALUES (100, 1048);
+INSERT INTO `sys_role_menu` VALUES (100, 1049);
+INSERT INTO `sys_role_menu` VALUES (100, 1050);
+INSERT INTO `sys_role_menu` VALUES (100, 1051);
+INSERT INTO `sys_role_menu` VALUES (100, 1052);
+INSERT INTO `sys_role_menu` VALUES (100, 1053);
+INSERT INTO `sys_role_menu` VALUES (100, 1054);
+INSERT INTO `sys_role_menu` VALUES (100, 1055);
+INSERT INTO `sys_role_menu` VALUES (100, 1056);
+INSERT INTO `sys_role_menu` VALUES (100, 1057);
+INSERT INTO `sys_role_menu` VALUES (100, 1058);
+INSERT INTO `sys_role_menu` VALUES (100, 1059);
+INSERT INTO `sys_role_menu` VALUES (100, 1060);
+INSERT INTO `sys_role_menu` VALUES (100, 2000);
+INSERT INTO `sys_role_menu` VALUES (100, 2005);
+INSERT INTO `sys_role_menu` VALUES (100, 2006);
+INSERT INTO `sys_role_menu` VALUES (100, 2007);
+INSERT INTO `sys_role_menu` VALUES (100, 2008);
+INSERT INTO `sys_role_menu` VALUES (100, 2009);
+INSERT INTO `sys_role_menu` VALUES (100, 2010);
+INSERT INTO `sys_role_menu` VALUES (100, 2011);
+INSERT INTO `sys_role_menu` VALUES (100, 2012);
+INSERT INTO `sys_role_menu` VALUES (100, 2013);
+INSERT INTO `sys_role_menu` VALUES (100, 2014);
+INSERT INTO `sys_role_menu` VALUES (100, 2015);
+INSERT INTO `sys_role_menu` VALUES (100, 2016);
+INSERT INTO `sys_role_menu` VALUES (100, 2017);
+INSERT INTO `sys_role_menu` VALUES (100, 2018);
+INSERT INTO `sys_role_menu` VALUES (100, 2019);
+INSERT INTO `sys_role_menu` VALUES (100, 2020);
 
 -- ----------------------------
 -- Table structure for sys_user
@@ -986,7 +1164,7 @@ CREATE TABLE `sys_user`  (
 -- ----------------------------
 -- Records of sys_user
 -- ----------------------------
-INSERT INTO `sys_user` VALUES (1, 103, 'admin', '若依', '00', 'ry@163.com', '15888888888', '1', '', '$2a$10$7JB720yubVSZvUI0rEqK/.VqGOZTH.ulu33dHOiBE8ByOhJIrdAu2', '0', '0', '127.0.0.1', '2024-03-13 20:05:34', 'admin', '2024-03-13 20:05:34', '', NULL, '管理员');
+INSERT INTO `sys_user` VALUES (1, 103, 'admin', '若依', '00', 'ry@163.com', '15888888888', '1', '', '$2a$10$7JB720yubVSZvUI0rEqK/.VqGOZTH.ulu33dHOiBE8ByOhJIrdAu2', '0', '0', '127.0.0.1', '2024-03-21 17:06:19', 'admin', '2024-03-13 20:05:34', '', '2024-03-21 17:06:19', '管理员');
 INSERT INTO `sys_user` VALUES (2, 105, 'ry', '若依', '00', 'ry@qq.com', '15666666666', '1', '', '$2a$10$7JB720yubVSZvUI0rEqK/.VqGOZTH.ulu33dHOiBE8ByOhJIrdAu2', '0', '0', '127.0.0.1', '2024-03-13 20:05:34', 'admin', '2024-03-13 20:05:34', '', NULL, '测试员');
 
 -- ----------------------------
@@ -1026,7 +1204,7 @@ INSERT INTO `sys_user_role` VALUES (2, 2);
 -- ----------------------------
 DROP TABLE IF EXISTS `t_bicycle`;
 CREATE TABLE `t_bicycle`  (
-  `bicycle` bigint NOT NULL AUTO_INCREMENT COMMENT '主键唯一id',
+  `bicycle_id` bigint NOT NULL AUTO_INCREMENT COMMENT '主键唯一id',
   `bicycle_type` varchar(225) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '车辆类型',
   `rent_num` int NULL DEFAULT NULL COMMENT '租借次数',
   `create_time` datetime NULL DEFAULT NULL,
@@ -1034,11 +1212,15 @@ CREATE TABLE `t_bicycle`  (
   `station_id` bigint NULL DEFAULT NULL COMMENT '站点id',
   `inspect_time` datetime NOT NULL COMMENT '最新维修时间',
   `inspect_num` int NULL DEFAULT NULL COMMENT '维修次数',
-  PRIMARY KEY (`bicycle`) USING BTREE
+  PRIMARY KEY (`bicycle_id`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of t_bicycle
 -- ----------------------------
+INSERT INTO `t_bicycle` VALUES (1, '20240321', 212, '2024-03-01 00:00:00', 1, 1, '2024-03-10 00:00:00', 2);
+INSERT INTO `t_bicycle` VALUES (2, '20240321', 222, '2024-03-01 00:00:00', 1, 2, '2024-03-15 00:00:00', 4);
+INSERT INTO `t_bicycle` VALUES (3, '20240321', 215, '2024-03-01 00:00:00', 0, 2, '2024-03-10 00:00:00', 2);
+INSERT INTO `t_bicycle` VALUES (4, '20240321', 2155, '2024-03-01 00:00:00', 1, 1, '2024-03-10 00:00:00', 2);
 
 SET FOREIGN_KEY_CHECKS = 1;
