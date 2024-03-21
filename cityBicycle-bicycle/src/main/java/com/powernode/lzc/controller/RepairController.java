@@ -12,6 +12,7 @@ import com.powernode.lzc.service.BicycleService;
 import com.powernode.lzc.service.DamageService;
 import com.ruoyi.common.utils.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
@@ -31,6 +32,7 @@ public class RepairController {
     private BicycleService bicycleService;
     @Autowired
     private DamageService damageService;
+    @PreAuthorize("@ss.hasPermi('damage:record')")
     @GetMapping("/record")
     public Result<Void> record(@RequestParam("bicycleId") Long bicycleId){
         Long userId = SecurityUtils.getUserId();
@@ -50,7 +52,7 @@ public class RepairController {
         }
         return  Results.success();
     }
-
+    @PreAuthorize("@ss.hasPermi('damage:repair')")
     @PostMapping("/repair")
     public Result<Void> repair(@RequestBody RecordDamage recordDamage){
         LambdaQueryWrapper<Bicycle> objectLambdaQueryWrapper = new LambdaQueryWrapper<>();

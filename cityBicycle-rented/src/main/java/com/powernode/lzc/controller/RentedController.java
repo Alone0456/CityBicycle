@@ -12,6 +12,7 @@ import com.powernode.lzc.exception.DbOperateUnknownException;
 import com.powernode.lzc.service.*;
 import com.ruoyi.common.utils.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
@@ -46,8 +47,9 @@ public class RentedController {
      *
      * @return
      */
+    @PreAuthorize("@ss.hasPermi('rented:manage')")
     @GetMapping("/query")
-    public Result<Page<StationDetails>> query(
+    public Result<Page<RentedRecord>> query(
             @RequestParam("orderColumn") String orderColumn,
             @RequestParam("orderType") String orderType,
             @RequestParam("size") Integer size,
@@ -60,11 +62,24 @@ public class RentedController {
         }else{
             lambdaQueryWrapper.orderByAsc(orderColumn);
         }
-        Page<StationDetails> stationPage = stationService.page(new Page<StationDetails>(page, size), lambdaQueryWrapper);
+        Page<RentedRecord> rentedRecord = rentedService.page(new Page<RentedRecord>(page, size), lambdaQueryWrapper);
 
-        return Results.success(stationPage);
+        return Results.success(rentedRecord);
     }
+    @PreAuthorize("@ss.hasPermi('rented:user')")
+    @GetMapping("/user/query")
+    public Result<Page<RentedRecord>> queryUser(
+            @RequestParam("size") Integer size,
+            @RequestParam("page") Integer page
+    ){
+        Long userId = SecurityUtils.getUserId();
+        LambdaQueryWrapper<RentedRecord> lambdaQueryWrapper = new LambdaQueryWrapper<>();
+        lambdaQueryWrapper.eq(RentedRecord::getRentedUserId,userId);
+        Page<RentedRecord> rentedRecord = rentedService.page(new Page<RentedRecord>(page, size), lambdaQueryWrapper);
 
+        return Results.success(rentedRecord);
+    }
+    @PreAuthorize("@ss.hasPermi('rented:service')")
     @PostMapping("/rented")
     public Result<Void> rented(@RequestBody Rented rented){
         Long userId = SecurityUtils.getUserId();
@@ -83,7 +98,7 @@ public class RentedController {
         stationService.updateById(stationDetails);
         return  Results.success();
     }
-
+    @PreAuthorize("@ss.hasPermi('rented:service')")
     @PostMapping("/return")
     public Result returnBicycle(@RequestBody ReturnBicycle returnBicycle){
         Long userId = SecurityUtils.getUserId();

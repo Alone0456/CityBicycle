@@ -14,6 +14,7 @@ import com.powernode.lzc.service.StationService;
 import com.ruoyi.common.utils.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
@@ -38,6 +39,7 @@ public class OrderQueryController {
     private ProfileService profileService;
     @Autowired
     private StationService stationService;
+    @PreAuthorize("@ss.hasPermi('order:user')")
      @GetMapping("/my")
      public Result<Page<OrderRecord>> queryMyOrder(
              @RequestParam int page,
@@ -48,7 +50,7 @@ public class OrderQueryController {
          orderRecordLambdaQueryWrapper.eq(OrderRecord::getUserId,userId);
          return Results.success(orderService.page(new Page<OrderRecord>(page,size),orderRecordLambdaQueryWrapper));
      }
-
+    @PreAuthorize("@ss.hasPermi('order:query')")
      @GetMapping("/station")
      public Result<List<StationProfileVo>> queryOrderForStation(){
          List<StationProfile> list = profileService.list();
@@ -56,6 +58,7 @@ public class OrderQueryController {
          convert.forEach(stationProfileVo -> {stationProfileVo.setStationName(stationService.getById(stationProfileVo.getProfileId()).getStationName());});
          return Results.success(convert);
      }
+    @PreAuthorize("@ss.hasPermi('order:query')")
      @GetMapping("/all")
      public Result<Page<OrderRecord>> queryAll(
              @RequestParam int page,
@@ -63,6 +66,7 @@ public class OrderQueryController {
      ){
          return Results.success(orderService.page(new Page<OrderRecord>(page,size)));
      }
+    @PreAuthorize("@ss.hasPermi('order:query')")
      @GetMapping("/time")
      public Result<Page<OrderRecord>> getOrderByTime(
             @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") Date startTime,
@@ -81,6 +85,7 @@ public class OrderQueryController {
      *
      * @return
      */
+    @PreAuthorize("@ss.hasPermi('order:query')")
      @GetMapping("/profile")
      public Result<BigDecimal> getTotalProfile(){
          List<StationProfile> stationProfiles = profileService.list();

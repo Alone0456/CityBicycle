@@ -8,6 +8,7 @@ import com.powernode.lzc.service.BicycleService;
 import com.powernode.lzc.common.data.Result;
 import com.powernode.lzc.common.data.Results;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
@@ -30,6 +31,7 @@ public class BicycleController {
 
     @Autowired
     private BicycleService bicycleService;
+     @PreAuthorize("@ss.hasPermi('bicycle:manage')")
      @GetMapping("/all")
      public Result<Page<Bicycle>> queryAll(
              @RequestParam("page") int page,
@@ -38,7 +40,7 @@ public class BicycleController {
 
            return Results.success(bicycleService.page(new Page<Bicycle>(page,size)));
      }
-
+    @PreAuthorize("@ss.hasPermi('bicycle:manage')")
      @GetMapping("/stationId/{stationId}")
      public Result<Page<Bicycle>> queryBicycleByStation(@PathVariable Long stationId,
                                                         @RequestParam int page,
@@ -49,18 +51,19 @@ public class BicycleController {
          bicycleService.page(new Page<>(page,size),bicycleLambdaQueryWrapper);
         return  Results.success(bicycleService.page(new Page<Bicycle>(page, size), bicycleLambdaQueryWrapper));
      }
-
+    @PreAuthorize("@ss.hasPermi('bicycle:manage')")
      @GetMapping("/status")
       public Result<List<Bicycle>> queryForStatus(@RequestParam("status") Integer status){
          LambdaQueryWrapper<Bicycle> bicycleLambdaQueryWrapper = new LambdaQueryWrapper<>();
          bicycleLambdaQueryWrapper.eq(Bicycle::getBicycleStatus,status);
          return Results.success(bicycleService.list(bicycleLambdaQueryWrapper));
       }
+    @PreAuthorize("@ss.hasPermi('bicycle:manage')")
     @GetMapping("/{bicycleId}")
     public Result<Bicycle> queryForId(@PathVariable Long bicycleId){
         return Results.success(bicycleService.getById(bicycleId));
     }
-
+    @PreAuthorize("@ss.hasPermi('bicycle:manage')")
      @PostMapping("/save")
     public Result insert(@RequestBody Bicycle bicycle){
          bicycle.setCreateTime(new Date());
