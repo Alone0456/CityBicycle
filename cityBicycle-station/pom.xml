@@ -7,7 +7,7 @@
         <version>3.8.7</version>
     </parent>
 
-    <groupId>com.powernode.lzc</groupId>
+    <groupId>com.ruoyi.lzc</groupId>
     <artifactId>cityBicycle-station</artifactId>
     <packaging>jar</packaging>
 
@@ -20,7 +20,7 @@
 
     <dependencies>
         <dependency>
-            <groupId>com.powernode.lzc</groupId>
+            <groupId>com.ruoyi.lzc</groupId>
             <artifactId>cityBicycle-bicycle</artifactId>
             <version>3.8.7</version>
         </dependency>
@@ -37,7 +37,7 @@
             <artifactId>lombok</artifactId>
         </dependency>
         <dependency>
-            <groupId>com.powernode.lzc</groupId>
+            <groupId>com.ruoyi.lzc</groupId>
             <artifactId>cityBicycle-common</artifactId>
             <version>3.8.7</version>
         </dependency>

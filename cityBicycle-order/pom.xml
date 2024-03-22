@@ -7,7 +7,7 @@
         <version>3.8.7</version>
     </parent>
 
-    <groupId>com.powernode.lzc</groupId>
+    <groupId>com.ruoyi.lzc</groupId>
     <artifactId>cityBicycle-order</artifactId>
     <packaging>jar</packaging>
     <name>cityBicycle-order</name>
@@ -20,13 +20,9 @@
     <dependencies>
 
         <dependency>
-            <groupId>com.powernode.lzc</groupId>
+            <groupId>com.ruoyi.lzc</groupId>
             <artifactId>cityBicycle-common</artifactId>
             <version>3.8.7</version>
-        </dependency>
-        <dependency>
-            <groupId>com.ruoyi</groupId>
-            <artifactId>ruoyi-common</artifactId>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -37,8 +33,9 @@
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
         <dependency>
-            <groupId>com.powernode.lzc</groupId>
+            <groupId>com.ruoyi.lzc</groupId>
             <artifactId>cityBicycle-station</artifactId>
+            <version>3.8.7</version>
         </dependency>
         <dependency>
             <groupId>com.baomidou</groupId>
