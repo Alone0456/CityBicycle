@@ -28,9 +28,9 @@ public class BicycleController {
     /**
      *
      */
-
     @Autowired
     private BicycleService bicycleService;
+
      @PreAuthorize("@ss.hasPermi('bicycle:manage')")
      @GetMapping("/all")
      public Result<Page<Bicycle>> queryAll(
