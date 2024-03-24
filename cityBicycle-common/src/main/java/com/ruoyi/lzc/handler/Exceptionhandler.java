@@ -1,12 +1,9 @@
 package com.ruoyi.lzc.handler;
 
+import com.ruoyi.common.core.domain.AjaxResult;
 import com.ruoyi.lzc.common.Constant;
-import com.ruoyi.lzc.common.data.Result;
-import com.ruoyi.lzc.common.data.Results;
-import com.ruoyi.lzc.exception.AlreadyPaidException;
-import com.ruoyi.lzc.exception.BicycleAlreadyRepairException;
-import com.ruoyi.lzc.exception.DbOperateUnknownException;
-import com.ruoyi.lzc.exception.PayMoneyErrorException;
+
+import com.ruoyi.lzc.exception.*;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
@@ -21,20 +18,28 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 public class Exceptionhandler   {
 
     @ExceptionHandler(value = AlreadyPaidException.class)
-    public Result validExceptionHandler(AlreadyPaidException ex) {
-        return Results.failure(Constant.ALREADY_PAID,ex.getMessage());
+    public AjaxResult validExceptionHandler(AlreadyPaidException ex) {
+        return AjaxResult.error(Constant.ALREADY_PAID,ex.getMessage());
     }
 
     @ExceptionHandler(value = BicycleAlreadyRepairException.class)
-    public Result validExceptionHandler(BicycleAlreadyRepairException ex) {
-        return Results.failure(Constant.ALEEADY_REPAIR,ex.getMessage());
+    public AjaxResult validExceptionHandler(BicycleAlreadyRepairException ex) {
+        return AjaxResult.error(Constant.ALEEADY_REPAIR,ex.getMessage());
     }
     @ExceptionHandler(value = DbOperateUnknownException.class)
-    public Result validExceptionHandler(DbOperateUnknownException ex) {
-        return Results.failure(Constant.DB_OPEARATE_EXCEPTION,ex.getMessage());
+    public AjaxResult validExceptionHandler(DbOperateUnknownException ex) {
+        return AjaxResult.error(Constant.DB_OPEARATE_EXCEPTION,ex.getMessage());
     }
     @ExceptionHandler(value = PayMoneyErrorException.class)
-    public Result validExceptionHandler(PayMoneyErrorException ex) {
-        return Results.failure(Constant.PAY_MONEY_ERROR,ex.getMessage());
+    public AjaxResult validExceptionHandler(PayMoneyErrorException ex) {
+        return AjaxResult.error(Constant.PAY_MONEY_ERROR,ex.getMessage());
+    }
+    @ExceptionHandler(value = BicycleAlreadyRentedException.class)
+    public AjaxResult validExceptionHandler(BicycleAlreadyRentedException ex) {
+        return AjaxResult.error(Constant.BICYCLE_ALREADY_RENTED,ex.getMessage());
+    }
+    @ExceptionHandler(value = BicycleAlreadyReturnException.class)
+    public AjaxResult validExceptionHandler(BicycleAlreadyReturnException ex) {
+        return AjaxResult.error(Constant.BICYCLE_ALREADY_RETURN,ex.getMessage());
     }
 }
