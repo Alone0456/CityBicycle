@@ -1,5 +1,7 @@
 package com.ruoyi.lzc.domain.entity;
 
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 
 import java.math.BigDecimal;
@@ -12,7 +14,9 @@ import java.math.BigDecimal;
  * @version: 1.0
  */
 @Data
+@TableName("station_profile")
 public class StationProfile {
+    @TableId
     private Long profileId;
     private Long stationId;
     private BigDecimal profile;
