@@ -8,18 +8,14 @@ import com.ruoyi.lzc.domain.entity.OrderRecord;
 import com.ruoyi.lzc.common.BeanUtil;
 import com.ruoyi.lzc.domain.entity.StationProfile;
 import com.ruoyi.lzc.domain.vo.StationProfileVo;
-import com.ruoyi.lzc.domain.vo.TotalProfile;
 import com.ruoyi.lzc.service.OrderService;
 import com.ruoyi.lzc.service.ProfileService;
 import com.ruoyi.lzc.service.StationService;
 import com.ruoyi.common.utils.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
-import java.math.BigDecimal;
-import java.util.Date;
 import java.util.List;
 
 
