@@ -12,4 +12,6 @@ public interface Constant {
     public static final Integer ALEEADY_REPAIR = 500451;
     public static final Integer DB_OPEARATE_EXCEPTION = 500452;
     public static final Integer PAY_MONEY_ERROR = 500453;
+    public static final Integer BICYCLE_ALREADY_RENTED = 500454;
+    public static final Integer BICYCLE_ALREADY_RETURN = 500455;
 }
