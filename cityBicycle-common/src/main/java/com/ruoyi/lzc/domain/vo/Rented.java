@@ -2,6 +2,7 @@ package com.ruoyi.lzc.domain.vo;
 
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 
@@ -13,10 +14,10 @@ import java.io.Serializable;
  * @version: 1.0
  */
 @Data
-@Builder
+@NoArgsConstructor
 public class Rented implements Serializable {
 
-    private Long rentedId;
+
     private Long bicycleId;
     private long rentedStationId;
     private long rentedUserId;
