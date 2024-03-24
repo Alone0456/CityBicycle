@@ -2,6 +2,7 @@ package com.ruoyi.lzc.controller;
 
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.ruoyi.common.core.domain.AjaxResult;
 import com.ruoyi.lzc.domain.entity.StationDetails;
@@ -10,7 +11,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @className: StationController
@@ -40,15 +43,15 @@ public class StationController {
             @RequestParam("page") Integer page
     ){
 
-        LambdaQueryWrapper lambdaQueryWrapper = new LambdaQueryWrapper();
-        lambdaQueryWrapper.orderBy(true,true,orderColumn);
-//        if (orderType.equals("desc")) {
-//            lambdaQueryWrapper.orderByDesc(orderColumn);
-//        }else{
-//            lambdaQueryWrapper.orderByAsc(orderColumn);
-//        }
-        List list = stationService.list(lambdaQueryWrapper);
-        Page<StationDetails> stationPage = stationService.page(new Page<StationDetails>(page, size), lambdaQueryWrapper);
+        QueryWrapper<StationDetails> stationDetailsQueryWrapper = new QueryWrapper<>();
+        stationDetailsQueryWrapper.orderBy(true,true,orderColumn);
+        if (orderType.equals("desc")) {
+            stationDetailsQueryWrapper.orderByDesc(orderColumn);
+        }else{
+            stationDetailsQueryWrapper.orderByAsc(orderColumn);
+        }
+        List list = stationService.list(stationDetailsQueryWrapper);
+        Page<StationDetails> stationPage = stationService.page(new Page<StationDetails>(page, size), stationDetailsQueryWrapper);
 
         return AjaxResult.success(list);
     }
