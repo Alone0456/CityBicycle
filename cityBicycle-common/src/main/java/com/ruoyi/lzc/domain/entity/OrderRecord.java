@@ -13,7 +13,7 @@ public class OrderRecord {
  @TableId
   private long orderId;
   private long userId;
-  private Long userName;
+  private String userName;
   private Date payTime;
   private BigDecimal money;
   private Long rentedTimeLong;
