@@ -1,7 +1,7 @@
 package com.ruoyi.lzc.controller;
 
-import com.ruoyi.lzc.common.data.Result;
-import com.ruoyi.lzc.common.data.Results;
+import com.ruoyi.common.core.domain.AjaxResult;
+
 import com.ruoyi.lzc.domain.entity.OrderRecord;
 import com.ruoyi.lzc.domain.vo.OrderPay;
 import com.ruoyi.lzc.exception.AlreadyPaidException;
@@ -31,7 +31,7 @@ public class PayController {
     @PreAuthorize("@ss.hasPermi('order:pay')")
     @PostMapping("/pay")
     @Transactional
-    public Result<Void> pay(@RequestBody OrderPay orderPay){
+    public AjaxResult pay(@RequestBody OrderPay orderPay){
         OrderRecord byId = orderService.getById(orderPay.getRentedId());
         if(byId.getIsPay() == 1){
             throw new AlreadyPaidException("您已经支付过该订单了");
@@ -45,6 +45,6 @@ public class PayController {
         if(!flag){
            throw new DbOperateUnknownException("数据库操作未知异常");
         }
-       return  Results.success();
+       return  AjaxResult.success();
     }
 }

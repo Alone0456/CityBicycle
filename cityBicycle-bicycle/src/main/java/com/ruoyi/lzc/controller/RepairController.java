@@ -1,8 +1,7 @@
 package com.ruoyi.lzc.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.ruoyi.lzc.common.data.Result;
-import com.ruoyi.lzc.common.data.Results;
+import com.ruoyi.common.core.domain.AjaxResult;
 import com.ruoyi.lzc.domain.entity.Bicycle;
 import com.ruoyi.lzc.domain.entity.BicycleDamage;
 import com.ruoyi.lzc.exception.DbOperateUnknownException;
@@ -34,12 +33,12 @@ public class RepairController {
     private DamageService damageService;
     @PreAuthorize("@ss.hasPermi('damage:record')")
     @GetMapping("/record")
-    public Result<Void> record(@RequestParam("bicycleId") Long bicycleId){
+    public AjaxResult record(@RequestParam("bicycleId") Long bicycleId){
         Long userId = SecurityUtils.getUserId();
         LambdaQueryWrapper<Bicycle> objectLambdaQueryWrapper = new LambdaQueryWrapper<>();
         objectLambdaQueryWrapper.eq(Bicycle::getBicycleId,bicycleId);
         Bicycle bicycle = bicycleService.getOne(objectLambdaQueryWrapper);
-        bicycle.setBicycleStatus(0);
+        bicycle.setBicycleStatus(2);
         bicycleService.updateById(bicycle);
         BicycleDamage bicycleDamage = new BicycleDamage();
         bicycleDamage.setBicycleId(bicycleId);
@@ -50,11 +49,11 @@ public class RepairController {
         if (damageService.save(bicycleDamage)) {
             throw new DbOperateUnknownException("数据库操作未知异常");
         }
-        return  Results.success();
+        return  AjaxResult.success();
     }
     @PreAuthorize("@ss.hasPermi('damage:repair')")
     @PostMapping("/repair")
-    public Result<Void> repair(@RequestBody RecordDamage recordDamage){
+    public AjaxResult repair(@RequestBody RecordDamage recordDamage){
         LambdaQueryWrapper<Bicycle> objectLambdaQueryWrapper = new LambdaQueryWrapper<>();
         objectLambdaQueryWrapper.eq(Bicycle::getBicycleId,recordDamage.getBicycleId());
         Bicycle bicycle = bicycleService.getOne(objectLambdaQueryWrapper);
@@ -71,6 +70,6 @@ public class RepairController {
         bicycle.setInspectTime(new Date());
         bicycle.setInspectNum(bicycle.getInspectNum()+1);
         bicycleService.updateById(bicycle);
-        return Results.success();
+        return AjaxResult.success();
     }
 }
