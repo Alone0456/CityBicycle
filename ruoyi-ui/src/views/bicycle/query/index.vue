@@ -14,7 +14,7 @@
                 </div>
             </el-col>
             <!--用户数据-->
-            <el-col :span="20" :xs="24">
+            <!-- <el-col :span="20" :xs="24">
                 <el-form :model="queryParams" ref="queryForm" size="small" :inline="true" v-show="showSearch"
                     label-width="68px">
                     <el-form-item label="用户名称" prop="userName">
@@ -83,15 +83,14 @@
                             <el-switch v-model="scope.row.status" active-value="0" inactive-value="1"
                                 @change="handleStatusChange(scope.row)"></el-switch>
                         </template>
-                    </el-table-column>
-                    <el-table-column label="创建时间" align="center" prop="createTime" v-if="columns[6].visible"
-                        width="160">
-                        <template slot-scope="scope">
+</el-table-column>
+<el-table-column label="创建时间" align="center" prop="createTime" v-if="columns[6].visible" width="160">
+    <template slot-scope="scope">
                             <span>{{ parseTime(scope.row.createTime) }}</span>
                         </template>
-                    </el-table-column>
-                    <el-table-column label="操作" align="center" width="160" class-name="small-padding fixed-width">
-                        <template slot-scope="scope" v-if="scope.row.userId !== 1">
+</el-table-column>
+<el-table-column label="操作" align="center" width="160" class-name="small-padding fixed-width">
+    <template slot-scope="scope" v-if="scope.row.userId !== 1">
                             <el-button size="mini" type="text" icon="el-icon-edit" @click="handleUpdate(scope.row)"
                                 v-hasPermi="['system:user:edit']">修改</el-button>
                             <el-button size="mini" type="text" icon="el-icon-delete" @click="handleDelete(scope.row)"
@@ -107,12 +106,12 @@
                                 </el-dropdown-menu>
                             </el-dropdown>
                         </template>
-                    </el-table-column>
-                </el-table>
+</el-table-column>
+</el-table>
 
-                <pagination v-show="total > 0" :total="total" :page.sync="queryParams.page"
-                    :limit.sync="queryParams.size" @pagination="getList" />
-            </el-col>
+<pagination v-show="total > 0" :total="total" :page.sync="queryParams.pageNum" :limit.sync="queryParams.pageSize"
+    @pagination="getList" />
+</el-col> -->
         </el-row>
 
         <!-- 添加或修改用户配置对话框 -->
@@ -233,7 +232,7 @@
 
 <script>
 import { getUser, delUser, addUser, updateUser, resetUserPwd, changeUserStatus, deptTreeSelect } from "@/api/system/user";
-import { listUser } from "@/api/borrow/rent";
+import { listQuery } from "@/api/bicycle/query";
 import { getToken } from "@/utils/auth";
 import Treeselect from "@riophae/vue-treeselect";
 import "@riophae/vue-treeselect/dist/vue-treeselect.css";
@@ -299,8 +298,6 @@ export default {
             queryParams: {
                 page: 1,
                 size: 10,
-                // orderType: 'desc',
-                // orderColumn: 'bicycle_num',
 
             },
             // 列信息
@@ -361,13 +358,19 @@ export default {
         /** 查询用户列表 */
         getList() {
             this.loading = true;
-            console.log("rent list: ", this.queryParams);
-            listUser(this.queryParams).then(response => {
-                this.userList = response.rows;
-                this.total = response.total;
-                this.loading = false;
-            }
-            );
+            listQuery(this.addDateRange(this.queryParams, this.dateRange))
+                .then(response => {
+                    console.log(response);
+                    this.userList = response.rows;
+                    this.total = response.total;
+                    this.loading = false;
+                })
+                .catch(error => {
+                    console.error('Error fetching user list:', error);
+                    this.loading = false;
+                    // 可以根据需要进行错误处理，比如显示错误信息给用户
+                    this.$message.error('获取用户列表失败，请稍后重试');
+                });
         },
         /** 查询部门下拉树结构 */
         getDeptTree() {
