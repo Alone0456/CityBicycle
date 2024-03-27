@@ -234,7 +234,7 @@
 
 <script>
 import { delUser, addUser, updateUser, resetUserPwd, changeUserStatus, deptTreeSelect } from "@/api/system/user";
-import { listQuery, queryByStationId, queryByStatus, queryByBicycleId } from "@/api/bicycle/query";
+import { listQuery } from "@/api/order/query";
 import { getToken } from "@/utils/auth";
 import Treeselect from "@riophae/vue-treeselect";
 import "@riophae/vue-treeselect/dist/vue-treeselect.css";
