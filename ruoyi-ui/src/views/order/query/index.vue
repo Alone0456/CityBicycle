@@ -17,13 +17,13 @@
             <el-col :span="60" :xs="24">
                 <el-form :model="queryParams" ref="queryForm" size="small" :inline="true" v-show="showSearch"
                     label-width="68px">
-                    <el-form-item label="站点id" prop="queryParams.stationId">
+                    <el-form-item label="站点收益" prop="queryParams.stationId">
                         <el-input v-model="queryParams.stationId" placeholder="请输入站点id" clearable style="width: 340px"
-                            @keyup.enter.native="getListByStationId" />
+                            @keyup.enter.native="getStationProfile" />
                     </el-form-item>
-                    <el-form-item label="车辆id" prop="queryParams.bicycleId">
+                    <el-form-item label="全部收益" prop="queryParams.bicycleId">
                         <el-input v-model="queryParams.bicycleId" placeholder="请输入车辆id" clearable style="width: 240px"
-                            @keyup.enter.native="getListByBicycleId" />
+                            @keyup.enter.native="getAllProfile" />
                     </el-form-item>
                     <el-form-item label="状态" prop="status">
                         <el-select v-model="queryParams.status" placeholder="车辆状态" clearable style="width: 240px">
@@ -69,14 +69,31 @@
 
                 <el-table v-loading="loading" :data="userList" @selection-change="handleSelectionChange">
                     <el-table-column type="selection" width="50" align="center" />
-                    <el-table-column label="车辆编号" align="center" key="bicycleId" prop="bicycleId"
-                        v-if="columns[0].visible" />
-                    <el-table-column label="车辆状态" align="center" key="bicycleStatus" prop="bicycleStatus"
-                        v-if="columns[1].visible" :show-overflow-tooltip="true" />
-                    <el-table-column label="站点id" align="center" key="stationId" prop="stationId"
-                        v-if="columns[2].visible" :show-overflow-tooltip="true" />
+
+                    <!-- 订单查询 -->
+                    <el-table-column label="订单编号" align="center" key="orderId" prop="orderId"
+                        v-if="userList.some(user => user.orderId !== undefined && user.orderId !== null && user.orderId !== '')" />
+                    <el-table-column label="用户编号" align="center" key="userId" prop="userId"
+                        v-if="userList.some(user => user.userId !== undefined && user.userId !== null && user.userId !== '')" />
+                    <el-table-column label="用户姓名" align="center" key="userName" prop="userName"
+                        v-if="userList.some(user => user.userName !== undefined && user.userName !== null && user.userName !== '')" />
+                    <el-table-column label="总价" align="center" key="money" prop="money"
+                        v-if="userList.some(user => user.money !== undefined && user.money !== null && user.money !== '')" />
+                    <el-table-column label="支付状态" align="center" key="isPay" prop="isPay"
+                        v-if="userList.some(user => user.isPay !== undefined && user.isPay !== null && user.isPay !== '')"
+                        :show-overflow-tooltip="true" />
+
+                    <!-- 站点收益 -->
+                    <el-table-column label="收益编号" align="center" key="profileId" prop="profileId"
+                        v-if="userList.some(user => user.profileId !== undefined && user.profileId !== null && user.profileId !== '')" />
+                    <el-table-column label="站点编号" align="center" key="stationId" prop="stationId"
+                        v-if="userList.some(user => user.stationId !== undefined && user.stationId !== null && user.stationId !== '')" />
                     <el-table-column label="站点名称" align="center" key="stationName" prop="stationName"
-                        v-if="columns[3].visible" :show-overflow-tooltip="true" />
+                        v-if="userList.some(user => user.stationName !== undefined && user.stationName !== null && user.stationName !== '')" />
+                    <el-table-column label="站点收益" align="center" key="profile" prop="profile"
+                        v-if="userList.some(user => user.profile !== undefined && user.profile !== null && user.profile !== '')" />
+
+
                     <!-- <el-table-column label="手机号码" align="center" key="phonenumber" prop="phonenumber"
                         v-if="columns[4].visible" width="120" /> -->
                     <el-table-column label="状态" align="center" key="status" v-if="columns[5].visible">
@@ -234,7 +251,7 @@
 
 <script>
 import { delUser, addUser, updateUser, resetUserPwd, changeUserStatus, deptTreeSelect } from "@/api/system/user";
-import { listQuery } from "@/api/order/query";
+import { listQuery, queryStationProfile, queryAllProfile } from "@/api/order/query";
 import { getToken } from "@/utils/auth";
 import Treeselect from "@riophae/vue-treeselect";
 import "@riophae/vue-treeselect/dist/vue-treeselect.css";
@@ -377,6 +394,67 @@ export default {
                     this.$message.error('获取用户列表失败，请稍后重试');
                 });
         },
+        getStationProfile() {
+
+            this.loading = true;
+            this.queryParams.page = 1;
+            if (this.queryParams.stationId == '') {
+                this.getList();
+            } else {
+                queryStationProfile(this.addDateRange(this.queryParams, this.dateRange))
+                    .then(response => {
+                        console.log('queryByStationId', response);
+                        this.userList = [];
+
+                        console.log(this.userList);
+                        if (response.data == undefined) {
+                            this.total = 0;
+                        } else {
+                            this.userList = response.data;
+                            this.total = this.userList.length;
+                        }
+                        this.loading = false;
+                    })
+                    .catch(error => {
+                        console.error('Error fetching user list:', error);
+                        this.loading = false;
+                        // 可以根据需要进行错误处理，比如显示错误信息给用户
+                        this.$message.error('获取用户列表失败，请稍后重试');
+                    });
+            }
+        },
+        getAllProfile() {
+
+            this.loading = true;
+            this.queryParams.page = 1;
+            if (this.queryParams.bicycleId == '') {
+                this.getList();
+            } else {
+                queryAllProfile(this.addDateRange(this.queryParams, this.dateRange))
+                    .then(response => {
+                        console.log('queryByStationId', response);
+                        this.userList = [];
+
+                        console.log(this.userList);
+                        if (response.data == undefined) {
+                            this.total = 0;
+                        } else {
+                            this.userList = response.data;
+                            this.total = this.userList.length;
+                        }
+                        this.loading = false;
+                    })
+                    .catch(error => {
+                        console.error('Error fetching user list:', error);
+                        this.loading = false;
+                        // 可以根据需要进行错误处理，比如显示错误信息给用户
+                        this.$message.error('获取用户列表失败，请稍后重试');
+                    });
+            }
+        },
+
+
+
         getListByStationId() {
 
             this.loading = true;

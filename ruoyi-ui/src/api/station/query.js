@@ -4,11 +4,13 @@ import { parseStrEmpty } from "@/utils/ruoyi";
 // 查询车辆列表
 export function listQuery(query) {
     return request({
-        url: '/bicycle/all',
+        url: '/station/all',
         method: 'get',
         params: {
             "page": query.page,
-            "size": query.size
+            "size": query.size,
+            "orderColumn": query.orderColumn,
+            "orderType": query.orderType
         }
     })
 }
@@ -16,27 +18,10 @@ export function listQuery(query) {
 // 通过站点id查询车辆列表
 export function queryByStationId(query) {
     return request({
-        url: '/bicycle/' + parseStrEmpty(query.stationId),
+        url: '/station/' + parseStrEmpty(query.stationId),
         method: 'get'
     })
 }
-// 通过状态查询车辆列表
-export function queryByStatus(query) {
-    return request({
-        url: '/bicycle/status',
-        method: 'get',
-        params: query.status
-    })
-}
-// 通过车辆id查询车辆列表
-export function queryByBicycleId(query) {
-    return request({
-        url: '/bicycle/' + parseStrEmpty(query.bicycleId),
-        method: 'get'
-    })
-}
-
-
 
 
 

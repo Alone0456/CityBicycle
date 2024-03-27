@@ -69,16 +69,14 @@
 
                 <el-table v-loading="loading" :data="userList" @selection-change="handleSelectionChange">
                     <el-table-column type="selection" width="50" align="center" />
-                    <el-table-column label="车辆编号" align="center" key="orderId" prop="orderId"
+                    <el-table-column label="车辆编号" align="center" key="bicycleId" prop="bicycleId"
                         v-if="columns[0].visible" />
-                    <el-table-column label="用户编号" align="center" key="userId" prop="userId" v-if="columns[0].visible" />
-                    <el-table-column label="用户姓名" align="center" key="userName" prop="userName"
-                        v-if="columns[0].visible" />
-                    <el-table-column label="总价" align="center" key="money" prop="money" v-if="columns[0].visible" />
-
-                    <el-table-column label="支付状态" align="center" key="isPay" prop="isPay" v-if="columns[1].visible"
-                        :show-overflow-tooltip="true" />
-
+                    <el-table-column label="车辆状态" align="center" key="bicycleStatus" prop="bicycleStatus"
+                        v-if="columns[1].visible" :show-overflow-tooltip="true" />
+                    <el-table-column label="站点id" align="center" key="stationId" prop="stationId"
+                        v-if="columns[2].visible" :show-overflow-tooltip="true" />
+                    <el-table-column label="站点名称" align="center" key="stationName" prop="stationName"
+                        v-if="columns[3].visible" :show-overflow-tooltip="true" />
                     <!-- <el-table-column label="手机号码" align="center" key="phonenumber" prop="phonenumber"
                         v-if="columns[4].visible" width="120" /> -->
                     <el-table-column label="状态" align="center" key="status" v-if="columns[5].visible">
@@ -236,7 +234,7 @@
 
 <script>
 import { delUser, addUser, updateUser, resetUserPwd, changeUserStatus, deptTreeSelect } from "@/api/system/user";
-import { queryMy } from "@/api/order/query";
+import { listQuery, queryByStationId } from "@/api/station/query";
 import { getToken } from "@/utils/auth";
 import Treeselect from "@riophae/vue-treeselect";
 import "@riophae/vue-treeselect/dist/vue-treeselect.css";
@@ -303,8 +301,8 @@ export default {
                 page: 1,
                 size: 10,
                 stationId: '',
-                bicycleId: '',
-                status: '',
+                orderColumn: 'bicycle_num',
+                orderType: 'desc'
 
             },
             // 列信息
@@ -365,7 +363,7 @@ export default {
         /** 查询用户列表 */
         getList() {
             this.loading = true;
-            queryMy(this.addDateRange(this.queryParams, this.dateRange))
+            listQuery(this.addDateRange(this.queryParams, this.dateRange))
                 .then(response => {
                     console.log('bicycle', response);
                     this.userList = response.data.records;
