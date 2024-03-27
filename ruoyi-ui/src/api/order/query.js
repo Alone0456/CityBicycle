@@ -1,15 +1,44 @@
 import request from '@/utils/request'
 import { parseStrEmpty } from "@/utils/ruoyi";
 
-// 查询车辆列表
+// 查询订单列表
 export function listQuery(query) {
     return request({
-        url: '/bicycle/all',
+        url: '/order/all',
         method: 'get',
         params: {
             "page": query.page,
             "size": query.size
         }
+    })
+}
+
+// 查询我的订单
+export function queryMy(query) {
+    return request({
+        url: '/order/my',
+        method: 'get',
+        params: {
+            "page": query.page,
+            "size": query.size
+        }
+    })
+}
+
+// 查询站点收益
+export function queryStationProfile(query) {
+    return request({
+        url: '/order/station',
+        method: 'get'
+    })
+}
+
+// 查询总收益
+export function queryAllProfile(query) {
+    return request({
+        url: '/order/profile',
+        method: 'get',
+
     })
 }
 

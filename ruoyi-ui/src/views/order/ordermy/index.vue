@@ -234,7 +234,7 @@
 
 <script>
 import { delUser, addUser, updateUser, resetUserPwd, changeUserStatus, deptTreeSelect } from "@/api/system/user";
-import { listQuery, queryByStationId, queryByStatus, queryByBicycleId } from "@/api/bicycle/query";
+import { queryMy } from "@/api/order/query";
 import { getToken } from "@/utils/auth";
 import Treeselect from "@riophae/vue-treeselect";
 import "@riophae/vue-treeselect/dist/vue-treeselect.css";
@@ -363,7 +363,7 @@ export default {
         /** 查询用户列表 */
         getList() {
             this.loading = true;
-            listQuery(this.addDateRange(this.queryParams, this.dateRange))
+            queryMy(this.addDateRange(this.queryParams, this.dateRange))
                 .then(response => {
                     console.log('bicycle', response);
                     this.userList = response.data.records;
