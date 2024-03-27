@@ -44,16 +44,14 @@ public class StationController {
     ){
 
         QueryWrapper<StationDetails> stationDetailsQueryWrapper = new QueryWrapper<>();
-        stationDetailsQueryWrapper.orderBy(true,true,orderColumn);
         if (orderType.equals("desc")) {
             stationDetailsQueryWrapper.orderByDesc(orderColumn);
         }else{
             stationDetailsQueryWrapper.orderByAsc(orderColumn);
         }
-        List list = stationService.list(stationDetailsQueryWrapper);
         Page<StationDetails> stationPage = stationService.page(new Page<StationDetails>(page, size), stationDetailsQueryWrapper);
 
-        return AjaxResult.success(list);
+        return AjaxResult.success(stationPage);
     }
     @PreAuthorize("@ss.hasPermi('station:user')")
     @GetMapping("/user/all")
