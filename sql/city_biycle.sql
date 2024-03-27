@@ -11,7 +11,7 @@
  Target Server Version : 80032
  File Encoding         : 65001
 
- Date: 22/03/2024 15:48:38
+ Date: 27/03/2024 17:04:18
 */
 
 SET NAMES utf8mb4;
@@ -112,18 +112,31 @@ DROP TABLE IF EXISTS `order_record`;
 CREATE TABLE `order_record`  (
   `order_id` bigint NOT NULL AUTO_INCREMENT,
   `user_id` bigint NULL DEFAULT NULL,
+  `user_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `pay_time` datetime NULL DEFAULT NULL,
   `money` decimal(10, 2) NULL DEFAULT NULL,
   `rented_time_long` bigint NULL DEFAULT NULL,
   `rented_id` bigint NULL DEFAULT NULL,
   `is_pay` int NULL DEFAULT NULL,
   PRIMARY KEY (`order_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 13 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of order_record
 -- ----------------------------
-INSERT INTO `order_record` VALUES (1, 1, '2024-03-16 00:00:00', 12.50, 12334545, 1, 0);
+INSERT INTO `order_record` VALUES (1, 1, 'admin', '2024-03-22 20:06:57', 12.50, 12334545, 1, 0);
+INSERT INTO `order_record` VALUES (2, 1, 'admin', NULL, 1.00, 214135, 3, 0);
+INSERT INTO `order_record` VALUES (3, 1, 'admin', NULL, 1.00, 239075, 3, 0);
+INSERT INTO `order_record` VALUES (4, 1, 'admin', NULL, 1.00, 324265, 3, 0);
+INSERT INTO `order_record` VALUES (5, 1, 'admin', NULL, 1.00, 578229, 3, 0);
+INSERT INTO `order_record` VALUES (6, 1, 'admin', NULL, 1.00, 107011, 4, 0);
+INSERT INTO `order_record` VALUES (7, 1, 'admin', NULL, 1.00, 208359, 4, 0);
+INSERT INTO `order_record` VALUES (8, 1, 'admin', NULL, 1.00, 355991, 4, 0);
+INSERT INTO `order_record` VALUES (9, 1, 'admin', NULL, 1.00, 361565, 4, 0);
+INSERT INTO `order_record` VALUES (10, 1, 'admin', NULL, 2.10, 1237167, 4, 0);
+INSERT INTO `order_record` VALUES (11, 1, 'admin', NULL, 2.30, 1376877, 4, 0);
+INSERT INTO `order_record` VALUES (12, 1, 'admin', NULL, 2.90, 1703949, 4, 0);
+INSERT INTO `order_record` VALUES (13, 1, 'admin', NULL, 2.50, 1472269, 5, 0);
 
 -- ----------------------------
 -- Table structure for qrtz_blob_triggers
@@ -355,13 +368,16 @@ CREATE TABLE `rented_record`  (
   `return_time` datetime NULL DEFAULT NULL,
   `return_station_id` bigint NULL DEFAULT NULL,
   PRIMARY KEY (`rented_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of rented_record
 -- ----------------------------
 INSERT INTO `rented_record` VALUES (1, 1, 1, 1, '2024-03-15 00:00:00', '2024-03-16 00:00:00', 2);
 INSERT INTO `rented_record` VALUES (2, 1, 2, 2, '2024-03-15 00:00:00', '2024-03-16 00:00:00', 1);
+INSERT INTO `rented_record` VALUES (3, 1, 1, 1, '2024-03-22 20:30:07', '2024-03-22 20:39:45', 2);
+INSERT INTO `rented_record` VALUES (4, 1, 1, 1, '2024-03-24 15:45:08', '2024-03-24 16:13:32', 2);
+INSERT INTO `rented_record` VALUES (5, 1, 1, 1, '2024-03-24 15:50:37', '2024-03-24 16:15:09', 2);
 
 -- ----------------------------
 -- Table structure for station_details
@@ -380,8 +396,8 @@ CREATE TABLE `station_details`  (
 -- ----------------------------
 -- Records of station_details
 -- ----------------------------
-INSERT INTO `station_details` VALUES (1, '南沙群岛站点', '南沙群岛太平岛屿靠南海西侧航道东边', 54, 120, 30);
-INSERT INTO `station_details` VALUES (2, '珠穆朗玛峰站点', '珠穆朗玛峰山顶，海拔8844.32米处', 120, 20, 0);
+INSERT INTO `station_details` VALUES (1, '南沙群岛站点', '南沙群岛太平岛屿靠南海西侧航道东边', 54, 121, 30);
+INSERT INTO `station_details` VALUES (2, '珠穆朗玛峰站点', '珠穆朗玛峰山顶，海拔8844.32米处', 130, 22, 12);
 
 -- ----------------------------
 -- Table structure for station_profile
@@ -397,7 +413,7 @@ CREATE TABLE `station_profile`  (
 -- ----------------------------
 -- Records of station_profile
 -- ----------------------------
-INSERT INTO `station_profile` VALUES (1, 1, 120.50);
+INSERT INTO `station_profile` VALUES (1, 1, 128.20);
 INSERT INTO `station_profile` VALUES (2, 2, 550.50);
 
 -- ----------------------------
@@ -416,7 +432,7 @@ CREATE TABLE `sys_config`  (
   `update_time` datetime NULL DEFAULT NULL COMMENT '更新时间',
   `remark` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '备注',
   PRIMARY KEY (`config_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 100 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '参数配置表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 6 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '参数配置表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of sys_config
@@ -448,7 +464,7 @@ CREATE TABLE `sys_dept`  (
   `update_by` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT '' COMMENT '更新者',
   `update_time` datetime NULL DEFAULT NULL COMMENT '更新时间',
   PRIMARY KEY (`dept_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 200 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '部门表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 109 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '部门表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of sys_dept
@@ -484,7 +500,7 @@ CREATE TABLE `sys_dict_data`  (
   `update_time` datetime NULL DEFAULT NULL COMMENT '更新时间',
   `remark` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '备注',
   PRIMARY KEY (`dict_code`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 100 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '字典数据表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 29 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '字典数据表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of sys_dict_data
@@ -570,7 +586,7 @@ CREATE TABLE `sys_job`  (
   `update_time` datetime NULL DEFAULT NULL COMMENT '更新时间',
   `remark` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT '' COMMENT '备注信息',
   PRIMARY KEY (`job_id`, `job_name`, `job_group`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 100 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '定时任务调度表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '定时任务调度表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of sys_job
@@ -616,7 +632,7 @@ CREATE TABLE `sys_logininfor`  (
   PRIMARY KEY (`info_id`) USING BTREE,
   INDEX `idx_sys_logininfor_s`(`status` ASC) USING BTREE,
   INDEX `idx_sys_logininfor_lt`(`login_time` ASC) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 111 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '系统访问记录' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 129 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '系统访问记录' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of sys_logininfor
@@ -632,6 +648,25 @@ INSERT INTO `sys_logininfor` VALUES (107, 'admin', '127.0.0.1', '内网IP', 'Chr
 INSERT INTO `sys_logininfor` VALUES (108, 'admin', '127.0.0.1', '内网IP', 'Chrome 12', 'Windows 10', '0', '登录成功', '2024-03-22 09:49:00');
 INSERT INTO `sys_logininfor` VALUES (109, 'admin', '127.0.0.1', '内网IP', 'Chrome 12', 'Windows 10', '0', '登录成功', '2024-03-22 10:24:14');
 INSERT INTO `sys_logininfor` VALUES (110, 'admin', '127.0.0.1', '内网IP', 'Chrome 12', 'Windows 10', '0', '登录成功', '2024-03-22 12:06:14');
+INSERT INTO `sys_logininfor` VALUES (111, 'admin', '127.0.0.1', '内网IP', 'Chrome 12', 'Windows 10', '0', '登录成功', '2024-03-22 15:49:20');
+INSERT INTO `sys_logininfor` VALUES (112, 'admin', '127.0.0.1', '内网IP', 'Chrome 12', 'Windows 10', '1', '验证码错误', '2024-03-22 17:48:21');
+INSERT INTO `sys_logininfor` VALUES (113, 'admin', '127.0.0.1', '内网IP', 'Chrome 12', 'Windows 10', '0', '登录成功', '2024-03-22 17:48:26');
+INSERT INTO `sys_logininfor` VALUES (114, 'admin', '127.0.0.1', '内网IP', 'Chrome 12', 'Windows 10', '0', '登录成功', '2024-03-22 18:15:09');
+INSERT INTO `sys_logininfor` VALUES (115, 'admin', '127.0.0.1', '内网IP', 'Chrome 12', 'Windows 10', '0', '登录成功', '2024-03-22 19:02:18');
+INSERT INTO `sys_logininfor` VALUES (116, 'admin', '127.0.0.1', '内网IP', 'Chrome 12', 'Windows 10', '1', '验证码错误', '2024-03-22 19:31:02');
+INSERT INTO `sys_logininfor` VALUES (117, 'admin', '127.0.0.1', '内网IP', 'Chrome 12', 'Windows 10', '0', '登录成功', '2024-03-22 19:31:03');
+INSERT INTO `sys_logininfor` VALUES (118, 'admin', '127.0.0.1', '内网IP', 'Chrome 12', 'Windows 10', '0', '登录成功', '2024-03-22 19:58:51');
+INSERT INTO `sys_logininfor` VALUES (119, 'admin', '127.0.0.1', '内网IP', 'Chrome 12', 'Windows 10', '1', '验证码错误', '2024-03-22 20:29:51');
+INSERT INTO `sys_logininfor` VALUES (120, 'admin', '127.0.0.1', '内网IP', 'Chrome 12', 'Windows 10', '0', '登录成功', '2024-03-22 20:29:54');
+INSERT INTO `sys_logininfor` VALUES (121, 'admin', '127.0.0.1', '内网IP', 'Chrome 12', 'Windows 10', '1', '验证码错误', '2024-03-22 20:33:23');
+INSERT INTO `sys_logininfor` VALUES (122, 'admin', '127.0.0.1', '内网IP', 'Chrome 12', 'Windows 10', '0', '登录成功', '2024-03-22 20:33:26');
+INSERT INTO `sys_logininfor` VALUES (123, 'admin', '127.0.0.1', '内网IP', 'Chrome 12', 'Windows 10', '0', '登录成功', '2024-03-22 20:57:37');
+INSERT INTO `sys_logininfor` VALUES (124, 'admin', '127.0.0.1', '内网IP', 'Chrome 12', 'Windows 10', '1', '验证码已失效', '2024-03-24 15:09:10');
+INSERT INTO `sys_logininfor` VALUES (125, 'admin', '127.0.0.1', '内网IP', 'Chrome 12', 'Windows 10', '1', '验证码错误', '2024-03-24 15:09:13');
+INSERT INTO `sys_logininfor` VALUES (126, 'admin', '127.0.0.1', '内网IP', 'Chrome 12', 'Windows 10', '0', '登录成功', '2024-03-24 15:09:16');
+INSERT INTO `sys_logininfor` VALUES (127, 'admin', '127.0.0.1', '内网IP', 'Chrome 12', 'Windows 10', '0', '登录成功', '2024-03-24 15:44:50');
+INSERT INTO `sys_logininfor` VALUES (128, 'admin', '127.0.0.1', '内网IP', 'Chrome 12', 'Windows 10', '0', '登录成功', '2024-03-24 16:05:32');
+INSERT INTO `sys_logininfor` VALUES (129, 'admin', '127.0.0.1', '内网IP', 'Chrome 12', 'Windows 10', '0', '登录成功', '2024-03-24 16:13:18');
 
 -- ----------------------------
 -- Table structure for sys_menu
@@ -658,7 +693,7 @@ CREATE TABLE `sys_menu`  (
   `update_time` datetime NULL DEFAULT NULL COMMENT '更新时间',
   `remark` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT '' COMMENT '备注',
   PRIMARY KEY (`menu_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 2021 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '菜单权限表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 2020 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '菜单权限表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of sys_menu
@@ -903,7 +938,7 @@ CREATE TABLE `sys_role`  (
   `update_time` datetime NULL DEFAULT NULL COMMENT '更新时间',
   `remark` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '备注',
   PRIMARY KEY (`role_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 101 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '角色信息表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 100 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '角色信息表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of sys_role
@@ -1167,12 +1202,12 @@ CREATE TABLE `sys_user`  (
   `update_time` datetime NULL DEFAULT NULL COMMENT '更新时间',
   `remark` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '备注',
   PRIMARY KEY (`user_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 100 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '用户信息表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '用户信息表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of sys_user
 -- ----------------------------
-INSERT INTO `sys_user` VALUES (1, 103, 'admin', '若依', '00', 'ry@163.com', '15888888888', '1', '', '$2a$10$7JB720yubVSZvUI0rEqK/.VqGOZTH.ulu33dHOiBE8ByOhJIrdAu2', '0', '0', '127.0.0.1', '2024-03-22 12:06:14', 'admin', '2024-03-13 20:05:34', '', '2024-03-22 12:06:14', '管理员');
+INSERT INTO `sys_user` VALUES (1, 103, 'admin', '若依', '00', 'ry@163.com', '15888888888', '1', '', '$2a$10$7JB720yubVSZvUI0rEqK/.VqGOZTH.ulu33dHOiBE8ByOhJIrdAu2', '0', '0', '127.0.0.1', '2024-03-24 16:13:18', 'admin', '2024-03-13 20:05:34', '', '2024-03-24 16:13:18', '管理员');
 INSERT INTO `sys_user` VALUES (2, 105, 'ry', '若依', '00', 'ry@qq.com', '15666666666', '1', '', '$2a$10$7JB720yubVSZvUI0rEqK/.VqGOZTH.ulu33dHOiBE8ByOhJIrdAu2', '0', '0', '127.0.0.1', '2024-03-13 20:05:34', 'admin', '2024-03-13 20:05:34', '', NULL, '测试员');
 
 -- ----------------------------
@@ -1222,12 +1257,12 @@ CREATE TABLE `t_bicycle`  (
   `inspect_time` datetime NOT NULL COMMENT '最新维修时间',
   `inspect_num` int NULL DEFAULT NULL COMMENT '维修次数',
   PRIMARY KEY (`bicycle_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of t_bicycle
 -- ----------------------------
-INSERT INTO `t_bicycle` VALUES (1, '20240321', 212, '2024-03-01 00:00:00', 1, 1, '南沙群岛站点', '2024-03-10 00:00:00', 2);
+INSERT INTO `t_bicycle` VALUES (1, '20240321', 215, '2024-03-01 00:00:00', 1, 2, '南沙群岛站点', '2024-03-10 00:00:00', 2);
 INSERT INTO `t_bicycle` VALUES (2, '20240321', 222, '2024-03-01 00:00:00', 1, 2, '珠穆朗玛峰站点', '2024-03-15 00:00:00', 4);
 INSERT INTO `t_bicycle` VALUES (3, '20240321', 215, '2024-03-01 00:00:00', 0, 2, '珠穆朗玛峰站点', '2024-03-10 00:00:00', 2);
 INSERT INTO `t_bicycle` VALUES (4, '20240321', 2155, '2024-03-01 00:00:00', 1, 1, '南沙群岛站点', '2024-03-10 00:00:00', 2);
