@@ -53,7 +53,7 @@ public class RentedController {
 
 
     @PreAuthorize("@ss.hasPermi('rented:manage')")
-    @GetMapping("/query")
+    @PostMapping("/query")
     public AjaxResult query(@RequestBody Map<String,Object> params
            ){
         QueryWrapper<RentedRecord> rentedRecordQueryWrapper = new QueryWrapper<>();
