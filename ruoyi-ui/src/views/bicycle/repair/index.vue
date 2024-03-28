@@ -14,11 +14,11 @@
                 </div>
             </el-col> -->
             <!--用户数据-->
-            <el-col :span="60" :xs="24">
+            <el-col :span="24" :xs="24">
                 <el-form :model="queryParams" ref="queryForm" size="small" :inline="true" v-show="showSearch"
                     label-width="68px">
                     <el-form-item label="站点id" prop="queryParams.stationId">
-                        <el-input v-model="queryParams.stationId" placeholder="请输入站点id" clearable style="width: 340px"
+                        <el-input v-model="queryParams.stationId" placeholder="请输入站点id" clearable style="width: 240px"
                             @keyup.enter.native="getListByStationId" />
                     </el-form-item>
                     <el-form-item label="车辆id" prop="queryParams.bicycleId">
@@ -27,15 +27,11 @@
                     </el-form-item>
                     <el-form-item label="状态" prop="status">
                         <el-select v-model="queryParams.status" placeholder="车辆状态" clearable style="width: 240px">
-                            <el-option v-for="dict in dict.type.sys_normal_disable" :key="dict.value"
-                                :label="dict.label" :value="dict.value" />
+                            <el-option v-for="dict in statusList" :key="dict.value" :label="dict.label"
+                                :value="dict.value" />
                         </el-select>
                     </el-form-item>
-                    <el-form-item label="创建时间">
-                        <el-date-picker v-model="dateRange" style="width: 240px" value-format="yyyy-MM-dd"
-                            type="daterange" range-separator="-" start-placeholder="开始日期"
-                            end-placeholder="结束日期"></el-date-picker>
-                    </el-form-item>
+
                     <el-form-item>
                         <el-button type="primary" icon="el-icon-search" size="mini" @click="handleQuery">搜索</el-button>
                         <el-button icon="el-icon-refresh" size="mini" @click="resetQuery">重置</el-button>
@@ -47,14 +43,14 @@
                         <el-button type="primary" plain icon="el-icon-plus" size="mini" @click="handleAdd"
                             v-hasPermi="['system:user:add']">新增</el-button>
                     </el-col>
-                    <el-col :span="1.5">
+                    <!-- <el-col :span="1.5">
                         <el-button type="success" plain icon="el-icon-edit" size="mini" :disabled="single"
                             @click="handleUpdate" v-hasPermi="['system:user:edit']">修改</el-button>
                     </el-col>
                     <el-col :span="1.5">
                         <el-button type="danger" plain icon="el-icon-delete" size="mini" :disabled="multiple"
                             @click="handleDelete" v-hasPermi="['system:user:remove']">删除</el-button>
-                    </el-col>
+                    </el-col> -->
                     <el-col :span="1.5">
                         <el-button type="info" plain icon="el-icon-upload2" size="mini" @click="handleImport"
                             v-hasPermi="['system:user:import']">导入</el-button>
@@ -71,42 +67,34 @@
                     <el-table-column type="selection" width="50" align="center" />
                     <el-table-column label="车辆编号" align="center" key="bicycleId" prop="bicycleId"
                         v-if="columns[0].visible" />
+                    <el-table-column label="车辆型号" align="center" key="bicycleType" prop="bicycleType"
+                        v-if="columns[1].visible" />
                     <el-table-column label="车辆状态" align="center" key="bicycleStatus" prop="bicycleStatus"
-                        v-if="columns[1].visible" :show-overflow-tooltip="true" />
+                        v-if="columns[2].visible" :show-overflow-tooltip="true"></el-table-column>
+                    <el-table-column label="租借次数" align="center" key="rentNum" prop="rentNum"
+                        v-if="columns[3].visible" />
                     <el-table-column label="站点id" align="center" key="stationId" prop="stationId"
-                        v-if="columns[2].visible" :show-overflow-tooltip="true" />
+                        v-if="columns[4].visible" :show-overflow-tooltip="true" />
                     <el-table-column label="站点名称" align="center" key="stationName" prop="stationName"
-                        v-if="columns[3].visible" :show-overflow-tooltip="true" />
-                    <!-- <el-table-column label="手机号码" align="center" key="phonenumber" prop="phonenumber"
-                        v-if="columns[4].visible" width="120" /> -->
-                    <el-table-column label="状态" align="center" key="status" v-if="columns[5].visible">
-                        <template slot-scope="scope">
-                            <el-switch v-model="scope.row.status" active-value="1" inactive-value="0"
-                                @change="handleStatusChange(scope.row)"></el-switch>
-                        </template>
-                    </el-table-column>
+                        v-if="columns[5].visible" :show-overflow-tooltip="true" />
+
+
                     <!-- <el-table-column label="创建时间" align="center" prop="createTime" v-if="columns[6].visible"
                         width="160">
                         <template slot-scope="scope">
                             <span>{{ parseTime(scope.row.createTime) }}</span>
                         </template>
-                    </el-table-column> -->
+</el-table-column> -->
+
                     <el-table-column label="操作" align="center" width="160" class-name="small-padding fixed-width">
                         <template slot-scope="scope" v-if="scope.row.userId !== 1">
+
                             <el-button size="mini" type="text" icon="el-icon-edit"
-                                @click="handlePostDamage(scope.row)">报修</el-button>
+                                @click="handleRecordDamage(scope.row)">损坏登记</el-button>
+
                             <el-button size="mini" type="text" icon="el-icon-delete" @click="handleDelete(scope.row)"
                                 v-hasPermi="['system:user:remove']">删除</el-button>
-                            <el-dropdown size="mini" @command="(command) => handleCommand(command, scope.row)"
-                                v-hasPermi="['system:user:resetPwd', 'system:user:edit']">
-                                <el-button size="mini" type="text" icon="el-icon-d-arrow-right">更多</el-button>
-                                <el-dropdown-menu slot="dropdown">
-                                    <el-dropdown-item command="handleResetPwd" icon="el-icon-key"
-                                        v-hasPermi="['system:user:resetPwd']">重置密码</el-dropdown-item>
-                                    <el-dropdown-item command="handleAuthRole" icon="el-icon-circle-check"
-                                        v-hasPermi="['system:user:edit']">分配角色</el-dropdown-item>
-                                </el-dropdown-menu>
-                            </el-dropdown>
+
                         </template>
                     </el-table-column>
                 </el-table>
@@ -234,7 +222,7 @@
 
 <script>
 import { delUser, addUser, updateUser, resetUserPwd, changeUserStatus, deptTreeSelect } from "@/api/system/user";
-import { listQuery, queryByStationId, queryByStatus, queryByBicycleId, postDamage } from "@/api/bicycle/query";
+import { listQuery, queryByStationId, queryByStatus, queryByBicycleId, addBicycle, RecordDamage } from "@/api/bicycle/query";
 import { getToken } from "@/utils/auth";
 import Treeselect from "@riophae/vue-treeselect";
 import "@riophae/vue-treeselect/dist/vue-treeselect.css";
@@ -296,6 +284,10 @@ export default {
                 // 上传的地址
                 url: process.env.VUE_APP_BASE_API + "/system/user/importData"
             },
+            statusList: [
+                { value: 1, label: '正常' },
+                { value: 0, label: '停用' },
+            ],
             // 查询参数
             queryParams: {
                 page: 1,
@@ -307,13 +299,13 @@ export default {
             },
             // 列信息
             columns: [
-                { key: 0, label: `用户编号`, visible: true },
-                { key: 1, label: `用户名称`, visible: true },
-                { key: 2, label: `用户昵称`, visible: true },
-                { key: 3, label: `部门`, visible: true },
-                { key: 4, label: `手机号码`, visible: true },
-                { key: 5, label: `状态`, visible: true },
-                { key: 6, label: `创建时间`, visible: true }
+                { key: 0, label: `车辆编号`, visible: true },
+                { key: 1, label: `车辆型号`, visible: true },
+                { key: 2, label: `车辆状态`, visible: true },
+                { key: 3, label: `租借次数`, visible: true },
+                { key: 4, label: `站点id`, visible: true },
+                { key: 5, label: `站点名称`, visible: true },
+                // { key: 6, label: `创建时间`, visible: true }
             ],
             // 表单校验
             rules: {
@@ -384,7 +376,7 @@ export default {
             if (this.queryParams.stationId == '') {
                 this.getList();
             } else {
-                queryByStationId(this.addDateRange(this.queryParams, this.dateRange))
+                queryByStationId(this.addDateRange(this.queryParams.stationId, this.dateRange))
                     .then(response => {
                         console.log('queryByStationId', response);
                         this.userList = [];
@@ -415,7 +407,6 @@ export default {
             } else {
                 queryByBicycleId(this.addDateRange(this.queryParams, this.dateRange))
                     .then(response => {
-                        console.log('queryByStationId', response);
                         this.userList = [];
 
                         console.log(this.userList);
@@ -459,6 +450,62 @@ export default {
                     this.$message.error('获取用户列表失败，请稍后重试');
                 });
         },
+
+        // 执行搜索操作
+        search() {
+            // 备份原始的用户列表数据
+            const originalUserList = [...this.userList];
+
+            // 根据搜索条件筛选用户列表
+            this.userList = originalUserList.filter(user => {
+                console.log('this.queryParams: ', this.queryParams, user);
+                // 如果搜索条件中ID不为空，则筛选该列表
+                if (this.queryParams.stationId !== '') {
+                    return user.stationId == this.queryParams.stationId;
+                }
+                if (this.queryParams.bicycleId !== '') {
+                    return user.bicycleId == this.queryParams.bicycleId;
+                }
+                if (this.queryParams.status !== '') {
+                    return user.status == this.queryParams.status;
+                }
+
+
+            });
+            console.log('newlist: ', this.userList);
+            // 更新总条数
+            this.total = this.userList.length;
+        },
+        // 获取车辆状态
+        getStatus(status) {
+            console.log('status: ', status);
+            if (status === 1) {
+                return '正常';
+            } else if (status === 0) {
+                return '停用';
+            } else {
+                return '未知状态';
+            }
+        },
+        /** 损坏登记 */
+        handleRecordDamage(row) {
+            console.log('postdamage', row);
+            this.reset();
+            const userId = row.userId || this.ids;
+            RecordDamage(row.bicycleId, '损坏修复').then(response => {
+                this.form = response.data;
+                this.postOptions = response.posts;
+                this.roleOptions = response.roles;
+                this.$set(this.form, "postIds", response.postIds);
+                this.$set(this.form, "roleIds", response.roleIds);
+                this.open = true;
+                this.title = "修改用户";
+                this.form.password = "";
+            });
+        },
+
+
+
 
         /** 查询部门下拉树结构 */
         getDeptTree() {
@@ -512,17 +559,30 @@ export default {
         },
         /** 搜索按钮操作 */
         handleQuery() {
-            this.queryParams.pageNum = 1;
-            this.getList();
+            this.queryParams.page = 1;
+            console.log('para: ', this.queryParams);
+            if (this.queryParams.stationId == '' && this.queryParams.bicycleId == '' && this.queryParams.status == '') {
+                console.log('kong');
+                this.getList();
+            } else {
+                this.search();
+            }
+
         },
         /** 重置按钮操作 */
         resetQuery() {
-            this.dateRange = [];
-            this.resetForm("queryForm");
-            this.queryParams.deptId = undefined;
-            this.$refs.tree.setCurrentKey(null);
+            // this.dateRange = [];
+            // this.resetForm("queryForm");
+            // this.queryParams.deptId = undefined;
+            // this.$refs.tree.setCurrentKey(null);
+
+            this.queryParams.stationId = '';
+            this.queryParams.bicycleId = '';
+            this.queryParams.status = '';
             this.handleQuery();
         },
+
+
         // 多选框选中数据
         handleSelectionChange(selection) {
             this.ids = selection.map(item => item.userId);
@@ -545,7 +605,7 @@ export default {
         /** 新增按钮操作 */
         handleAdd() {
             this.reset();
-            queryByStationId().then(response => {
+            addBicycle().then(response => {
                 this.postOptions = response.posts;
                 this.roleOptions = response.roles;
                 this.open = true;
@@ -553,30 +613,11 @@ export default {
                 this.form.password = this.initPassword;
             });
         },
-
-        /** 报修 */
-        handlePostDamage(row) {
-            console.log('postdamage', row);
-            this.reset();
-            const userId = row.userId || this.ids;
-            postDamage(row.bicycleId).then(response => {
-                this.form = response.data;
-                this.postOptions = response.posts;
-                this.roleOptions = response.roles;
-                this.$set(this.form, "postIds", response.postIds);
-                this.$set(this.form, "roleIds", response.roleIds);
-                this.open = true;
-                this.title = "修改用户";
-                this.form.password = "";
-            });
-        },
-
-
         /** 修改按钮操作 */
         handleUpdate(row) {
             this.reset();
             const userId = row.userId || this.ids;
-            queryByStationId(stationId).then(response => {
+            queryByStationId(row.stationId).then(response => {
                 this.form = response.data;
                 this.postOptions = response.posts;
                 this.roleOptions = response.roles;

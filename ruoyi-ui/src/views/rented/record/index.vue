@@ -14,47 +14,11 @@
                 </div>
             </el-col> -->
             <!--用户数据-->
-            <el-col :span="60" :xs="24">
-                <el-form :model="queryParams" ref="queryForm" size="small" :inline="true" v-show="showSearch"
-                    label-width="68px">
-                    <el-form-item label="站点id" prop="queryParams.stationId">
-                        <el-input v-model="queryParams.stationId" placeholder="请输入站点id" clearable style="width: 340px"
-                            @keyup.enter.native="getListByStationId" />
-                    </el-form-item>
-                    <el-form-item label="车辆id" prop="queryParams.bicycleId">
-                        <el-input v-model="queryParams.bicycleId" placeholder="请输入车辆id" clearable style="width: 240px"
-                            @keyup.enter.native="getListByBicycleId" />
-                    </el-form-item>
-                    <el-form-item label="状态" prop="status">
-                        <el-select v-model="queryParams.status" placeholder="车辆状态" clearable style="width: 240px">
-                            <el-option v-for="dict in dict.type.sys_normal_disable" :key="dict.value"
-                                :label="dict.label" :value="dict.value" />
-                        </el-select>
-                    </el-form-item>
-                    <el-form-item label="创建时间">
-                        <el-date-picker v-model="dateRange" style="width: 240px" value-format="yyyy-MM-dd"
-                            type="daterange" range-separator="-" start-placeholder="开始日期"
-                            end-placeholder="结束日期"></el-date-picker>
-                    </el-form-item>
-                    <el-form-item>
-                        <el-button type="primary" icon="el-icon-search" size="mini" @click="handleQuery">搜索</el-button>
-                        <el-button icon="el-icon-refresh" size="mini" @click="resetQuery">重置</el-button>
-                    </el-form-item>
-                </el-form>
+            <el-col :span="24" :xs="24">
+               
 
                 <el-row :gutter="10" class="mb8">
-                    <el-col :span="1.5">
-                        <el-button type="primary" plain icon="el-icon-plus" size="mini" @click="handleAdd"
-                            v-hasPermi="['system:user:add']">新增</el-button>
-                    </el-col>
-                    <el-col :span="1.5">
-                        <el-button type="success" plain icon="el-icon-edit" size="mini" :disabled="single"
-                            @click="handleUpdate" v-hasPermi="['system:user:edit']">修改</el-button>
-                    </el-col>
-                    <el-col :span="1.5">
-                        <el-button type="danger" plain icon="el-icon-delete" size="mini" :disabled="multiple"
-                            @click="handleDelete" v-hasPermi="['system:user:remove']">删除</el-button>
-                    </el-col>
+                  
                     <el-col :span="1.5">
                         <el-button type="info" plain icon="el-icon-upload2" size="mini" @click="handleImport"
                             v-hasPermi="['system:user:import']">导入</el-button>
@@ -73,45 +37,32 @@
                         v-if="columns[0].visible" />
                     <el-table-column label="车辆id" align="center" key="bicycleId" prop="bicycleId"
                         v-if="columns[1].visible" :show-overflow-tooltip="true" />
-
                     <el-table-column label="用户id" align="center" key="rentedUserId" prop="rentedUserId"
                         v-if="columns[2].visible" :show-overflow-tooltip="true" />
-                    <el-table-column label="租借站点id" align="center" key="rentedStationId" prop="rentedStationId"
-                        v-if="columns[2].visible" :show-overflow-tooltip="true" />
-                    <el-table-column label="归还站点id" align="center" key="returnStationId" prop="returnStationId"
-                        v-if="columns[2].visible" :show-overflow-tooltip="true" />
+                    <el-table-column label="租借站点id" align="center" width="90" key="rentedStationId"
+                        prop="rentedStationId" v-if="columns[2].visible" :show-overflow-tooltip="true" />
+                    <el-table-column label="归还站点id" align="center" width="90" key="returnStationId"
+                        prop="returnStationId" v-if="columns[2].visible" :show-overflow-tooltip="true" />
+
+                    <el-table-column label="租借站点名称" align="center" key="rentedStationName" prop="rentedStationName"
+                        v-if="columns[2].visible" :show-overflow-tooltip="true" width="220" />
+                    <el-table-column label="归还站点名称" align="center" key="returnStationName" prop="returnStationName"
+                        v-if="columns[2].visible" :show-overflow-tooltip="true" width="220" />
 
                     <el-table-column label="租借时间" align="center" prop="rentedTime" v-if="columns[6].visible"
-                        width="160">
+                        width="200">
                         <template slot-scope="scope">
                             <span>{{ parseTime(scope.row.rentedTime) }}</span>
                         </template>
                     </el-table-column>
                     <el-table-column label="归还时间" align="center" prop="returnTime" v-if="columns[6].visible"
-                        width="160">
+                        width="200">
                         <template slot-scope="scope">
                             <span>{{ parseTime(scope.row.returnTime) }}</span>
                         </template>
                     </el-table-column>
 
-                    <el-table-column label="操作" align="center" width="160" class-name="small-padding fixed-width">
-                        <template slot-scope="scope" v-if="scope.row.userId !== 1">
-                            <el-button size="mini" type="text" icon="el-icon-edit" @click="handleUpdate(scope.row)"
-                                v-hasPermi="['system:user:edit']">修改</el-button>
-                            <el-button size="mini" type="text" icon="el-icon-delete" @click="handleDelete(scope.row)"
-                                v-hasPermi="['system:user:remove']">删除</el-button>
-                            <el-dropdown size="mini" @command="(command) => handleCommand(command, scope.row)"
-                                v-hasPermi="['system:user:resetPwd', 'system:user:edit']">
-                                <el-button size="mini" type="text" icon="el-icon-d-arrow-right">更多</el-button>
-                                <el-dropdown-menu slot="dropdown">
-                                    <el-dropdown-item command="handleResetPwd" icon="el-icon-key"
-                                        v-hasPermi="['system:user:resetPwd']">重置密码</el-dropdown-item>
-                                    <el-dropdown-item command="handleAuthRole" icon="el-icon-circle-check"
-                                        v-hasPermi="['system:user:edit']">分配角色</el-dropdown-item>
-                                </el-dropdown-menu>
-                            </el-dropdown>
-                        </template>
-                    </el-table-column>
+                
                 </el-table>
 
                 <pagination v-show="total > 0" :total="total" :page.sync="queryParams.page"
@@ -237,7 +188,7 @@
 
 <script>
 import { delUser, addUser, updateUser, resetUserPwd, changeUserStatus, deptTreeSelect } from "@/api/system/user";
-import { recordQuery } from "@/api/rent/query";
+import { recordQuery, postDamage } from "@/api/rent/query";
 import { getToken } from "@/utils/auth";
 import Treeselect from "@riophae/vue-treeselect";
 import "@riophae/vue-treeselect/dist/vue-treeselect.css";
@@ -369,8 +320,8 @@ export default {
             recordQuery(this.addDateRange(this.queryParams, this.dateRange))
                 .then(response => {
                     console.log('bicycle', response);
-                    this.userList = response.data.records;
-                    this.total = response.data.total;
+                    this.userList = response.data;
+                    this.total = response.data.length;
                     this.loading = false;
                 })
                 .catch(error => {
@@ -462,6 +413,27 @@ export default {
                     this.$message.error('获取用户列表失败，请稍后重试');
                 });
         },
+        /** 报修 */
+        handlePostDamage(row) {
+            this.reset();
+            const userId = row.userId || this.ids;
+            postDamage(row.bicycleId).then(response => {
+
+                if (response.code === 200) {
+                    this.$message.success('已成功报修');
+                }
+
+                this.form = response.data;
+                this.postOptions = response.posts;
+                this.roleOptions = response.roles;
+                this.$set(this.form, "postIds", response.postIds);
+                this.$set(this.form, "roleIds", response.roleIds);
+                this.open = true;
+                this.title = "修改用户";
+                this.form.password = "";
+            });
+        },
+
 
         /** 查询部门下拉树结构 */
         getDeptTree() {

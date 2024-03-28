@@ -14,9 +14,9 @@ export function listQuery(query) {
 }
 
 // 通过站点id查询车辆列表
-export function queryByStationId(query) {
+export function queryByStationId(stationId) {
     return request({
-        url: '/bicycle/' + parseStrEmpty(query.stationId),
+        url: '/bicycle/' + parseStrEmpty(stationId),
         method: 'get'
     })
 }
@@ -42,6 +42,24 @@ export function postDamage(bicycleId) {
         url: '/damage/record',
         method: 'get',
         params: { "bicycleId": bicycleId }
+    })
+}
+
+// 车辆-增加车辆
+export function addBicycle(bicycle) {
+    return request({
+        url: '/bicycle/save',
+        method: 'post',
+        data: { "bicycle": 'bicycle' }
+    })
+}
+
+// 车辆-损坏登记
+export function RecordDamage(bicycleId, details) {
+    return request({
+        url: '/damage/repair',
+        method: 'post',
+        data: { "bicycleId": bicycleId, "details": details }
     })
 }
 

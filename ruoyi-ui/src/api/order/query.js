@@ -25,6 +25,18 @@ export function queryMy(query) {
     })
 }
 
+// 支付
+export function Pay(query) {
+    return request({
+        url: '/order/pay',
+        method: 'post',
+        data: {
+            "rentedId": query.rentedId,
+            "money": query.money
+        }
+    })
+}
+
 // 查询站点收益
 export function queryStationProfile(query) {
     return request({

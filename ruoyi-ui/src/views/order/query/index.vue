@@ -14,32 +14,24 @@
                 </div>
             </el-col> -->
             <!--用户数据-->
-            <el-col :span="60" :xs="24">
+            <el-col :span="24" :xs="24">
                 <el-form :model="queryParams" ref="queryForm" size="small" :inline="true" v-show="showSearch"
-                    label-width="68px">
-                    <el-form-item label="站点收益" prop="queryParams.stationId">
-                        <el-input v-model="queryParams.stationId" placeholder="请输入站点id" clearable style="width: 340px"
+                    label-width="68px" style="display: flex; align-items: center;">
+                    <el-button style="width: 120px;margin-bottom: 12px;" @click="getorders">查看订单列表</el-button>
+                    <el-button style="width: 120px;margin-bottom: 12px;" @click="getStationProfile">查看站点收益</el-button>
+
+                    <!-- <el-form-item label="站点收益" prop="queryParams.stationId">
+                        <el-input v-model="queryParams.stationId" placeholder="请输入站点id" clearable style="width: 240px"
                             @keyup.enter.native="getStationProfile" />
                     </el-form-item>
                     <el-form-item label="全部收益" prop="queryParams.bicycleId">
                         <el-input v-model="queryParams.bicycleId" placeholder="请输入车辆id" clearable style="width: 240px"
                             @keyup.enter.native="getAllProfile" />
                     </el-form-item>
-                    <el-form-item label="状态" prop="status">
-                        <el-select v-model="queryParams.status" placeholder="车辆状态" clearable style="width: 240px">
-                            <el-option v-for="dict in dict.type.sys_normal_disable" :key="dict.value"
-                                :label="dict.label" :value="dict.value" />
-                        </el-select>
-                    </el-form-item>
-                    <el-form-item label="创建时间">
-                        <el-date-picker v-model="dateRange" style="width: 240px" value-format="yyyy-MM-dd"
-                            type="daterange" range-separator="-" start-placeholder="开始日期"
-                            end-placeholder="结束日期"></el-date-picker>
-                    </el-form-item>
                     <el-form-item>
                         <el-button type="primary" icon="el-icon-search" size="mini" @click="handleQuery">搜索</el-button>
                         <el-button icon="el-icon-refresh" size="mini" @click="resetQuery">重置</el-button>
-                    </el-form-item>
+                    </el-form-item> -->
                 </el-form>
 
                 <el-row :gutter="10" class="mb8">
@@ -77,10 +69,16 @@
                         v-if="userList.some(user => user.userId !== undefined && user.userId !== null && user.userId !== '')" />
                     <el-table-column label="用户姓名" align="center" key="userName" prop="userName"
                         v-if="userList.some(user => user.userName !== undefined && user.userName !== null && user.userName !== '')" />
+                    <el-table-column label="租借时长" align="center" key="rentedTimeLong" prop="rentedTimeLong"
+                        v-if="userList.some(user => user.rentedTimeLong !== undefined && user.rentedTimeLong !== null && user.rentedTimeLong !== '')"
+                        :show-overflow-tooltip="true" />
                     <el-table-column label="总价" align="center" key="money" prop="money"
                         v-if="userList.some(user => user.money !== undefined && user.money !== null && user.money !== '')" />
                     <el-table-column label="支付状态" align="center" key="isPay" prop="isPay"
                         v-if="userList.some(user => user.isPay !== undefined && user.isPay !== null && user.isPay !== '')"
+                        :show-overflow-tooltip="true" />
+                    <el-table-column label="支付时间" align="center" key="payTime" prop="payTime"
+                        v-if="userList.some(user => user.payTime !== undefined && user.payTime !== null && user.payTime !== '')"
                         :show-overflow-tooltip="true" />
 
                     <!-- 站点收益 -->
@@ -96,34 +94,18 @@
 
                     <!-- <el-table-column label="手机号码" align="center" key="phonenumber" prop="phonenumber"
                         v-if="columns[4].visible" width="120" /> -->
-                    <el-table-column label="状态" align="center" key="status" v-if="columns[5].visible">
-                        <template slot-scope="scope">
-                            <el-switch v-model="scope.row.status" active-value="1" inactive-value="0"
-                                @change="handleStatusChange(scope.row)"></el-switch>
-                        </template>
-                    </el-table-column>
+
                     <!-- <el-table-column label="创建时间" align="center" prop="createTime" v-if="columns[6].visible"
                         width="160">
                         <template slot-scope="scope">
                             <span>{{ parseTime(scope.row.createTime) }}</span>
                         </template>
-                    </el-table-column> -->
+</el-table-column> -->
                     <el-table-column label="操作" align="center" width="160" class-name="small-padding fixed-width">
-                        <template slot-scope="scope" v-if="scope.row.userId !== 1">
-                            <el-button size="mini" type="text" icon="el-icon-edit" @click="handleUpdate(scope.row)"
-                                v-hasPermi="['system:user:edit']">修改</el-button>
+                        <template slot-scope="scope">
+
                             <el-button size="mini" type="text" icon="el-icon-delete" @click="handleDelete(scope.row)"
                                 v-hasPermi="['system:user:remove']">删除</el-button>
-                            <el-dropdown size="mini" @command="(command) => handleCommand(command, scope.row)"
-                                v-hasPermi="['system:user:resetPwd', 'system:user:edit']">
-                                <el-button size="mini" type="text" icon="el-icon-d-arrow-right">更多</el-button>
-                                <el-dropdown-menu slot="dropdown">
-                                    <el-dropdown-item command="handleResetPwd" icon="el-icon-key"
-                                        v-hasPermi="['system:user:resetPwd']">重置密码</el-dropdown-item>
-                                    <el-dropdown-item command="handleAuthRole" icon="el-icon-circle-check"
-                                        v-hasPermi="['system:user:edit']">分配角色</el-dropdown-item>
-                                </el-dropdown-menu>
-                            </el-dropdown>
                         </template>
                     </el-table-column>
                 </el-table>
@@ -394,34 +376,36 @@ export default {
                     this.$message.error('获取用户列表失败，请稍后重试');
                 });
         },
+        getorders() {
+            this.queryParams.page = 1;
+            this.getList();
+        },
         getStationProfile() {
 
             this.loading = true;
             this.queryParams.page = 1;
-            if (this.queryParams.stationId == '') {
-                this.getList();
-            } else {
-                queryStationProfile(this.addDateRange(this.queryParams, this.dateRange))
-                    .then(response => {
-                        console.log('queryByStationId', response);
-                        this.userList = [];
 
-                        console.log(this.userList);
-                        if (response.data == undefined) {
-                            this.total = 0;
-                        } else {
-                            this.userList = response.data;
-                            this.total = this.userList.length;
-                        }
-                        this.loading = false;
-                    })
-                    .catch(error => {
-                        console.error('Error fetching user list:', error);
-                        this.loading = false;
-                        // 可以根据需要进行错误处理，比如显示错误信息给用户
-                        this.$message.error('获取用户列表失败，请稍后重试');
-                    });
-            }
+            queryStationProfile(this.addDateRange(this.queryParams, this.dateRange))
+                .then(response => {
+                    console.log('queryByStationId', response);
+                    this.userList = [];
+
+                    console.log(this.userList);
+                    if (response.data == undefined) {
+                        this.total = 0;
+                    } else {
+                        this.userList = response.data;
+                        this.total = this.userList.length;
+                    }
+                    this.loading = false;
+                })
+                .catch(error => {
+                    console.error('Error fetching user list:', error);
+                    this.loading = false;
+                    // 可以根据需要进行错误处理，比如显示错误信息给用户
+                    this.$message.error('获取用户列表失败，请稍后重试');
+                });
+
         },
         getAllProfile() {
 
@@ -451,6 +435,49 @@ export default {
                         this.$message.error('获取用户列表失败，请稍后重试');
                     });
             }
+        },
+        // 执行搜索操作
+        search() {
+            // 备份原始的用户列表数据
+            const originalUserList = [...this.userList];
+
+            // 根据搜索条件筛选用户列表
+            this.userList = originalUserList.filter(user => {
+                console.log('this.queryParams: ', this.queryParams, user);
+                // 如果搜索条件中ID不为空，则筛选该列表
+                if (this.queryParams.stationId !== '') {
+                    return user.stationId == this.queryParams.stationId;
+                }
+                if (this.queryParams.bicycleId !== '') {
+                    return user.bicycleId == this.queryParams.bicycleId;
+                }
+                if (this.queryParams.status !== '') {
+                    return user.status == this.queryParams.status;
+                }
+
+
+            });
+            console.log('newlist: ', this.userList);
+            // 更新总条数
+            this.total = this.userList.length;
+        },
+        /** 搜索按钮操作 */
+        handleQuery() {
+            this.queryParams.page = 1;
+            console.log('para: ', this.queryParams);
+            if (this.queryParams.stationId == '') {
+                console.log('kong');
+                this.getList();
+            } else {
+                this.search();
+            }
+
+        },
+        /** 重置按钮操作 */
+        resetQuery() {
+            this.queryParams.stationId = '';
+
+            this.handleQuery();
         },
 
 

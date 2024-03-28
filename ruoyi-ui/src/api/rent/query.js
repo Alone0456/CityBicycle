@@ -6,7 +6,7 @@ export function listQuery(query) {
     return request({
         url: '/service/query',
         method: 'post',
-        params: {
+        data: {
             "page": query.page,
             "size": query.size,
             // "rented_id": query.rented_id,
@@ -29,6 +29,17 @@ export function recordQuery(query) {
         }
     })
 }
+
+// 车辆-损坏上报
+export function postDamage(bicycleId) {
+    return request({
+        url: '/damage/record',
+        method: 'get',
+        params: { "bicycleId": bicycleId }
+    })
+}
+
+
 
 // 查询站点收益
 export function queryStationProfile(query) {
