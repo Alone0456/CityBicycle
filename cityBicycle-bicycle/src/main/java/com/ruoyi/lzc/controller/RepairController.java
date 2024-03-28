@@ -46,7 +46,7 @@ public class RepairController {
         bicycleDamage.setStationId(bicycle.getStationId());
         bicycleDamage.setUserId(userId);
         bicycleDamage.setIsMaintent(0);
-        if (damageService.save(bicycleDamage)) {
+        if (!damageService.save(bicycleDamage)) {
             throw new DbOperateUnknownException("数据库操作未知异常");
         }
         return  AjaxResult.success();

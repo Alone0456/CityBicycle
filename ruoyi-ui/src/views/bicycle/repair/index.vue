@@ -93,8 +93,8 @@
                     </el-table-column> -->
                     <el-table-column label="操作" align="center" width="160" class-name="small-padding fixed-width">
                         <template slot-scope="scope" v-if="scope.row.userId !== 1">
-                            <el-button size="mini" type="text" icon="el-icon-edit" @click="handleUpdate(scope.row)"
-                                v-hasPermi="['system:user:edit']">修改</el-button>
+                            <el-button size="mini" type="text" icon="el-icon-edit"
+                                @click="handlePostDamage(scope.row)">报修</el-button>
                             <el-button size="mini" type="text" icon="el-icon-delete" @click="handleDelete(scope.row)"
                                 v-hasPermi="['system:user:remove']">删除</el-button>
                             <el-dropdown size="mini" @command="(command) => handleCommand(command, scope.row)"
@@ -234,7 +234,7 @@
 
 <script>
 import { delUser, addUser, updateUser, resetUserPwd, changeUserStatus, deptTreeSelect } from "@/api/system/user";
-import { listQuery, queryByStationId, queryByStatus, queryByBicycleId } from "@/api/bicycle/query";
+import { listQuery, queryByStationId, queryByStatus, queryByBicycleId, postDamage } from "@/api/bicycle/query";
 import { getToken } from "@/utils/auth";
 import Treeselect from "@riophae/vue-treeselect";
 import "@riophae/vue-treeselect/dist/vue-treeselect.css";
@@ -553,6 +553,25 @@ export default {
                 this.form.password = this.initPassword;
             });
         },
+
+        /** 报修 */
+        handlePostDamage(row) {
+            console.log('postdamage', row);
+            this.reset();
+            const userId = row.userId || this.ids;
+            postDamage(row.bicycleId).then(response => {
+                this.form = response.data;
+                this.postOptions = response.posts;
+                this.roleOptions = response.roles;
+                this.$set(this.form, "postIds", response.postIds);
+                this.$set(this.form, "roleIds", response.roleIds);
+                this.open = true;
+                this.title = "修改用户";
+                this.form.password = "";
+            });
+        },
+
+
         /** 修改按钮操作 */
         handleUpdate(row) {
             this.reset();

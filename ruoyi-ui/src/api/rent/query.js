@@ -1,22 +1,75 @@
 import request from '@/utils/request'
 import { parseStrEmpty } from "@/utils/ruoyi";
 
-// 查询用户列表
-export function listUser(query) {
+// 查询租借列表
+export function listQuery(query) {
     return request({
-        url: '/bicycle/all',
-        method: 'get',
-        params: query
+        url: '/service/query',
+        method: 'post',
+        params: {
+            "page": query.page,
+            "size": query.size,
+            // "rented_id": query.rented_id,
+            // "bicycle_id": query.bicycle_id,
+            // "rented_station_id": query.rented_station_id,
+            // "rented_user_id": query.rented_user_id,
+            // "return_station_id": query.return_station_id
+        }
     })
 }
 
-// 查询用户详细
-export function getUser(userId) {
+// 查询租借记录
+export function recordQuery(query) {
     return request({
-        url: '/system/user/' + parseStrEmpty(userId),
+        url: '/service/user/query',
+        method: 'get',
+        params: {
+            "page": query.page,
+            "size": query.size
+        }
+    })
+}
+
+// 查询站点收益
+export function queryStationProfile(query) {
+    return request({
+        url: '/order/station',
         method: 'get'
     })
 }
+
+// 查询总收益
+export function queryAllProfile(query) {
+    return request({
+        url: '/order/profile',
+        method: 'get',
+
+    })
+}
+
+// 通过站点id查询车辆列表
+export function queryByStationId(query) {
+    return request({
+        url: '/bicycle/' + parseStrEmpty(query.stationId),
+        method: 'get'
+    })
+}
+// 通过状态查询车辆列表
+export function queryByStatus(query) {
+    return request({
+        url: '/bicycle/status',
+        method: 'get',
+        params: query.status
+    })
+}
+// 通过车辆id查询车辆列表
+export function queryByBicycleId(query) {
+    return request({
+        url: '/bicycle/' + parseStrEmpty(query.bicycleId),
+        method: 'get'
+    })
+}
+
 
 // 新增用户
 export function addUser(data) {

@@ -69,30 +69,31 @@
 
                 <el-table v-loading="loading" :data="userList" @selection-change="handleSelectionChange">
                     <el-table-column type="selection" width="50" align="center" />
-                    <el-table-column label="车辆编号" align="center" key="orderId" prop="orderId"
+                    <el-table-column label="租借编号" align="center" key="rentedId" prop="rentedId"
                         v-if="columns[0].visible" />
-                    <el-table-column label="用户编号" align="center" key="userId" prop="userId" v-if="columns[0].visible" />
-                    <el-table-column label="用户姓名" align="center" key="userName" prop="userName"
-                        v-if="columns[0].visible" />
-                    <el-table-column label="总价" align="center" key="money" prop="money" v-if="columns[0].visible" />
+                    <el-table-column label="车辆id" align="center" key="bicycleId" prop="bicycleId"
+                        v-if="columns[1].visible" :show-overflow-tooltip="true" />
 
-                    <el-table-column label="支付状态" align="center" key="isPay" prop="isPay" v-if="columns[1].visible"
-                        :show-overflow-tooltip="true" />
+                    <el-table-column label="用户id" align="center" key="rentedUserId" prop="rentedUserId"
+                        v-if="columns[2].visible" :show-overflow-tooltip="true" />
+                    <el-table-column label="租借站点id" align="center" key="rentedStationId" prop="rentedStationId"
+                        v-if="columns[2].visible" :show-overflow-tooltip="true" />
+                    <el-table-column label="归还站点id" align="center" key="returnStationId" prop="returnStationId"
+                        v-if="columns[2].visible" :show-overflow-tooltip="true" />
 
-                    <!-- <el-table-column label="手机号码" align="center" key="phonenumber" prop="phonenumber"
-                        v-if="columns[4].visible" width="120" /> -->
-                    <el-table-column label="状态" align="center" key="status" v-if="columns[5].visible">
-                        <template slot-scope="scope">
-                            <el-switch v-model="scope.row.status" active-value="1" inactive-value="0"
-                                @change="handleStatusChange(scope.row)"></el-switch>
-                        </template>
-                    </el-table-column>
-                    <!-- <el-table-column label="创建时间" align="center" prop="createTime" v-if="columns[6].visible"
+                    <el-table-column label="租借时间" align="center" prop="rentedTime" v-if="columns[6].visible"
                         width="160">
                         <template slot-scope="scope">
-                            <span>{{ parseTime(scope.row.createTime) }}</span>
+                            <span>{{ parseTime(scope.row.rentedTime) }}</span>
                         </template>
-                    </el-table-column> -->
+                    </el-table-column>
+                    <el-table-column label="归还时间" align="center" prop="returnTime" v-if="columns[6].visible"
+                        width="160">
+                        <template slot-scope="scope">
+                            <span>{{ parseTime(scope.row.returnTime) }}</span>
+                        </template>
+                    </el-table-column>
+
                     <el-table-column label="操作" align="center" width="160" class-name="small-padding fixed-width">
                         <template slot-scope="scope" v-if="scope.row.userId !== 1">
                             <el-button size="mini" type="text" icon="el-icon-edit" @click="handleUpdate(scope.row)"
@@ -236,7 +237,7 @@
 
 <script>
 import { delUser, addUser, updateUser, resetUserPwd, changeUserStatus, deptTreeSelect } from "@/api/system/user";
-import { queryMy } from "@/api/order/query";
+import { recordQuery } from "@/api/rent/query";
 import { getToken } from "@/utils/auth";
 import Treeselect from "@riophae/vue-treeselect";
 import "@riophae/vue-treeselect/dist/vue-treeselect.css";
@@ -303,8 +304,8 @@ export default {
                 page: 1,
                 size: 10,
                 stationId: '',
-                bicycleId: '',
-                status: '',
+                orderColumn: 'bicycle_num',
+                orderType: 'desc'
 
             },
             // 列信息
@@ -365,7 +366,7 @@ export default {
         /** 查询用户列表 */
         getList() {
             this.loading = true;
-            queryMy(this.addDateRange(this.queryParams, this.dateRange))
+            recordQuery(this.addDateRange(this.queryParams, this.dateRange))
                 .then(response => {
                     console.log('bicycle', response);
                     this.userList = response.data.records;
