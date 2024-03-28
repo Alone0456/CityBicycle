@@ -92,8 +92,18 @@ public class RentedController {
         LambdaQueryWrapper<RentedRecord> lambdaQueryWrapper = new LambdaQueryWrapper<>();
         lambdaQueryWrapper.eq(RentedRecord::getRentedUserId,userId);
         Page<RentedRecord> rentedRecord = rentedService.page(new Page<RentedRecord>(page, size), lambdaQueryWrapper);
-
-        return AjaxResult.success(rentedRecord);
+        List<RentedRecord> records = rentedRecord.getRecords();
+        List<RentedRecordResp> rentedRecordResps = new ArrayList<>();
+        records.forEach(rented ->{
+            LambdaQueryWrapper<StationDetails> stationDetailsLambdaQueryWrapper = new LambdaQueryWrapper<>();
+            stationDetailsLambdaQueryWrapper.in(StationDetails::getStationId,rented.getRentedStationId(),rented.getReturnStationId()).select(StationDetails::getStationName);
+            List<StationDetails> stationDetails = stationService.list(stationDetailsLambdaQueryWrapper);
+            RentedRecordResp convert = BeanUtil.convert(rented, RentedRecordResp.class);
+            convert.setRentedStationName(stationDetails.get(0).getStationName());
+            convert.setReturnStationName(stationDetails.get(1).getStationName());
+            rentedRecordResps.add(convert);
+        });
+        return AjaxResult.success(rentedRecordResps);
     }
     @PreAuthorize("@ss.hasPermi('rented:service')")
     @PostMapping("/rented")
