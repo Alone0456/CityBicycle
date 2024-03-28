@@ -3,10 +3,14 @@ package com.ruoyi.lzc.controller;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.github.pagehelper.IPage;
+import com.github.pagehelper.PageHelper;
 import com.ruoyi.common.core.domain.AjaxResult;
+import com.ruoyi.common.utils.PageUtils;
 import com.ruoyi.lzc.common.BeanUtil;
 import com.ruoyi.lzc.domain.entity.*;
 import com.ruoyi.lzc.domain.vo.Rented;
+import com.ruoyi.lzc.domain.vo.RentedRecordResp;
 import com.ruoyi.lzc.exception.BicycleAlreadyRentedException;
 import com.ruoyi.lzc.exception.BicycleAlreadyReturnException;
 import com.ruoyi.lzc.exception.DbOperateUnknownException;
@@ -65,7 +69,18 @@ public class RentedController {
             rentedRecordQueryWrapper.eq(param,params.get(param));
         }
         Page<RentedRecord> rentedRecord = rentedService.page(new Page<RentedRecord>(Long.valueOf(params.get("page").toString()),Long.valueOf(params.get("size").toString())),rentedRecordQueryWrapper);
-        return AjaxResult.success(rentedRecord);
+        List<RentedRecord> records = rentedRecord.getRecords();
+        List<RentedRecordResp> rentedRecordResps = new ArrayList<>();
+        records.forEach(rented ->{
+            LambdaQueryWrapper<StationDetails> stationDetailsLambdaQueryWrapper = new LambdaQueryWrapper<>();
+            stationDetailsLambdaQueryWrapper.in(StationDetails::getStationId,rented.getRentedStationId(),rented.getReturnStationId()).select(StationDetails::getStationName);
+            List<StationDetails> stationDetails = stationService.list(stationDetailsLambdaQueryWrapper);
+            RentedRecordResp convert = BeanUtil.convert(rented, RentedRecordResp.class);
+            convert.setRentedStationName(stationDetails.get(0).getStationName());
+            convert.setReturnStationName(stationDetails.get(1).getStationName());
+            rentedRecordResps.add(convert);
+        });
+        return AjaxResult.success(rentedRecordResps);
     }
     @PreAuthorize("@ss.hasPermi('rented:user')")
     @GetMapping("/user/query")
