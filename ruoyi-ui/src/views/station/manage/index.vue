@@ -69,28 +69,27 @@
 
                 <el-table v-loading="loading" :data="userList" @selection-change="handleSelectionChange">
                     <el-table-column type="selection" width="50" align="center" />
-                    <el-table-column label="车辆编号" align="center" key="bicycleId" prop="bicycleId"
-                        v-if="columns[0].visible" />
-                    <el-table-column label="车辆状态" align="center" key="bicycleStatus" prop="bicycleStatus"
-                        v-if="columns[1].visible" :show-overflow-tooltip="true" />
+
                     <el-table-column label="站点id" align="center" key="stationId" prop="stationId"
                         v-if="columns[2].visible" :show-overflow-tooltip="true" />
                     <el-table-column label="站点名称" align="center" key="stationName" prop="stationName"
                         v-if="columns[3].visible" :show-overflow-tooltip="true" />
-                    <!-- <el-table-column label="手机号码" align="center" key="phonenumber" prop="phonenumber"
-                        v-if="columns[4].visible" width="120" /> -->
-                    <el-table-column label="状态" align="center" key="status" v-if="columns[5].visible">
-                        <template slot-scope="scope">
-                            <el-switch v-model="scope.row.status" active-value="1" inactive-value="0"
-                                @change="handleStatusChange(scope.row)"></el-switch>
-                        </template>
-                    </el-table-column>
+                    <el-table-column label="站点位置" width="350" align="center" key="site" prop="site"
+                        v-if="columns[0].visible" />
+                    <el-table-column label="车辆总数" align="center" key="bicycleNum" prop="bicycleNum"
+                        v-if="columns[1].visible" :show-overflow-tooltip="true" />
+                    <el-table-column label="租借数量" align="center" key="rentedNum" prop="rentedNum"
+                        v-if="columns[1].visible" :show-overflow-tooltip="true" />
+                    <el-table-column label="归还数量" align="center" key="returnNum" prop="returnNum"
+                        v-if="columns[1].visible" :show-overflow-tooltip="true" />
+
+
                     <!-- <el-table-column label="创建时间" align="center" prop="createTime" v-if="columns[6].visible"
                         width="160">
                         <template slot-scope="scope">
                             <span>{{ parseTime(scope.row.createTime) }}</span>
                         </template>
-                    </el-table-column> -->
+</el-table-column> -->
                     <el-table-column label="操作" align="center" width="160" class-name="small-padding fixed-width">
                         <template slot-scope="scope" v-if="scope.row.userId !== 1">
                             <el-button size="mini" type="text" icon="el-icon-edit" @click="handleUpdate(scope.row)"
@@ -234,7 +233,7 @@
 
 <script>
 import { delUser, addUser, updateUser, resetUserPwd, changeUserStatus, deptTreeSelect } from "@/api/system/user";
-import { listQuery, queryByStationId, queryByStatus, queryByBicycleId } from "@/api/bicycle/query";
+import { listQuery, queryByStationId } from "@/api/station/query";
 import { getToken } from "@/utils/auth";
 import Treeselect from "@riophae/vue-treeselect";
 import "@riophae/vue-treeselect/dist/vue-treeselect.css";
@@ -301,8 +300,8 @@ export default {
                 page: 1,
                 size: 10,
                 stationId: '',
-                bicycleId: '',
-                status: '',
+                orderColumn: 'bicycle_num',
+                orderType: 'desc'
 
             },
             // 列信息

@@ -36,7 +36,14 @@ export function queryByBicycleId(query) {
     })
 }
 
-
+// 车辆-损坏上报
+export function postDamage(bicycleId) {
+    return request({
+        url: '/damage/record',
+        method: 'get',
+        params: { "bicycleId": bicycleId }
+    })
+}
 
 
 

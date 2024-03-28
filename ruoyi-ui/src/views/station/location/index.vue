@@ -14,28 +14,14 @@
                 </div>
             </el-col> -->
             <!--用户数据-->
-            <el-col :span="60" :xs="24">
+            <el-col :span="24" :xs="24">
                 <el-form :model="queryParams" ref="queryForm" size="small" :inline="true" v-show="showSearch"
                     label-width="68px">
                     <el-form-item label="站点id" prop="queryParams.stationId">
                         <el-input v-model="queryParams.stationId" placeholder="请输入站点id" clearable style="width: 340px"
                             @keyup.enter.native="getListByStationId" />
                     </el-form-item>
-                    <el-form-item label="车辆id" prop="queryParams.bicycleId">
-                        <el-input v-model="queryParams.bicycleId" placeholder="请输入车辆id" clearable style="width: 240px"
-                            @keyup.enter.native="getListByBicycleId" />
-                    </el-form-item>
-                    <el-form-item label="状态" prop="status">
-                        <el-select v-model="queryParams.status" placeholder="车辆状态" clearable style="width: 240px">
-                            <el-option v-for="dict in dict.type.sys_normal_disable" :key="dict.value"
-                                :label="dict.label" :value="dict.value" />
-                        </el-select>
-                    </el-form-item>
-                    <el-form-item label="创建时间">
-                        <el-date-picker v-model="dateRange" style="width: 240px" value-format="yyyy-MM-dd"
-                            type="daterange" range-separator="-" start-placeholder="开始日期"
-                            end-placeholder="结束日期"></el-date-picker>
-                    </el-form-item>
+
                     <el-form-item>
                         <el-button type="primary" icon="el-icon-search" size="mini" @click="handleQuery">搜索</el-button>
                         <el-button icon="el-icon-refresh" size="mini" @click="resetQuery">重置</el-button>
@@ -69,28 +55,27 @@
 
                 <el-table v-loading="loading" :data="userList" @selection-change="handleSelectionChange">
                     <el-table-column type="selection" width="50" align="center" />
-                    <el-table-column label="车辆编号" align="center" key="bicycleId" prop="bicycleId"
-                        v-if="columns[0].visible" />
-                    <el-table-column label="车辆状态" align="center" key="bicycleStatus" prop="bicycleStatus"
-                        v-if="columns[1].visible" :show-overflow-tooltip="true" />
+
                     <el-table-column label="站点id" align="center" key="stationId" prop="stationId"
                         v-if="columns[2].visible" :show-overflow-tooltip="true" />
                     <el-table-column label="站点名称" align="center" key="stationName" prop="stationName"
                         v-if="columns[3].visible" :show-overflow-tooltip="true" />
-                    <!-- <el-table-column label="手机号码" align="center" key="phonenumber" prop="phonenumber"
-                        v-if="columns[4].visible" width="120" /> -->
-                    <el-table-column label="状态" align="center" key="status" v-if="columns[5].visible">
-                        <template slot-scope="scope">
-                            <el-switch v-model="scope.row.status" active-value="1" inactive-value="0"
-                                @change="handleStatusChange(scope.row)"></el-switch>
-                        </template>
-                    </el-table-column>
+                    <el-table-column label="站点位置" width="350" align="center" key="site" prop="site"
+                        v-if="columns[0].visible" />
+                    <el-table-column label="车辆总数" align="center" key="bicycleNum" prop="bicycleNum"
+                        v-if="columns[1].visible" :show-overflow-tooltip="true" />
+                    <el-table-column label="租借数量" align="center" key="rentedNum" prop="rentedNum"
+                        v-if="columns[1].visible" :show-overflow-tooltip="true" />
+                    <el-table-column label="归还数量" align="center" key="returnNum" prop="returnNum"
+                        v-if="columns[1].visible" :show-overflow-tooltip="true" />
+
+
                     <!-- <el-table-column label="创建时间" align="center" prop="createTime" v-if="columns[6].visible"
                         width="160">
                         <template slot-scope="scope">
                             <span>{{ parseTime(scope.row.createTime) }}</span>
                         </template>
-                    </el-table-column> -->
+</el-table-column> -->
                     <el-table-column label="操作" align="center" width="160" class-name="small-padding fixed-width">
                         <template slot-scope="scope" v-if="scope.row.userId !== 1">
                             <el-button size="mini" type="text" icon="el-icon-edit" @click="handleUpdate(scope.row)"
@@ -657,3 +642,4 @@ export default {
     }
 };
 </script>
+<style></style>

@@ -5,15 +5,15 @@ import { parseStrEmpty } from "@/utils/ruoyi";
 export function listQuery(query) {
     return request({
         url: '/service/query',
-        method: 'get',
+        method: 'post',
         params: {
             "page": query.page,
             "size": query.size,
-            "rented_id": query.rented_id,
-            "bicycle_id": query.bicycle_id,
-            "rented_station_id": query.rented_station_id,
-            "rented_user_id": query.rented_user_id,
-            "return_station_id": query.return_station_id
+            // "rented_id": query.rented_id,
+            // "bicycle_id": query.bicycle_id,
+            // "rented_station_id": query.rented_station_id,
+            // "rented_user_id": query.rented_user_id,
+            // "return_station_id": query.return_station_id
         }
     })
 }
@@ -21,16 +21,11 @@ export function listQuery(query) {
 // 查询租借记录
 export function recordQuery(query) {
     return request({
-        url: '/service/query',
+        url: '/service/user/query',
         method: 'get',
         params: {
             "page": query.page,
-            "size": query.size,
-            "rented_id": query.rented_id,
-            "bicycle_id": query.bicycle_id,
-            "rented_station_id": query.rented_station_id,
-            "rented_user_id": query.rented_user_id,
-            "return_station_id": query.return_station_id
+            "size": query.size
         }
     })
 }
