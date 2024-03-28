@@ -41,7 +41,10 @@ nbdist/
 *.log
 *.xml.versionsBackup
 *.swp
-
+*/target
 !*/build/*.java
 !*/build/*.html
 !*/build/*.xml
+.gitignore
+
+
