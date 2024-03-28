@@ -14,7 +14,6 @@ public class BicycleDamage {
   private Date recordTime;
   private long bicycleId;
   private long stationId;
-  private String stationName;
   private String details;
   private long userId;
   private long isMaintent;
