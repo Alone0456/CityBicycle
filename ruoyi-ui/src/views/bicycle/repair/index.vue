@@ -489,7 +489,6 @@ export default {
         },
         /** 损坏登记 */
         handleRecordDamage(row) {
-            console.log('postdamage', row);
             this.reset();
             const userId = row.userId || this.ids;
             RecordDamage(row.bicycleId, '损坏修复').then(response => {

@@ -15,10 +15,10 @@
             </el-col> -->
             <!--用户数据-->
             <el-col :span="24" :xs="24">
-               
+
 
                 <el-row :gutter="10" class="mb8">
-                  
+
                     <el-col :span="1.5">
                         <el-button type="info" plain icon="el-icon-upload2" size="mini" @click="handleImport"
                             v-hasPermi="['system:user:import']">导入</el-button>
@@ -37,8 +37,7 @@
                         v-if="columns[0].visible" />
                     <el-table-column label="车辆id" align="center" key="bicycleId" prop="bicycleId"
                         v-if="columns[1].visible" :show-overflow-tooltip="true" />
-                    <el-table-column label="用户id" align="center" key="rentedUserId" prop="rentedUserId"
-                        v-if="columns[2].visible" :show-overflow-tooltip="true" />
+
                     <el-table-column label="租借站点id" align="center" width="90" key="rentedStationId"
                         prop="rentedStationId" v-if="columns[2].visible" :show-overflow-tooltip="true" />
                     <el-table-column label="归还站点id" align="center" width="90" key="returnStationId"
@@ -62,7 +61,16 @@
                         </template>
                     </el-table-column>
 
-                
+                    <el-table-column label="操作" align="center" width="160" class-name="small-padding fixed-width">
+                        <template slot-scope="scope">
+                            <el-button size="mini" type="text" icon="el-icon-edit" @click="handlePostDamage(scope.row)"
+                                v-hasPermi="['system:user:edit']">报修</el-button>
+                            <el-button size="mini" type="text" icon="el-icon-delete" @click="handleDelete(scope.row)"
+                                v-hasPermi="['system:user:remove']">删除</el-button>
+                        </template>
+                    </el-table-column>
+
+
                 </el-table>
 
                 <pagination v-show="total > 0" :total="total" :page.sync="queryParams.page"
