@@ -18,29 +18,20 @@
                 <el-form :model="queryParams" ref="queryForm" size="small" :inline="true" v-show="showSearch"
                     label-width="68px">
                     <el-form-item label="站点id" prop="queryParams.stationId">
-                        <el-input v-model="queryParams.stationId" placeholder="请输入站点id" clearable style="width: 340px"
-                            @keyup.enter.native="getListByStationId" />
+                        <el-input v-model="queryParams.stationId" placeholder="请输入站点id" clearable
+                            style="width: 340px" />
                     </el-form-item>
 
                     <el-form-item>
-                        <el-button type="primary" icon="el-icon-search" size="mini" @click="handleQuery">搜索</el-button>
+                        <el-button type="primary" icon="el-icon-search" size="mini"
+                            @click="getListByStationId">搜索</el-button>
                         <el-button icon="el-icon-refresh" size="mini" @click="resetQuery">重置</el-button>
                     </el-form-item>
                 </el-form>
 
                 <el-row :gutter="10" class="mb8">
-                    <el-col :span="1.5">
-                        <el-button type="primary" plain icon="el-icon-plus" size="mini" @click="handleAdd"
-                            v-hasPermi="['system:user:add']">新增</el-button>
-                    </el-col>
-                    <el-col :span="1.5">
-                        <el-button type="success" plain icon="el-icon-edit" size="mini" :disabled="single"
-                            @click="handleUpdate" v-hasPermi="['system:user:edit']">修改</el-button>
-                    </el-col>
-                    <el-col :span="1.5">
-                        <el-button type="danger" plain icon="el-icon-delete" size="mini" :disabled="multiple"
-                            @click="handleDelete" v-hasPermi="['system:user:remove']">删除</el-button>
-                    </el-col>
+
+
                     <el-col :span="1.5">
                         <el-button type="info" plain icon="el-icon-upload2" size="mini" @click="handleImport"
                             v-hasPermi="['system:user:import']">导入</el-button>
@@ -76,24 +67,7 @@
                             <span>{{ parseTime(scope.row.createTime) }}</span>
                         </template>
 </el-table-column> -->
-                    <el-table-column label="操作" align="center" width="160" class-name="small-padding fixed-width">
-                        <template slot-scope="scope" v-if="scope.row.userId !== 1">
-                            <el-button size="mini" type="text" icon="el-icon-edit" @click="handleUpdate(scope.row)"
-                                v-hasPermi="['system:user:edit']">修改</el-button>
-                            <el-button size="mini" type="text" icon="el-icon-delete" @click="handleDelete(scope.row)"
-                                v-hasPermi="['system:user:remove']">删除</el-button>
-                            <el-dropdown size="mini" @command="(command) => handleCommand(command, scope.row)"
-                                v-hasPermi="['system:user:resetPwd', 'system:user:edit']">
-                                <el-button size="mini" type="text" icon="el-icon-d-arrow-right">更多</el-button>
-                                <el-dropdown-menu slot="dropdown">
-                                    <el-dropdown-item command="handleResetPwd" icon="el-icon-key"
-                                        v-hasPermi="['system:user:resetPwd']">重置密码</el-dropdown-item>
-                                    <el-dropdown-item command="handleAuthRole" icon="el-icon-circle-check"
-                                        v-hasPermi="['system:user:edit']">分配角色</el-dropdown-item>
-                                </el-dropdown-menu>
-                            </el-dropdown>
-                        </template>
-                    </el-table-column>
+
                 </el-table>
 
                 <pagination v-show="total > 0" :total="total" :page.sync="queryParams.page"
@@ -502,11 +476,9 @@ export default {
         },
         /** 重置按钮操作 */
         resetQuery() {
-            this.dateRange = [];
-            this.resetForm("queryForm");
-            this.queryParams.deptId = undefined;
-            this.$refs.tree.setCurrentKey(null);
-            this.handleQuery();
+            this.queryParams.stationId = '';
+
+            this.getList();
         },
         // 多选框选中数据
         handleSelectionChange(selection) {

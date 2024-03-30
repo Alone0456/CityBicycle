@@ -26,13 +26,13 @@ export function queryMy(query) {
 }
 
 // 支付
-export function Pay(query) {
+export function Pay(rentedId, money) {
     return request({
         url: '/order/pay',
         method: 'post',
         data: {
-            "rentedId": query.rentedId,
-            "money": query.money
+            "rentedId": rentedId,
+            "money": money
         }
     })
 }

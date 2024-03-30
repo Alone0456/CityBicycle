@@ -17,41 +17,31 @@
             <el-col :span="60" :xs="24">
                 <el-form :model="queryParams" ref="queryForm" size="small" :inline="true" v-show="showSearch"
                     label-width="68px">
-                    <el-form-item label="租借编号" prop="queryParams.stationId">
-                        <el-input v-model="queryParams.rented_id" placeholder="请输入站点id" clearable style="width: 340px"
-                            @keyup.enter.native="getListByRentedId" />
+                    <el-form-item label="租借编号" prop="queryParams.rented_id">
+                        <el-input v-model="queryParams.rented_id" placeholder="请输入租借编号,回车键搜索" clearable
+                            style="width: 340px" @keyup.enter.native="getListByRentedId" />
                     </el-form-item>
-                    <el-form-item label="车辆编号" prop="queryParams.stationId">
-                        <el-input v-model="queryParams.bicycle_id" placeholder="请输入站点id" clearable style="width: 340px"
-                            @keyup.enter.native="getListByBicycleId" />
+                    <el-form-item label="车辆编号" prop="queryParams.bicycle_id">
+                        <el-input v-model="queryParams.bicycle_id" placeholder="请输入车辆编号,回车键搜索" clearable
+                            style="width: 340px" @keyup.enter.native="getListByBicycleId" />
                     </el-form-item>
-                    <el-form-item label="用户id" prop="queryParams.stationId">
-                        <el-input v-model="queryParams.rented_user_id" placeholder="请输入站点id" clearable
+                    <el-form-item label="用户id" prop="queryParams.rented_user_id">
+                        <el-input v-model="queryParams.rented_user_id" placeholder="请输入用户id,回车键搜索" clearable
                             style="width: 340px" @keyup.enter.native="getListByUserId" />
                     </el-form-item>
-                    <el-form-item label="租借站点" prop="queryParams.stationId">
-                        <el-input v-model="queryParams.rented_station_id" placeholder="请输入站点id" clearable
-                            style="width: 340px" @keyup.enter.native="getListByStationId" />
+                    <el-form-item label="租借站点" prop="queryParams.rented_station_id">
+                        <el-input v-model="queryParams.rented_station_id" placeholder="请输入租借站点,回车键搜索" clearable
+                            style="width: 340px" @keyup.enter.native="getListByRentedStationId" />
                     </el-form-item>
-                    <el-form-item label="归还站点" prop="queryParams.bicycleId">
-                        <el-input v-model="queryParams.return_station_id" placeholder="请输入车辆id" clearable
-                            style="width: 240px" @keyup.enter.native="getListByBicycleId" />
+                    <el-form-item label="归还站点" prop="queryParams.return_station_id">
+                        <el-input v-model="queryParams.return_station_id" placeholder="请输入归还站点,回车键搜索" clearable
+                            style="width: 340px" @keyup.enter.native="getListByReturnStationId" />
                     </el-form-item>
-                    <el-form-item label="状态" prop="status">
-                        <el-select v-model="queryParams.status" placeholder="车辆状态" clearable style="width: 240px">
-                            <el-option v-for="dict in dict.type.sys_normal_disable" :key="dict.value"
-                                :label="dict.label" :value="dict.value" />
-                        </el-select>
-                    </el-form-item>
-                    <el-form-item label="创建时间">
-                        <el-date-picker v-model="dateRange" style="width: 240px" value-format="yyyy-MM-dd"
-                            type="daterange" range-separator="-" start-placeholder="开始日期"
-                            end-placeholder="结束日期"></el-date-picker>
-                    </el-form-item>
-                    <el-form-item>
+
+                    <!-- <el-form-item>
                         <el-button type="primary" icon="el-icon-search" size="mini" @click="handleQuery">搜索</el-button>
                         <el-button icon="el-icon-refresh" size="mini" @click="resetQuery">重置</el-button>
-                    </el-form-item>
+                    </el-form-item> -->
                 </el-form>
 
                 <el-row :gutter="10" class="mb8">
@@ -249,7 +239,7 @@
 
 <script>
 import { delUser, addUser, updateUser, resetUserPwd, changeUserStatus, deptTreeSelect } from "@/api/system/user";
-import { listQuery } from "@/api/rent/query";
+import { listQuery, queryByRentedId, queryByBicycleId, queryByUserId, queryByRentedStationId, queryByReturnStationId } from "@/api/rent/query";
 import { getToken } from "@/utils/auth";
 import Treeselect from "@riophae/vue-treeselect";
 import "@riophae/vue-treeselect/dist/vue-treeselect.css";
@@ -315,10 +305,11 @@ export default {
             queryParams: {
                 page: 1,
                 size: 10,
-                stationId: '',
-                orderColumn: 'bicycle_num',
-                orderType: 'desc'
-
+                rented_id: '',
+                bicycle_id: '',
+                rented_user_id: '',
+                rented_station_id: '',
+                return_station_id: ''
             },
             // 列信息
             columns: [
@@ -392,32 +383,31 @@ export default {
                     this.$message.error('获取用户列表失败，请稍后重试');
                 });
         },
-        getListByStationId() {
+        getListByRentedId() {
 
             this.loading = true;
             this.queryParams.page = 1;
-            if (this.queryParams.stationId == '') {
+            if (this.queryParams.rented_id == '') {
                 this.getList();
             } else {
-                queryByStationId(this.addDateRange(this.queryParams, this.dateRange))
+                queryByRentedId(this.addDateRange(this.queryParams, this.dateRange))
                     .then(response => {
-                        console.log('queryByStationId', response);
-                        this.userList = [];
-
-                        console.log(this.userList);
+                        // this.userList = [];
                         if (response.data == undefined) {
                             this.total = 0;
                         } else {
-                            this.userList.push(response.data);
-                            this.total = 1;
+                            // this.userList.push(response.data);
+                            // this.total = 1;
+
+                            this.userList = response.data;
+                            this.total = this.userList.length;
                         }
                         this.loading = false;
                     })
                     .catch(error => {
                         console.error('Error fetching user list:', error);
                         this.loading = false;
-                        // 可以根据需要进行错误处理，比如显示错误信息给用户
-                        this.$message.error('获取用户列表失败，请稍后重试');
+                        this.$message.error('获取失败，请稍后重试');
                     });
             }
         },
@@ -425,54 +415,113 @@ export default {
 
             this.loading = true;
             this.queryParams.page = 1;
-            if (this.queryParams.bicycleId == '') {
+            if (this.queryParams.bicycle_id == '') {
                 this.getList();
             } else {
                 queryByBicycleId(this.addDateRange(this.queryParams, this.dateRange))
                     .then(response => {
-                        console.log('queryByStationId', response);
-                        this.userList = [];
-
-                        console.log(this.userList);
+                        // this.userList = [];
                         if (response.data == undefined) {
                             this.total = 0;
                         } else {
-                            this.userList.push(response.data);
-                            this.total = 1;
+                            // this.userList.push(response.data);
+                            // this.total = 1;
+
+                            this.userList = response.data;
+                            this.total = this.userList.length;
                         }
                         this.loading = false;
                     })
                     .catch(error => {
                         console.error('Error fetching user list:', error);
                         this.loading = false;
-                        // 可以根据需要进行错误处理，比如显示错误信息给用户
-                        this.$message.error('获取用户列表失败，请稍后重试');
+                        this.$message.error('获取失败，请稍后重试');
                     });
             }
         },
-        getListByStatus() {
+        getListByUserId() {
 
             this.loading = true;
             this.queryParams.page = 1;
-            queryByStatus(this.addDateRange(this.queryParams, this.dateRange))
-                .then(response => {
-                    console.log('queryByStatus', response);
-                    this.userList = [];
-                    console.log(this.userList);
-                    if (response.data == undefined) {
-                        this.total = 0;
-                    } else {
-                        this.userList.push(response.data);
-                        this.total = 1;
-                    }
-                    this.loading = false;
-                })
-                .catch(error => {
-                    console.error('Error fetching user list:', error);
-                    this.loading = false;
-                    // 可以根据需要进行错误处理，比如显示错误信息给用户
-                    this.$message.error('获取用户列表失败，请稍后重试');
-                });
+            if (this.queryParams.rented_user_id == '') {
+                this.getList();
+            } else {
+                queryByUserId(this.addDateRange(this.queryParams, this.dateRange))
+                    .then(response => {
+                        // this.userList = [];
+                        if (response.data == undefined) {
+                            this.total = 0;
+                        } else {
+                            // this.userList.push(response.data);
+                            // this.total = 1;
+
+                            this.userList = response.data;
+                            this.total = this.userList.length;
+                        }
+                        this.loading = false;
+                    })
+                    .catch(error => {
+                        console.error('Error fetching user list:', error);
+                        this.loading = false;
+                        this.$message.error('获取失败，请稍后重试');
+                    });
+            }
+        },
+        getListByRentedStationId() {
+
+            this.loading = true;
+            this.queryParams.page = 1;
+            if (this.queryParams.rented_station_id == '') {
+                this.getList();
+            } else {
+                queryByRentedStationId(this.addDateRange(this.queryParams, this.dateRange))
+                    .then(response => {
+                        // this.userList = [];
+                        if (response.data == undefined) {
+                            this.total = 0;
+                        } else {
+                            // this.userList.push(response.data);
+                            // this.total = 1;
+
+                            this.userList = response.data;
+                            this.total = this.userList.length;
+                        }
+                        this.loading = false;
+                    })
+                    .catch(error => {
+                        console.error('Error fetching user list:', error);
+                        this.loading = false;
+                        this.$message.error('获取失败，请稍后重试');
+                    });
+            }
+        },
+        getListByReturnStationId() {
+
+            this.loading = true;
+            this.queryParams.page = 1;
+            if (this.queryParams.return_station_id == '') {
+                this.getList();
+            } else {
+                queryByReturnStationId(this.addDateRange(this.queryParams, this.dateRange))
+                    .then(response => {
+                        // this.userList = [];
+                        if (response.data == undefined) {
+                            this.total = 0;
+                        } else {
+                            // this.userList.push(response.data);
+                            // this.total = 1;
+
+                            this.userList = response.data;
+                            this.total = this.userList.length;
+                        }
+                        this.loading = false;
+                    })
+                    .catch(error => {
+                        console.error('Error fetching user list:', error);
+                        this.loading = false;
+                        this.$message.error('获取失败，请稍后重试');
+                    });
+            }
         },
 
         /** 查询部门下拉树结构 */

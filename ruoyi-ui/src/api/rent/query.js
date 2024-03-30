@@ -18,6 +18,62 @@ export function listQuery(query) {
     })
 }
 
+export function queryByRentedId(query) {
+    return request({
+        url: '/service/query',
+        method: 'post',
+        data: {
+            "page": query.page,
+            "size": query.size,
+            "rented_id": query.rented_id,
+        }
+    })
+}
+export function queryByBicycleId(query) {
+    return request({
+        url: '/service/query',
+        method: 'post',
+        data: {
+            "page": query.page,
+            "size": query.size,
+            "bicycle_id": query.bicycle_id
+        }
+    })
+}
+export function queryByUserId(query) {
+    return request({
+        url: '/service/query',
+        method: 'post',
+        data: {
+            "page": query.page,
+            "size": query.size,
+            "rented_user_id": query.rented_user_id
+        }
+    })
+}
+export function queryByRentedStationId(query) {
+    return request({
+        url: '/service/query',
+        method: 'post',
+        data: {
+            "page": query.page,
+            "size": query.size,
+            "rented_station_id": query.rented_station_id,
+        }
+    })
+}
+export function queryByReturnStationId(query) {
+    return request({
+        url: '/service/query',
+        method: 'post',
+        data: {
+            "page": query.page,
+            "size": query.size,
+            "return_station_id": query.return_station_id
+        }
+    })
+}
+
 // 查询租借记录
 export function recordQuery(query) {
     return request({
@@ -40,46 +96,6 @@ export function postDamage(bicycleId) {
 }
 
 
-
-// 查询站点收益
-export function queryStationProfile(query) {
-    return request({
-        url: '/order/station',
-        method: 'get'
-    })
-}
-
-// 查询总收益
-export function queryAllProfile(query) {
-    return request({
-        url: '/order/profile',
-        method: 'get',
-
-    })
-}
-
-// 通过站点id查询车辆列表
-export function queryByStationId(query) {
-    return request({
-        url: '/bicycle/' + parseStrEmpty(query.stationId),
-        method: 'get'
-    })
-}
-// 通过状态查询车辆列表
-export function queryByStatus(query) {
-    return request({
-        url: '/bicycle/status',
-        method: 'get',
-        params: query.status
-    })
-}
-// 通过车辆id查询车辆列表
-export function queryByBicycleId(query) {
-    return request({
-        url: '/bicycle/' + parseStrEmpty(query.bicycleId),
-        method: 'get'
-    })
-}
 
 
 // 新增用户

@@ -101,13 +101,13 @@
                             <span>{{ parseTime(scope.row.createTime) }}</span>
                         </template>
 </el-table-column> -->
-                    <el-table-column label="操作" align="center" width="160" class-name="small-padding fixed-width">
+                    <!-- <el-table-column label="操作" align="center" width="160" class-name="small-padding fixed-width">
                         <template slot-scope="scope">
 
                             <el-button size="mini" type="text" icon="el-icon-delete" @click="handleDelete(scope.row)"
                                 v-hasPermi="['system:user:remove']">删除</el-button>
                         </template>
-                    </el-table-column>
+                    </el-table-column> -->
                 </el-table>
 
                 <pagination v-show="total > 0" :total="total" :page.sync="queryParams.page"

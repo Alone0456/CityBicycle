@@ -14,47 +14,23 @@
                 </div>
             </el-col> -->
             <!--用户数据-->
-            <el-col :span="60" :xs="24">
+            <el-col :span="24" :xs="24">
                 <el-form :model="queryParams" ref="queryForm" size="small" :inline="true" v-show="showSearch"
                     label-width="68px">
                     <el-form-item label="站点id" prop="queryParams.stationId">
-                        <el-input v-model="queryParams.stationId" placeholder="请输入站点id" clearable style="width: 340px"
-                            @keyup.enter.native="getListByStationId" />
+                        <el-input v-model="queryParams.stationId" placeholder="请输入站点id" clearable
+                            style="width: 340px" />
                     </el-form-item>
-                    <el-form-item label="车辆id" prop="queryParams.bicycleId">
-                        <el-input v-model="queryParams.bicycleId" placeholder="请输入车辆id" clearable style="width: 240px"
-                            @keyup.enter.native="getListByBicycleId" />
-                    </el-form-item>
-                    <el-form-item label="状态" prop="status">
-                        <el-select v-model="queryParams.status" placeholder="车辆状态" clearable style="width: 240px">
-                            <el-option v-for="dict in dict.type.sys_normal_disable" :key="dict.value"
-                                :label="dict.label" :value="dict.value" />
-                        </el-select>
-                    </el-form-item>
-                    <el-form-item label="创建时间">
-                        <el-date-picker v-model="dateRange" style="width: 240px" value-format="yyyy-MM-dd"
-                            type="daterange" range-separator="-" start-placeholder="开始日期"
-                            end-placeholder="结束日期"></el-date-picker>
-                    </el-form-item>
+
                     <el-form-item>
-                        <el-button type="primary" icon="el-icon-search" size="mini" @click="handleQuery">搜索</el-button>
+                        <el-button type="primary" icon="el-icon-search" size="mini"
+                            @click="getListByStationId">搜索</el-button>
                         <el-button icon="el-icon-refresh" size="mini" @click="resetQuery">重置</el-button>
                     </el-form-item>
                 </el-form>
 
                 <el-row :gutter="10" class="mb8">
-                    <el-col :span="1.5">
-                        <el-button type="primary" plain icon="el-icon-plus" size="mini" @click="handleAdd"
-                            v-hasPermi="['system:user:add']">新增</el-button>
-                    </el-col>
-                    <el-col :span="1.5">
-                        <el-button type="success" plain icon="el-icon-edit" size="mini" :disabled="single"
-                            @click="handleUpdate" v-hasPermi="['system:user:edit']">修改</el-button>
-                    </el-col>
-                    <el-col :span="1.5">
-                        <el-button type="danger" plain icon="el-icon-delete" size="mini" :disabled="multiple"
-                            @click="handleDelete" v-hasPermi="['system:user:remove']">删除</el-button>
-                    </el-col>
+
                     <el-col :span="1.5">
                         <el-button type="info" plain icon="el-icon-upload2" size="mini" @click="handleImport"
                             v-hasPermi="['system:user:import']">导入</el-button>
@@ -516,11 +492,9 @@ export default {
         },
         /** 重置按钮操作 */
         resetQuery() {
-            this.dateRange = [];
-            this.resetForm("queryForm");
-            this.queryParams.deptId = undefined;
-            this.$refs.tree.setCurrentKey(null);
-            this.handleQuery();
+            this.queryParams.stationId = '';
+
+            this.getList();
         },
         // 多选框选中数据
         handleSelectionChange(selection) {
@@ -656,3 +630,4 @@ export default {
     }
 };
 </script>
+<style></style>

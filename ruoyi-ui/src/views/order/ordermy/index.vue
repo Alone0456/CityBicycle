@@ -214,6 +214,28 @@
                 <el-button @click="upload.open = false">取 消</el-button>
             </div>
         </el-dialog>
+
+        <el-dialog :title="dialogTitle" :visible.sync="dialogVisible" :before-close="handleClose()" width="30%">
+            <el-form ref="payForm" :model="PayParams" :rules="rules" label-width="60px">
+                <el-form-item prop="name" style="display: flex; ">
+                    <div style="display: flex; flex-direction: column;">
+                        <div style="display: flex;">
+                            <span>租借编号：</span>
+                            <span>{{ PayParams.rentedId }}</span>
+                        </div>
+                        <div style="display: flex;">
+                            <span>支付金额：</span>
+                            <span>{{ PayParams.money }}</span>
+                        </div>
+                    </div>
+                </el-form-item>
+            </el-form>
+            <span slot="footer" class="dialog-footer">
+                <el-button @click="dialogVisible = false">取消</el-button>
+                <el-button type="primary" @click="handleConfirm('payForm')">确定</el-button>
+            </span>
+        </el-dialog>
+
     </div>
 </template>
 
@@ -262,6 +284,14 @@ export default {
             roleOptions: [],
             // 表单参数
             form: {},
+
+            dialogTitle: "",
+            dialogVisible: false,
+            PayParams: {
+                rentedId: '',
+                money: 0.00
+            },
+
             defaultProps: {
                 children: "children",
                 label: "label"
@@ -359,7 +389,7 @@ export default {
                     console.error('Error fetching user list:', error);
                     this.loading = false;
                     // 可以根据需要进行错误处理，比如显示错误信息给用户
-                    this.$message.error('获取用户列表失败，请稍后重试');
+                    this.$message.error('获取失败，请稍后重试');
                 });
         },
         getListByStationId() {
@@ -387,7 +417,7 @@ export default {
                         console.error('Error fetching user list:', error);
                         this.loading = false;
                         // 可以根据需要进行错误处理，比如显示错误信息给用户
-                        this.$message.error('获取用户列表失败，请稍后重试');
+                        this.$message.error('获取列表失败，请稍后重试');
                     });
             }
         },
@@ -416,7 +446,7 @@ export default {
                         console.error('Error fetching user list:', error);
                         this.loading = false;
                         // 可以根据需要进行错误处理，比如显示错误信息给用户
-                        this.$message.error('获取用户列表失败，请稍后重试');
+                        this.$message.error('获取列表失败，请稍后重试');
                     });
             }
         },
@@ -441,30 +471,56 @@ export default {
                     console.error('Error fetching user list:', error);
                     this.loading = false;
                     // 可以根据需要进行错误处理，比如显示错误信息给用户
-                    this.$message.error('获取用户列表失败，请稍后重试');
+                    this.$message.error('获取列表失败，请稍后重试');
                 });
         },
-        handlePay() {
-            Pay(this.addDateRange(this.queryParams, this.dateRange))
-                .then(response => {
-                    console.log('queryByStatus', response);
-                    this.userList = [];
-                    console.log(this.userList);
-                    if (response.data == undefined) {
-                        this.total = 0;
+        handlePay(row) {
+
+            this.PayParams.rentedId = row.rentedId;
+            this.PayParams.money = row.money;
+            this.dialogVisible = true;
+            this.dialogTitle = "订单详情";
+
+
+        },
+        handleConfirm(formName) {
+            this.$refs[formName].validate((valid) => {
+                if (valid) {
+
+                    if (this.dialogTitle === "订单详情") {
+                        Pay(this.PayParams.rentedId, this.PayParams.money)
+                            .then(response => {
+                                this.$message({
+                                    message: '支付成功',
+                                    type: 'success',
+                                    duration: 1000
+                                });
+                                this.dialogVisible = false;
+                                this.getList();
+                            })
+                            .catch(error => {
+                                console.error('Error fetching user list:', error);
+                                this.loading = false;
+
+                            });
+
+
                     } else {
-                        this.userList.push(response.data);
-                        this.total = 1;
+                        this.dialogVisible = false;
+                        this.getList();
                     }
-                    this.loading = false;
-                })
-                .catch(error => {
-                    console.error('Error fetching user list:', error);
-                    this.loading = false;
-                    // 可以根据需要进行错误处理，比如显示错误信息给用户
-                    this.$message.error('获取用户列表失败，请稍后重试');
-                });
+                } else {
+                    return false;
+                }
+            });
         },
+        handleClose() {
+            if (!this.dialogVisible && this.$refs.payForm) {
+                this.$refs.payForm.clearValidate()
+            }
+        },
+
+
         // 执行搜索操作
         search() {
             // 备份原始的用户列表数据

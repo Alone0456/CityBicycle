@@ -217,6 +217,30 @@
                 <el-button @click="upload.open = false">取 消</el-button>
             </div>
         </el-dialog>
+
+        <el-dialog :title="dialogTitle" :visible.sync="dialogVisible" :before-close="handleClose()" width="30%">
+            <el-form ref="recordDamageForm" :model="recordDamageParams" :rules="rules" label-width="60px">
+                <el-form-item prop="name" style="display: flex; ">
+                    <div style="display: flex; flex-direction: column;">
+                        <div style="display: flex;">
+                            <span style="width: 34%;">车辆编号：</span>
+                            <span>{{ recordDamageParams.bicycleId }}</span>
+                        </div>
+                        <div style="display: flex;">
+                            <span style="width: 50%;">损坏详情：</span>
+                            <el-input v-model="recordDamageParams.details" auto-complete="off"
+                                placeholder="请输入损坏详情"></el-input>
+                        </div>
+                    </div>
+                </el-form-item>
+            </el-form>
+            <span slot="footer" class="dialog-footer">
+                <el-button @click="dialogVisible = false">取消</el-button>
+                <el-button type="primary" @click="handleConfirm('recordDamageForm')">确定</el-button>
+            </span>
+        </el-dialog>
+
+
     </div>
 </template>
 
@@ -265,6 +289,13 @@ export default {
             roleOptions: [],
             // 表单参数
             form: {},
+            dialogTitle: "",
+            dialogVisible: false,
+            recordDamageParams: {
+                bicycleId: '',
+                details: ''
+            },
+
             defaultProps: {
                 children: "children",
                 label: "label"
@@ -489,20 +520,48 @@ export default {
         },
         /** 损坏登记 */
         handleRecordDamage(row) {
+
+            this.recordDamageParams.bicycleId = row.bicycleId;
+            this.dialogVisible = true;
+            this.dialogTitle = "损坏修复登记";
+
+
             this.reset();
             const userId = row.userId || this.ids;
-            RecordDamage(row.bicycleId, '损坏修复').then(response => {
-                this.form = response.data;
-                this.postOptions = response.posts;
-                this.roleOptions = response.roles;
-                this.$set(this.form, "postIds", response.postIds);
-                this.$set(this.form, "roleIds", response.roleIds);
-                this.open = true;
-                this.title = "修改用户";
-                this.form.password = "";
+
+        },
+        handleConfirm(formName) {
+            this.$refs[formName].validate((valid) => {
+                if (valid) {
+
+                    if (this.dialogTitle === "损坏修复登记") {
+                        RecordDamage(this.recordDamageParams.bicycleId, this.recordDamageParams.details).then(response => {
+                            this.$message({
+                                message: '登记成功',
+                                type: 'success',
+                                duration: 1000
+                            });
+                            this.dialogVisible = false;
+                            this.recordDamageParams.details = '';
+                            this.getList();
+                        });
+                    } else {
+                        this.dialogVisible = false;
+                        this.recordDamageParams.details = '';
+                        this.getList();
+                    }
+                } else {
+                    this.recordDamageParams.details = '';
+                    return false;
+                }
             });
         },
-
+        handleClose() {
+            if (!this.dialogVisible && this.$refs.recordDamageForm) {
+                this.recordDamageParams.details = '';
+                this.$refs.recordDamageForm.clearValidate()
+            }
+        },
 
 
 
