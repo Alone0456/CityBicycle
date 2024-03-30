@@ -4,7 +4,7 @@ export const useLiquidFill = () => {
         // backgroundColor: '#354687',
         title: [
             {
-                text: '电量消耗',
+                text: '租借数目',
                 textStyle: {
                     color: '#fff'
                 },
@@ -20,7 +20,7 @@ export const useLiquidFill = () => {
                 },
             },
             {
-                text: '60%',
+                text: '72%',
                 x: 'center',
                 top: '50%',
                 textStyle: {

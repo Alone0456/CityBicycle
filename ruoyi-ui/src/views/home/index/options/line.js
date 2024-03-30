@@ -1,14 +1,14 @@
 
 import * as echarts from 'echarts'
-export const useLine = ()=> {
-    let xLabel = ['1月', '2月', '3月', '4月', '5月', '6月','7月','8月','9月','10月','11月','12月']
-    let goToSchool = ["40", "60", "22", "85", "50", "40",'33','11','23','43','54','66']
-    let goOutSchool = ["20", "50", "12", "65", "30", "60",'76','45','87','34','23','21']
+export const useLine = () => {
+    let xLabel = ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月']
+    let goToSchool = ["40", "60", "22", "85", "50", "40", '33', '11', '23', '43', '54', '66']
+    let goOutSchool = ["20", "50", "12", "65", "30", "60", '76', '45', '87', '34', '23', '21']
 
-    return{
+    return {
         tooltip: {
             trigger: 'axis',
-            backgroundColor:'transparent',
+            backgroundColor: 'transparent',
             textStyle: {
                 color: '#fff',
             },
@@ -38,24 +38,24 @@ export const useLine = ()=> {
         legend: {
             align: "left",
             right: '10%',
-            top:'10%',
-            type:'plain',
-            textStyle:{
-                color:'#7ec7ff',
-                fontSize:14
+            top: '10%',
+            type: 'plain',
+            textStyle: {
+                color: '#7ec7ff',
+                fontSize: 14
             },
             // icon:'rect',
-            itemGap:50,
-            itemWidth:100,
-            itemHeight:10,
-            icon:'path://M0 2a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v0a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2z',
+            itemGap: 50,
+            itemWidth: 100,
+            itemHeight: 10,
+            icon: 'path://M0 2a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v0a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2z',
 
             data: [
                 {
-                    name: '生活保障类'
+                    name: '站点使用'
                 },
                 {
-                    name: '品质提升类'
+                    name: '租借归还'
                 }
             ]
         },
@@ -79,7 +79,7 @@ export const useLine = ()=> {
                 color: '#7ec7ff',
                 padding: 16,
                 fontSize: 14,
-                formatter: function(data) {
+                formatter: function (data) {
                     return data
                 }
             },
@@ -119,7 +119,7 @@ export const useLine = ()=> {
                 show: true,
                 color: '#7ec7ff',
                 padding: 16,
-                formatter: function(value) {
+                formatter: function (value) {
                     if (value === 0) {
                         return value
                     }
@@ -131,7 +131,7 @@ export const useLine = ()=> {
             },
         }],
         series: [{
-            name: '生活保障类',
+            name: '站点使用',
             type: 'line',
             symbol: 'circle', // 默认是空心圆（中间是白色的），改成实心圆
             showAllSymbol: true,
@@ -148,24 +148,24 @@ export const useLine = ()=> {
                 borderWidth: 2
 
             },
-        
+
             areaStyle: { //区域填充样式
                 //线性渐变，前4个参数分别是x0,y0,x2,y2(范围0~1);相当于图形包围盒中的百分比。如果最后一个参数是‘true’，则该四个值是绝对像素位置。
                 color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
-                        offset: 0,
-                        color: "rgba(25,163,223,.3)"
-                    },
-                    {
-                        offset: 1,
-                        color: "rgba(25,163,223, 0)"
-                    }
+                    offset: 0,
+                    color: "rgba(25,163,223,.3)"
+                },
+                {
+                    offset: 1,
+                    color: "rgba(25,163,223, 0)"
+                }
                 ], false),
                 shadowColor: 'rgba(25,163,223, 0.5)', //阴影颜色
                 shadowBlur: 20 //shadowBlur设图形阴影的模糊大小。配合shadowColor,shadowOffsetX/Y, 设置图形的阴影效果。
             },
             data: goToSchool
         }, {
-            name: '品质提升类',
+            name: '租借归还',
             type: 'line',
             symbol: 'circle', // 默认是空心圆（中间是白色的），改成实心圆
             showAllSymbol: true,
@@ -182,17 +182,17 @@ export const useLine = ()=> {
                 borderWidth: 2
 
             },
-        
+
             areaStyle: { //区域填充样式
                 //线性渐变，前4个参数分别是x0,y0,x2,y2(范围0~1);相当于图形包围盒中的百分比。如果最后一个参数是‘true’，则该四个值是绝对像素位置。
                 color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
-                        offset: 0,
-                        color: "rgba(10,219,250,.3)"
-                    },
-                    {
-                        offset: 1,
-                        color: "rgba(10,219,250, 0)"
-                    }
+                    offset: 0,
+                    color: "rgba(10,219,250,.3)"
+                },
+                {
+                    offset: 1,
+                    color: "rgba(10,219,250, 0)"
+                }
                 ], false),
                 shadowColor: 'rgba(10,219,250, 0.5)', //阴影颜色
                 shadowBlur: 20 //shadowBlur设图形阴影的模糊大小。配合shadowColor,shadowOffsetX/Y, 设置图形的阴影效果。

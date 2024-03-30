@@ -3,7 +3,7 @@
         <Weather></Weather>
         <!-- 第一行 -->
         <div class="module-box">
-            <div class="box" v-for="item in listBox" :key="item.id">
+            <div class="box" v-for="item in listBox" :key="item.id" @click="linkTo(item.id)">
                 <div class="list-box">
                     <i class="el-icon-edit"></i>
                     <p>{{ item.title }}</p>
@@ -67,11 +67,10 @@ export default {
     data() {
         return {
             listBox: [
-                { id: 1, title: '电量监控' },
-                { id: 2, title: '车辆详情' },
-                { id: 3, title: '地图分布' },
-                { id: 4, title: '车辆监控' },
-                { id: 5, title: '统计分析' }
+                { id: 1, title: '车辆管理' },
+                { id: 2, title: '订单管理' },
+                { id: 3, title: '租借管理' },
+                { id: 4, title: '站点管理' }
             ],
 
         }
@@ -95,7 +94,20 @@ export default {
         lineOption() {
             return useLine()
         }
-    }
+    },
+    methods: {
+        linkTo(id) {
+            if (id == 1) {
+                this.$router.push('/bicycle/query')
+            } else if (id == 2) {
+                this.$router.push('/order/query')
+            } else if (id == 3) {
+                this.$router.push('/rented/query')
+            } else if (id == 4) {
+                this.$router.push('/station/manage')
+            }
+        }
+    },
 }
 </script>
 
@@ -356,6 +368,7 @@ input[type=text] {
 }
 
 .module-box {
+    width: 95%;
     display: flex;
     /*弹性布局*/
     justify-content: space-between;
@@ -365,7 +378,9 @@ input[type=text] {
 }
 
 .list-box {
+    width: 125%;
     margin: 0 10px;
+    margin-left: 0;
     height: 120px;
     padding: 20px;
     box-shadow: 0 3px 20px 2px rgb(0 0 0 / 30%);

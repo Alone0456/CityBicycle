@@ -1,6 +1,6 @@
 import * as echarts from 'echarts'
 export const usePie = () => {
-    return{
+    return {
         // backgroundColor: '#354687',
         title: [
             {
@@ -20,7 +20,7 @@ export const usePie = () => {
                 },
             },
             {
-                text: '60%',
+                text: '96%',
                 x: 'center',
                 top: '50%',
                 textStyle: {
