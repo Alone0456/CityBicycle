@@ -33,14 +33,14 @@
 
                 <el-table v-loading="loading" :data="userList" @selection-change="handleSelectionChange">
                     <el-table-column type="selection" width="50" align="center" />
-                    <el-table-column label="租借编号" align="center" key="rentedId" prop="rentedId"
+                    <el-table-column label="租借编号" align="center" width="120" key="rentedId" prop="rentedId"
                         v-if="columns[0].visible" />
-                    <el-table-column label="车辆id" align="center" key="bicycleId" prop="bicycleId"
+                    <el-table-column label="车辆id" align="center" width="120" key="bicycleId" prop="bicycleId"
                         v-if="columns[1].visible" :show-overflow-tooltip="true" />
 
-                    <el-table-column label="租借站点id" align="center" width="90" key="rentedStationId"
+                    <el-table-column label="租借站点id" align="center" width="120" key="rentedStationId"
                         prop="rentedStationId" v-if="columns[2].visible" :show-overflow-tooltip="true" />
-                    <el-table-column label="归还站点id" align="center" width="90" key="returnStationId"
+                    <el-table-column label="归还站点id" align="center" width="120" key="returnStationId"
                         prop="returnStationId" v-if="columns[2].visible" :show-overflow-tooltip="true" />
 
                     <el-table-column label="租借站点名称" align="center" key="rentedStationName" prop="rentedStationName"
@@ -49,13 +49,13 @@
                         v-if="columns[2].visible" :show-overflow-tooltip="true" width="220" />
 
                     <el-table-column label="租借时间" align="center" prop="rentedTime" v-if="columns[6].visible"
-                        width="200">
+                        width="auto">
                         <template slot-scope="scope">
                             <span>{{ parseTime(scope.row.rentedTime) }}</span>
                         </template>
                     </el-table-column>
                     <el-table-column label="归还时间" align="center" prop="returnTime" v-if="columns[6].visible"
-                        width="200">
+                        width="auto">
                         <template slot-scope="scope">
                             <span>{{ parseTime(scope.row.returnTime) }}</span>
                         </template>

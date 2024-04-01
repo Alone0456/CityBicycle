@@ -72,7 +72,11 @@
                     <el-table-column label="总价" align="center" key="money" prop="money" v-if="columns[0].visible" />
 
                     <el-table-column label="支付状态" align="center" key="isPay" prop="isPay" v-if="columns[1].visible"
-                        :show-overflow-tooltip="true" />
+                        :show-overflow-tooltip="true">
+                        <template v-slot="{ row }">
+                            {{ changeText(row.isPay) }}
+                        </template>
+                    </el-table-column>
                     <el-table-column label="支付时间" align="center" key="payTime" prop="payTime"
                         v-if="userList.some(user => user.payTime !== undefined && user.payTime !== null && user.payTime !== '')"
                         :show-overflow-tooltip="true" />
@@ -473,6 +477,13 @@ export default {
                     // 可以根据需要进行错误处理，比如显示错误信息给用户
                     this.$message.error('获取列表失败，请稍后重试');
                 });
+        },
+        changeText(status) {
+            if (status == 0) {
+                return '暂未支付'
+            } else {
+                return '已支付'
+            }
         },
         handlePay(row) {
 

@@ -70,7 +70,11 @@
                     <el-table-column label="车辆型号" align="center" key="bicycleType" prop="bicycleType"
                         v-if="columns[1].visible" />
                     <el-table-column label="车辆状态" align="center" key="bicycleStatus" prop="bicycleStatus"
-                        v-if="columns[2].visible" :show-overflow-tooltip="true" />
+                        v-if="columns[2].visible" :show-overflow-tooltip="true">
+                        <template v-slot="{ row }">
+                            {{ changeText(row.bicycleStatus) }}
+                        </template>
+                    </el-table-column>
                     <el-table-column label="租借次数" align="center" key="rentNum" prop="rentNum"
                         v-if="columns[3].visible" />
                     <el-table-column label="站点id" align="center" key="stationId" prop="stationId"
@@ -456,6 +460,13 @@ export default {
                     // 可以根据需要进行错误处理，比如显示错误信息给用户
                     this.$message.error('获取用户列表失败，请稍后重试');
                 });
+        },
+        changeText(status) {
+            if (status == 2) {
+                return '停用'
+            } else {
+                return '正常'
+            }
         },
         // 执行搜索操作
         search() {
