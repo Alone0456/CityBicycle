@@ -42,4 +42,8 @@ public class Exceptionhandler   {
     public AjaxResult validExceptionHandler(BicycleAlreadyReturnException ex) {
         return AjaxResult.error(Constant.BICYCLE_ALREADY_RETURN,ex.getMessage());
     }
+    @ExceptionHandler(value = BicycleAlreadyRecordException.class)
+    public AjaxResult validExceptionHandler(BicycleAlreadyRecordException ex) {
+        return AjaxResult.error(Constant.BICYCLE_ALREADY_RETURN,ex.getMessage());
+    }
 }
