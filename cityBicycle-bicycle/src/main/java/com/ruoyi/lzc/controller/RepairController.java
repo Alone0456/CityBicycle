@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.ruoyi.common.core.domain.AjaxResult;
 import com.ruoyi.lzc.domain.entity.Bicycle;
 import com.ruoyi.lzc.domain.entity.BicycleDamage;
+import com.ruoyi.lzc.exception.BicycleAlreadyRecordException;
 import com.ruoyi.lzc.exception.DbOperateUnknownException;
 import com.ruoyi.lzc.service.BicycleService;
 import com.ruoyi.lzc.domain.vo.RecordDamage;
@@ -38,6 +39,9 @@ public class RepairController {
         LambdaQueryWrapper<Bicycle> objectLambdaQueryWrapper = new LambdaQueryWrapper<>();
         objectLambdaQueryWrapper.eq(Bicycle::getBicycleId,bicycleId);
         Bicycle bicycle = bicycleService.getOne(objectLambdaQueryWrapper);
+        if(bicycle.getBicycleStatus() != 1){
+            throw new BicycleAlreadyRecordException("该车辆损坏信息已经上报，请勿重复提交！");
+        }
         bicycle.setBicycleStatus(2);
         bicycleService.updateById(bicycle);
         BicycleDamage bicycleDamage = new BicycleDamage();
@@ -58,7 +62,7 @@ public class RepairController {
         objectLambdaQueryWrapper.eq(Bicycle::getBicycleId,recordDamage.getBicycleId());
         Bicycle bicycle = bicycleService.getOne(objectLambdaQueryWrapper);
         if(bicycle.getBicycleStatus() == 1){
-            throw new BicycleAlreadyRepairException("该车辆已被维修");
+            throw new BicycleAlreadyRepairException("该车辆已被维修,请勿重复提交");
         }
         LambdaQueryWrapper<BicycleDamage> bicycleDamageLambdaQueryWrapper = new LambdaQueryWrapper<>();
         bicycleDamageLambdaQueryWrapper.eq(BicycleDamage::getBicycleId,recordDamage.getBicycleId());
