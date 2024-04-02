@@ -36,14 +36,14 @@ public class PayController {
         if(byId.getIsPay() == 1){
             throw new AlreadyPaidException("您已经支付过该订单了");
         }
-        if(!orderPay.getMoney().equals(byId.getMoney())){
-            throw new PayMoneyErrorException("支付金额不一致");
+        if(orderPay.getMoney().compareTo(byId.getMoney()) != 0){
+            throw new PayMoneyErrorException("支付金额不一致，请核对订单信息");
         }
         byId.setIsPay(1);
         byId.setPayTime(new Date());
         boolean flag = orderService.updateById(byId);
         if(!flag){
-           throw new DbOperateUnknownException("数据库操作未知异常");
+           throw new DbOperateUnknownException("数据库操作未知异常,请重试");
         }
        return  AjaxResult.success();
     }
