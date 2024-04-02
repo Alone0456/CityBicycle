@@ -293,7 +293,7 @@ export default {
             dialogVisible: false,
             PayParams: {
                 rentedId: '',
-                money: 0.00
+                money: ''
             },
 
             defaultProps: {
@@ -499,7 +499,7 @@ export default {
                 if (valid) {
 
                     if (this.dialogTitle === "订单详情") {
-                        Pay(this.PayParams.rentedId, this.PayParams.money)
+                        Pay(this.PayParams.rentedId, String(this.PayParams.money))
                             .then(response => {
                                 this.$message({
                                     message: '支付成功',
