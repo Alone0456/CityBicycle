@@ -65,7 +65,7 @@ public class RepairController {
             throw new BicycleAlreadyRepairException("该车辆已被维修,请勿重复提交");
         }
         LambdaQueryWrapper<BicycleDamage> bicycleDamageLambdaQueryWrapper = new LambdaQueryWrapper<>();
-        bicycleDamageLambdaQueryWrapper.eq(BicycleDamage::getBicycleId,recordDamage.getBicycleId());
+        bicycleDamageLambdaQueryWrapper.eq(BicycleDamage::getBicycleId,recordDamage.getBicycleId()).eq(BicycleDamage::getIsMaintent,0);
         BicycleDamage one = damageService.getOne(bicycleDamageLambdaQueryWrapper);
         one.setUpdateTime(new Date());
         one.setIsMaintent(1);
@@ -76,4 +76,5 @@ public class RepairController {
         bicycleService.updateById(bicycle);
         return AjaxResult.success();
     }
+
 }
