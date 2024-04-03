@@ -297,7 +297,7 @@ export default {
             },
             statusList: [
                 { value: 1, label: '正常' },
-                { value: 0, label: '停用' },
+                { value: 2, label: '停用' },
             ],
             // 查询参数
             queryParams: {
@@ -472,7 +472,7 @@ export default {
         search() {
             // 备份原始的用户列表数据
             const originalUserList = [...this.userList];
-
+            console.log('originalUserList', originalUserList);
             // 根据搜索条件筛选用户列表
             this.userList = originalUserList.filter(user => {
                 console.log('this.queryParams: ', this.queryParams, user);
@@ -484,7 +484,8 @@ export default {
                     return user.bicycleId == this.queryParams.bicycleId;
                 }
                 if (this.queryParams.status !== '') {
-                    return user.status == this.queryParams.status;
+                    console.log(this.queryParams.status);
+                    return user.bicycleStatus == this.queryParams.status;
                 }
 
 

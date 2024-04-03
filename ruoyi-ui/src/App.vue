@@ -13,9 +13,10 @@ export default {
   components: { ThemePicker },
   metaInfo() {
     return {
-      title: this.$store.state.settings.dynamicTitle && this.$store.state.settings.title,
+      // title: this.$store.state.settings.dynamicTitle && this.$store.state.settings.title,
+      title: '城市公共自行车管理系统',
       titleTemplate: title => {
-        return title ? `${title} - ${process.env.VUE_APP_TITLE}` : process.env.VUE_APP_TITLE
+        return title
       }
     }
   }
